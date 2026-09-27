@@ -560,6 +560,47 @@ textarea:focus-visible,
   cursor: url('assets/pointer.png') 14 2, pointer;
 }
 
+/* ---- "← Volver" (Branding, Estampas, Posters): vuelve al hub de los aparatos.
+        Compu: arriba, a la altura del logo, al principio de la columna de contenido.
+        Celular: debajo de la barra, arriba de todo (el contenido se corre para no pisarse) ---- */
+.volver-hub {
+  position: fixed;
+  top: 5vh;
+  left: calc(var(--padding-lateral) + var(--ancho-bloque) + 2vw);
+  z-index: 110;
+  padding: 0.45rem 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  transition: color var(--transition-suave), scale 160ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .volver-hub:hover {
+    color: var(--gris-menu);
+  }
+}
+
+.volver-hub:active {
+  scale: 0.97;
+  transition-duration: 100ms;
+}
+
+@media (max-width: 768px) {
+  .volver-hub {
+    position: absolute;
+    top: calc(var(--m-bar) + 0.3rem);
+    left: 1.2rem;
+  }
+
+  body:has(.volver-hub) .poster-gallery,
+  body:has(.volver-hub) .estampa-mobile-gallery,
+  body:has(.volver-hub) .branding-wrap {
+    padding-top: calc(var(--m-bar) + 2.6rem);
+  }
+}
+
 /* ---- "↺ Reacomodar": devuelve las piezas arrastradas a su lugar (script.js).
         Abajo a la derecha, con la misma letra que el botón de idioma; aparece al mover una pieza ---- */
 .reacomodar {

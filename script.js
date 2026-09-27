@@ -4,6 +4,7 @@
 const TRANSLATIONS = {
   es: {
     'nav.skip': 'Saltar al contenido',
+    'nav.volver': '← Volver',
     'titulo.inicio': 'Lautaro Saez — Portfolio',
     'titulo.diseno': 'Diseño',
     'titulo.estampas': 'Estampas',
@@ -63,6 +64,7 @@ const TRANSLATIONS = {
   },
   en: {
     'nav.skip': 'Skip to content',
+    'nav.volver': '← Back',
     'titulo.inicio': 'Lautaro Saez — Portfolio',
     'titulo.diseno': 'Design',
     'titulo.estampas': 'Prints',

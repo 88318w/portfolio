@@ -29,11 +29,35 @@
     </ul>
   </nav>
 
-  <img src="assets/24-7.png" alt="" class="decor-image" width="351" height="415">
-
-  <main class="content" id="contenido">
+  <!-- reels e imágenes 3D: en la compu, carrusel de a uno con flechas (como Posters); en el celular, uno debajo del otro. -->
+  <main class="reels" id="contenido">
     <h1 class="visualmente-oculto" data-i18n="titulo.modelado">3D + Motion Graphics</h1>
-    <p class="content-placeholder" data-i18n="modelado.placeholder">Sección 3D + Motion Graphics — contenido próximamente.</p>
+    <button type="button" class="poster-arrow reels-prev" aria-label="Anterior" data-i18n-aria="reels.anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <div class="reels-pista">
+      <figure class="reel is-activo">
+        <video src="assets/reels/reel-1.mp4" width="982" height="1920" autoplay muted loop playsinline aria-label="Reel 1"></video>
+      </figure>
+      <figure class="reel">
+        <video src="assets/reels/reel-2.mp4" width="1080" height="1486" autoplay muted loop playsinline aria-label="Reel 2"></video>
+      </figure>
+      <figure class="reel">
+        <img src="assets/3d/alta-vinos.webp" alt="Botellas de vino ALTA — render 3D" width="1170" height="1654">
+      </figure>
+      <figure class="reel">
+        <img src="assets/3d/escenario-dj.webp" alt="Escenario con cabina de DJ — render 3D" width="2000" height="1600">
+      </figure>
+      <figure class="reel">
+        <video src="assets/3d/piedra-h8man.mp4" width="1584" height="2160" autoplay muted loop playsinline aria-label="Piedra con la palabra h8man grabada — render 3D"></video>
+      </figure>
+      <figure class="reel">
+        <video src="assets/3d/remera.mp4" width="1080" height="1350" autoplay muted loop playsinline aria-label="Remera negra con estampa en las mangas — render 3D"></video>
+      </figure>
+    </div>
+    <button type="button" class="poster-arrow reels-next" aria-label="Siguiente" data-i18n-aria="reels.siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
   </main>
 
   <div class="social-icons">

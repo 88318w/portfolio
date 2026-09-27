@@ -100,7 +100,6 @@ textarea:focus-visible,
   --accent-text: #ffffff;
   --surface: #ffffff;
   --border-subtle: #d9d9d9;
-  --placeholder-color: #cfcfcf;
 }
 
 /* ============================
@@ -331,15 +330,6 @@ textarea:focus-visible,
 .submenu--mobile-only {
   display: none;
 }
-.decor-image {
-  position: fixed;
-  bottom: 3vh;
-  right: 4vw;
-  width: clamp(180px, 17vw, 340px);
-  z-index: 10;
-  transform: rotate(-2deg);
-}
-
 /* ============================
    REDES SOCIALES
 ============================ */
@@ -623,17 +613,6 @@ textarea:focus-visible,
   height: 100%;
   pointer-events: none;
   --poster-color: transparent;
-}
-
-/* piezas que solo van en el collage del celular (ej: etiquetas PORTFOLIO / GRAPHIC DESIGN) */
-.draggable-img.solo-celular {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .draggable-img.solo-celular {
-    display: block;
-  }
 }
 
 .draggable-img.fade-in-entrance {
@@ -1616,22 +1595,60 @@ textarea:focus-visible,
   }
 }
 
-.content {
-  margin-left: min(38vw, 640px);
-  padding: 20vh 4vw 12vh 0;
-  min-height: 100vh;
+/* ============================
+   3D + MOTION GRAPHICS: carrusel de reels (compu), de a uno y con flechas, como Posters.
+   El cambio con dirección lo anima script.js. En el celular van uno debajo del otro
+============================ */
+.reels {
+  margin-left: calc(var(--padding-lateral) + var(--ancho-bloque) + 2vw); /* misma columna que Branding y Posters */
+  height: 100vh;
+  padding: var(--padding-vertical) var(--padding-lateral) var(--padding-vertical) 0;
+  display: flex;
+  justify-content: center; /* centrado en el espacio de la derecha, como los pósters */
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem); /* misma separación flecha-pieza que Posters */
 }
 
-.content-placeholder {
-  color: var(--placeholder-color);
-  font-size: 1.1rem;
+/* todas las piezas ocupan la misma celda; se ve solo la activa. Ocupa el ancho entre las flechas
+   (así las flechas no se mueven aunque cada pieza tenga otro ancho) */
+.reels-pista {
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
 }
 
-@media (max-width: 768px) {
-  .content {
-    margin-left: 0;
-  }
+.reel {
+  grid-area: 1 / 1;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 100%;
 }
+
+/* el que sale sigue visible 200ms, mientras script.js anima su salida */
+.reel:not(.is-activo) {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear 200ms;
+}
+
+/* cada pieza (video o imagen) con su proporción real (width/height en el HTML): hasta el 80% del alto
+   (máx. 880px) y hasta el ancho disponible, lo que llegue primero (las horizontales se limitan por ancho) */
+.reel video,
+.reel img {
+  max-height: min(80vh, 880px);
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  background: #383838; /* mientras carga, un rectángulo gris */
+  display: block;
+}
+
 @media (max-width: 768px) {
   .contact-button {
     width: calc(100% - 2.4rem);
@@ -2225,10 +2242,6 @@ body.viewer-open {
     }
   }
 
-  .decor-image {
-    display: none;
-  }
-
   /* ---- Home y Estampas: el tablero ocupa la pantalla debajo de la barra ---- */
   .moodboard-wrap {
     margin-left: 0;
@@ -2322,10 +2335,36 @@ body.viewer-open {
     width: min(55vw, 200px);
   }
 
-  /* ---- Páginas con contenido simple (3D) ---- */
-  .content {
-    padding: calc(var(--m-bar) + 2rem) 1.2rem 3rem;
-    min-height: auto;
+  /* ---- 3D + Motion Graphics: sin carrusel, los reels uno debajo del otro a todo el ancho ---- */
+  .reels {
+    margin-left: 0;
+    height: auto;
+    padding: calc(var(--m-bar) + 0.5rem) 1.2rem 2rem;
+    display: block;
+  }
+
+  .reels .poster-arrow {
+    display: none;
+  }
+
+  .reels-pista {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .reel,
+  .reel:not(.is-activo) {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    align-items: flex-start;
+  }
+
+  .reel video,
+  .reel img {
+    width: 100%;
+    max-height: none;
   }
 
   /* ---- Branding ---- */

@@ -46,7 +46,8 @@ const TRANSLATIONS = {
     'branding.obsolet.desc': 'Mi marca de ropa independiente. Me encargo de todo: identidad, diseño de prendas y estampas, producción, logística y redes.',
     'branding.benzaiten.desc': 'Identidad visual para un spa y centro de bienestar. [Reemplazá este texto con la descripción del proyecto.]',
     'branding.karamelo.desc': 'Trabajo freelance para una marca de ropa: diseño de estampas, packaging, redes sociales y branding.',
-    'modelado.placeholder': 'Sección 3D + Motion Graphics — contenido próximamente.',
+    'reels.anterior': 'Reel anterior',
+    'reels.siguiente': 'Reel siguiente',
     'sobremi.title': 'SobreMi',
     'sobremi.p1': 'Soy Lautaro Saez, diseñador gráfico, animador y artista 3D. Formé mi mirada a través del estudio formal del diseño, pero encontré mi voz en el cruce entre lo prolijo y lo experimental: un balance entre composiciones limpias y texturas crudas que rompen la perfección. Cada proyecto es una excusa para probar algo nuevo, ya sea en una pieza gráfica, una animación o una escena 3D.',
     'sobremi.p2': 'Trabajo principalmente con Illustrator, Blender y After Effects, moviéndome libremente entre el diseño 2D y el 3D según lo que pida cada idea.',
@@ -104,7 +105,8 @@ const TRANSLATIONS = {
     'branding.obsolet.desc': 'My independent clothing brand. I handle everything: identity, garment and print design, production, logistics and social media.',
     'branding.benzaiten.desc': 'Visual identity for a spa and wellness center. [Replace this text with the project description.]',
     'branding.karamelo.desc': 'Freelance work for a clothing brand: print design, packaging, social media and branding.',
-    'modelado.placeholder': '3D + Motion Graphics section — content coming soon.',
+    'reels.anterior': 'Previous reel',
+    'reels.siguiente': 'Next reel',
     'sobremi.title': 'About Me',
     'sobremi.p1': "I'm Lautaro Saez, a graphic designer, animator and 3D artist. I built my eye through formal design training, but found my voice at the crossroads between polished and experimental: a balance between clean compositions and raw textures that break the perfection. Every project is a chance to try something new, whether it's a graphic piece, an animation, or a 3D scene.",
     'sobremi.p2': 'I mainly work with Illustrator, Blender and After Effects, moving freely between 2D and 3D design depending on what each idea calls for.',
@@ -833,11 +835,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Sobre mí: el título entra con efecto "scramble" (caracteres al azar que se
   //      acomodan en la palabra). Solo visual: el lector de pantalla lee el título real
   //      por el aria-label. La cascada de los párrafos está en el CSS. ----
-  // ---- Sobre mí: con "reducir movimiento" el video no corre en bucle; queda el cuadro fijo (poster) ----
-  const videoSobreMi = document.querySelector('.sobremi-photo video');
-  if (videoSobreMi && prefiereMenosMovimiento()) {
-    videoSobreMi.removeAttribute('autoplay');
-    videoSobreMi.pause();
+  // ---- Videos en bucle (Sobre mí, reels de 3D): con "reducir movimiento" no corren; queda el primer cuadro ----
+  if (prefiereMenosMovimiento()) {
+    document.querySelectorAll('video[autoplay]').forEach((v) => {
+      v.removeAttribute('autoplay');
+      v.pause();
+    });
   }
 
   const sobremiTitle = document.querySelector('.sobremi-text h1');
@@ -983,16 +986,17 @@ document.addEventListener('DOMContentLoaded', () => {
         img.style.left = (m ? img.dataset.mx : img.dataset.x) + '%';
         img.style.top = (m ? img.dataset.my : img.dataset.y) + '%';
         img.style.width = m && img.dataset.mw ? img.dataset.mw + '%' : img.dataset.dw;
+        // inclinación: data-mrot (si existe) en el celular, data-rotation en la compu
+        if (img.dataset.drot === undefined) img.dataset.drot = img.dataset.rotation || '0';
+        img.dataset.rotation = m && img.dataset.mrot !== undefined ? img.dataset.mrot : img.dataset.drot;
+        img.style.transform = `rotate(${img.dataset.rotation}deg)`;
+        img.style.setProperty('--base-rot', img.dataset.rotation + 'deg');
       });
     }
     placeItems();
     mobileQuery.addEventListener('change', placeItems);
 
     items.forEach((img) => {
-      const baseRotation = parseFloat(img.dataset.rotation) || 0;
-      img.style.transform = `rotate(${baseRotation}deg)`;
-      img.style.setProperty('--base-rot', baseRotation + 'deg');
-
       // balanceo en reposo: lo anima el CSS (wiggle-reposo); acá solo se le da a cada
       // pieza su amplitud, su ritmo y su fase, así no se mueven sincronizadas
       if (img.classList.contains('idle-wiggle')) {
@@ -1024,12 +1028,57 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (img.classList.contains('opens-carousel')) {
             // las estampas: abre el carrusel de detalle en vez de girar
             openEstampaCarousel();
+          } else if (img.classList.contains('sella-al-tocar')) {
+            // GRAPHIC DESIGN: se aplasta y rebota, como un sticker que pegás con la palma
+            sellar(img);
+          } else if (img.classList.contains('sacude-al-tocar')) {
+            // las etiquetas (PORTFOLIO / GRAPHIC DESIGN): tiemblan en vez de girar
+            sacudir(img);
           } else if (!img.classList.contains('no-spin')) {
             triggerSpin(img);
           }
         },
       });
     });
+
+    // ---- Sacudida: tiembla de lado a lado y se va frenando, como un sticker que agitás.
+    //      Anima la propiedad `rotate` (aparte del transform con la inclinación base),
+    //      así no pisa la inclinación ni el arrastre. Tocarla de nuevo la reinicia ----
+    function sacudir(img) {
+      if (prefiereMenosMovimiento()) return;
+      img.getAnimations().forEach((a) => { if (a.id === 'sacudida') a.cancel(); });
+      const vaiven = { easing: 'ease-in-out' }; // cada ida y vuelta es suave, como un péndulo
+      const a = img.animate(
+        [
+          { rotate: '0deg', ...vaiven },
+          { rotate: '-8deg', ...vaiven },
+          { rotate: '6deg', ...vaiven },
+          { rotate: '-4deg', ...vaiven },
+          { rotate: '2deg', ...vaiven },
+          { rotate: '0deg' },
+        ],
+        { duration: 480 }
+      );
+      a.id = 'sacudida';
+    }
+
+    // ---- Sello: se aplasta (más ancha, más baja) y rebota hasta quedar quieta.
+    //      Anima la propiedad `scale`, aparte de la inclinación; tocarla de nuevo la reinicia ----
+    function sellar(img) {
+      if (prefiereMenosMovimiento()) return;
+      img.getAnimations().forEach((a) => { if (a.id === 'sello') a.cancel(); });
+      const a = img.animate(
+        [
+          { scale: '1', easing: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+          { scale: '1.1 0.86', offset: 0.22, easing: 'ease-in-out' },
+          { scale: '0.96 1.05', offset: 0.5, easing: 'ease-in-out' },
+          { scale: '1.02 0.98', offset: 0.75, easing: 'ease-in-out' },
+          { scale: '1' },
+        ],
+        { duration: 440 }
+      );
+      a.id = 'sello';
+    }
 
     function triggerSpin(img) {
       img.classList.remove('is-spinning');
@@ -1765,6 +1814,49 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initCarouselGallery('poster', 9, 'posters', 4000);
+
+  // ---- 3D + Motion Graphics (compu): carrusel de reels e imágenes, de a uno. Mismo cambio con dirección que
+  //      Estampas y Posters: el actual se corre y se apaga, el nuevo entra desde el lado hacia el que vas.
+  //      Solo se reproduce el que se ve. En el celular no hay carrusel: van todos uno debajo del otro ----
+  const reels = document.querySelector('.reels');
+  if (reels) {
+    const figuras = [...reels.querySelectorAll('.reel')];
+    const videos = figuras.map((f) => f.querySelector('video')); // null en las piezas que son imagen
+    const CURVA = 'cubic-bezier(0.23, 1, 0.32, 1)'; // --ease-out
+    let actual = 0;
+
+    // en la compu, solo corre el que se ve
+    if (!isMobile()) videos.slice(1).forEach((v) => { if (v) { v.removeAttribute('autoplay'); v.pause(); } });
+
+    function mostrarReel(i, sign) {
+      if (i === actual) return;
+      const sale = figuras[actual];
+      const entra = figuras[i];
+      if (videos[actual]) videos[actual].pause();
+      actual = i;
+      sale.classList.remove('is-activo');
+      entra.classList.add('is-activo');
+      if (videos[i]) {
+        videos[i].currentTime = 0;
+        if (!prefiereMenosMovimiento()) videos[i].play().catch(() => {});
+      }
+      if (prefiereMenosMovimiento()) return; // sin movimiento: cambia directo
+
+      const corrido = (x) => `translateX(${x}%)`;
+      sale.animate(
+        [{ opacity: 1, transform: 'none', filter: 'blur(0)' }, { opacity: 0, transform: corrido(-sign * 6), filter: 'blur(2px)' }],
+        { duration: 200, easing: CURVA } // el que se va, más rápido: deja lugar al nuevo
+      );
+      entra.animate(
+        [{ opacity: 0, transform: corrido(sign * 6), filter: 'blur(2px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }],
+        { duration: 300, easing: CURVA }
+      );
+    }
+
+    const total = figuras.length;
+    reels.querySelector('.reels-prev').addEventListener('click', () => mostrarReel((actual - 1 + total) % total, -1));
+    reels.querySelector('.reels-next').addEventListener('click', () => mostrarReel((actual + 1) % total, 1));
+  }
 
   // ============================
   // BRANDING: tarjetas drageables que se dan vuelta + visor de proyecto

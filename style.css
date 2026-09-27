@@ -1205,6 +1205,30 @@ textarea:focus-visible,
 .hub-aparato--gameboy .hub-pantalla { --pant-bg: #9bbc0f; --pant-fg: #0f380f; } /* LCD verde */
 .hub-aparato--camara .hub-pantalla { --pant-bg: #0d1b2a; --pant-fg: #9ee7ff; }
 
+/* iPhone: pantalla LCD prendida (con fondo de pantalla), sin efecto de tubo */
+.hub-aparato--iphone .hub-pantalla {
+  --pant-fg: #fff;
+  background: #6b2d7a url("assets/iphone-fondo.webp") center / cover; /* el teléfono está acostado: el fondo va girado (arriba del teléfono = derecha) */
+  box-shadow: none;
+  filter: none;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.hub-aparato--iphone .hub-pantalla::before,
+.hub-aparato--iphone .hub-pantalla::after {
+  display: none;
+}
+
+.hub-aparato--iphone .hub-pantalla-texto {
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
+}
+
+.hub-aparato--iphone .hub-label {
+  font-weight: 700;
+  font-size: 17cqmin;
+  letter-spacing: -0.01em;
+}
+
 /* líneas de barrido */
 .hub-pantalla::before {
   content: '';

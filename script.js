@@ -1865,7 +1865,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // assets/branding/<proyecto>/<proyecto>-1.jpg, -2.jpg, etc.
   // Para agregar una imagen: subila con el número siguiente y sumá 1 acá.
   const BRANDING_PROJECTS = {
-    obsolet: 3,
+    obsolet: 4,
     benzaiten: 3,
     karamelo: 3,
   };

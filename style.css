@@ -1205,18 +1205,18 @@ textarea:focus-visible,
 .hub-aparato--gameboy .hub-pantalla { --pant-bg: #9bbc0f; --pant-fg: #0f380f; } /* LCD verde */
 .hub-aparato--camara .hub-pantalla { --pant-bg: #0d1b2a; --pant-fg: #9ee7ff; }
 
-/* iPhone: pantalla LCD prendida (con fondo de pantalla), sin efecto de tubo */
+/* iPhone: pantalla prendida (con fondo de pantalla) y el efecto de tubo muy suave */
 .hub-aparato--iphone .hub-pantalla {
   --pant-fg: #fff;
   background: #6b2d7a url("assets/iphone-fondo.webp") 0 0 / 100% 100%; /* el filtro "Rio de Janeiro" de Instagram entero, sin recortar. La imagen está girada porque el aparato va rotado: así en pantalla queda azul arriba, naranja abajo */
-  box-shadow: none;
+  box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.2);
   filter: none;
   font-family: 'Inter', system-ui, sans-serif;
 }
 
 .hub-aparato--iphone .hub-pantalla::before,
 .hub-aparato--iphone .hub-pantalla::after {
-  display: none;
+  opacity: 0.35; /* líneas de barrido y franja de interferencia, casi imperceptibles */
 }
 
 .hub-aparato--iphone .hub-pantalla-texto {

@@ -755,7 +755,14 @@ textarea:focus-visible,
   --poster-color: transparent;
 }
 
-/* piezas que solo van en el collage del celular (ej: los auriculares) */
+/* círculos naranjas del collage del celular: el ancho lo pone data-mw, el alto sale del aspect-ratio */
+.draggable-img.punto {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #f15a24;
+}
+
+/* piezas que solo van en el collage del celular (auriculares, círculos) */
 .draggable-img.solo-celular {
   display: none;
 }

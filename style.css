@@ -587,6 +587,10 @@ textarea:focus-visible,
   transition-duration: 100ms;
 }
 
+.volver-hub--solo-celular {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .volver-hub {
     position: absolute;
@@ -594,9 +598,14 @@ textarea:focus-visible,
     left: 1.2rem;
   }
 
+  .volver-hub--solo-celular {
+    display: block;
+  }
+
   body:has(.volver-hub) .poster-gallery,
   body:has(.volver-hub) .estampa-mobile-gallery,
-  body:has(.volver-hub) .branding-wrap {
+  body:has(.volver-hub) .branding-wrap,
+  body:has(.volver-hub) .reels {
     padding-top: calc(var(--m-bar) + 2.6rem);
   }
 }

@@ -560,9 +560,9 @@ textarea:focus-visible,
   cursor: url('assets/pointer.png') 14 2, pointer;
 }
 
-/* ---- "← Volver" (Branding, Estampas, Posters): vuelve al hub de los aparatos.
-        Compu: arriba, a la altura del logo, al principio de la columna de contenido.
-        Celular: debajo de la barra, arriba de todo (el contenido se corre para no pisarse) ---- */
+/* ---- "← Volver" (Branding, Estampas, Posters; en 3D solo en el celular).
+        Compu: vuelve al hub; arriba, a la altura del logo, al principio de la columna de contenido.
+        Celular: abre el menú (script.js); píldora fija abajo a la izquierda ---- */
 .volver-hub {
   position: fixed;
   top: 5vh;
@@ -592,21 +592,24 @@ textarea:focus-visible,
 }
 
 @media (max-width: 768px) {
+  /* píldora fija abajo a la izquierda, mismo estilo que la flechita "volver arriba" (que va a la derecha) */
   .volver-hub {
-    position: absolute;
-    top: calc(var(--m-bar) + 0.3rem);
+    position: fixed;
+    top: auto;
     left: 1.2rem;
+    bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px));
+    z-index: 150; /* como la flechita: debajo del menú abierto (180) */
+    display: flex;
+    align-items: center;
+    height: 2.75rem; /* área de toque cómoda para el dedo */
+    padding: 0 1.1rem;
+    border-radius: 999px;
+    background: rgba(17, 17, 17, 0.55);
+    color: #ffffff;
   }
 
   .volver-hub--solo-celular {
-    display: block;
-  }
-
-  body:has(.volver-hub) .poster-gallery,
-  body:has(.volver-hub) .estampa-mobile-gallery,
-  body:has(.volver-hub) .branding-wrap,
-  body:has(.volver-hub) .reels {
-    padding-top: calc(var(--m-bar) + 2.6rem);
+    display: flex;
   }
 }
 

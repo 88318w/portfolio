@@ -1969,6 +1969,8 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
 
+    agregarBotonArriba(); // en el celular es una lista larga: flechita para volver arriba, como en Posters
+
     const total = figuras.length;
     reels.querySelector('.reels-prev').addEventListener('click', () => mostrarReel((actual - 1 + total) % total, -1));
     reels.querySelector('.reels-next').addEventListener('click', () => mostrarReel((actual + 1) % total, 1));

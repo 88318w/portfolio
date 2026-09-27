@@ -2164,7 +2164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.target.addEventListener('transitionend', () => { e.target.style.transitionDelay = ''; }, { once: true });
         obs.unobserve(e.target);
       });
-    }, { rootMargin: '0px 0px -8% 0px' });
+    }); // sin margen: basta 1px en pantalla (con margen, lo último de la página nunca llegaba a aparecer)
     piezas.forEach((el) => {
       el.classList.add('entra-al-scroll');
       obs.observe(el);

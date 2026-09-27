@@ -1214,9 +1214,40 @@ textarea:focus-visible,
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-.hub-aparato--iphone .hub-pantalla::before,
+.hub-aparato--iphone .hub-pantalla::before {
+  opacity: 0.35; /* líneas de barrido casi imperceptibles */
+}
+
 .hub-aparato--iphone .hub-pantalla::after {
-  opacity: 0.35; /* líneas de barrido y franja de interferencia, casi imperceptibles */
+  display: none; /* sin la franja de interferencia */
+}
+
+/* "> ENTRAR": en vez del cursor que titila (de aparato viejo), un brillo que lo recorre,
+   como el "deslizar para desbloquear". Le gana al hover de los otros aparatos (más específico) */
+.hub-escena .hub-aparato--iphone .hub-pantalla .hub-enter {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 40%, #fff 50%, rgba(255, 255, 255, 0.6) 60%, rgba(255, 255, 255, 0.6) 100%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  animation: iphone-brillo 2.4s linear infinite;
+}
+
+/* y sin el salto de "sintonizar" al pasar el mouse */
+.hub-escena .hub-aparato--iphone .hub-pantalla .hub-pantalla-texto {
+  animation: none;
+}
+
+@keyframes iphone-brillo {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hub-escena .hub-aparato--iphone .hub-pantalla .hub-enter {
+    animation: none;
+    color: #fff;
+  }
 }
 
 .hub-aparato--iphone .hub-pantalla-texto {

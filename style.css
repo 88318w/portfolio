@@ -710,10 +710,8 @@ textarea:focus-visible,
   box-sizing: border-box;
 }
 
-/* en la compu el collage ocupa la pantalla: lo que asome por arriba/abajo no genera scroll */
-@media (min-width: 769px) {
-  .moodboard-wrap { overflow-y: clip; }
-}
+/* el collage ocupa la pantalla: lo que asome por arriba/abajo (ej: el cable) no genera scroll */
+.moodboard-wrap { overflow-y: clip; }
 
 .moodboard {
   position: relative;

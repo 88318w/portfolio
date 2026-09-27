@@ -613,6 +613,30 @@ textarea:focus-visible,
   }
 }
 
+/* ---- "← Volver" de Sobre mí: texto en la fila de los programas (donde estaba el CV).
+        Solo en el celular (abre el menú); en la compu el menú ya está a la vista ---- */
+.volver-menu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .volver-menu {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem; /* área de toque cómoda, sin que se note */
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    transition: scale 160ms var(--ease-out);
+  }
+
+  .volver-menu:active {
+    scale: 0.97;
+    transition-duration: 100ms;
+  }
+}
+
 /* ---- "↺ Reacomodar": devuelve las piezas arrastradas a su lugar (script.js).
         Abajo a la derecha, con la misma letra que el botón de idioma; aparece al mover una pieza ---- */
 .reacomodar {

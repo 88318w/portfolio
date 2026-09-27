@@ -746,14 +746,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // "← Volver" (Branding, Estampas, Posters): en la compu lleva al hub de Diseño;
   // en el celular abre el menú (con Diseño ya desplegado) para elegir a dónde ir
-  const volverHub = document.querySelector('.volver-hub');
-  if (volverHub) {
-    volverHub.addEventListener('click', (e) => {
+  // (en Sobre mí es .volver-menu: un texto en la fila de los programas, solo en el celular)
+  document.querySelectorAll('.volver-hub, .volver-menu').forEach((volver) => {
+    volver.addEventListener('click', (e) => {
       if (!isMobile()) return;
       e.preventDefault();
       setMenu(true);
     });
-  }
+  });
 
   menuToggle.addEventListener('click', () => {
     setMenu(!document.body.classList.contains('menu-open'));

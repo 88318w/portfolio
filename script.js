@@ -3,18 +3,40 @@
 // ============================
 const TRANSLATIONS = {
   es: {
+    'nav.skip': 'Saltar al contenido',
+    'titulo.inicio': 'Lautaro Saez — Portfolio',
+    'titulo.diseno': 'Diseño',
+    'titulo.estampas': 'Estampas',
+    'titulo.posters': 'Posters',
+    'titulo.branding': 'Branding',
+    'titulo.modelado': '3D + Motion Graphics',
+    'home.postal': 'Postal del faro: dar vuelta',
+    'estampas.ver': 'Ver las estampas en detalle',
+    'posters.ver': 'Ver el póster en grande',
+    'posters.pausar': 'Pausar el carrusel',
+    'posters.reanudar': 'Reanudar el carrusel',
+    'branding.obsolet.aria': 'Obsolet: dar vuelta para ver la descripción',
+    'branding.benzaiten.aria': 'Benzaiten: dar vuelta para ver la descripción',
+    'branding.karamelo.aria': 'Karamelo: dar vuelta para ver la descripción',
+
     'nav.menu': 'Menu',
     'nav.diseno': 'Diseño',
-    'nav.animacion': 'Animación',
-    'nav.modelado': 'Modelado y Render 3D',
+    'nav.modelado': '3D + Motion Graphics',
     'nav.sobremi': 'SobreMi',
     'nav.branding': '- Branding',
     'nav.estampas': '- Estampas',
     'nav.posters': '- Posters',
+    'hub.branding': 'BRANDING',
+    'hub.estampas': 'ESTAMPAS',
+    'hub.posters': 'POSTERS',
+    'hub.enter': '> ENTRAR',
+    'hub.hint': 'Elegí una categoría',
     'contact.button': 'CONTACTO',
     'estampa.hint': 'Click para ver en detalle',
-    'diseno.placeholder': 'Sección Diseño — contenido próximamente.',
-    'diseno.branding.placeholder': 'Branding — contenido próximamente.',
+    'pieza.para': 'Para',
+    'pieza.personal': 'Proyecto personal',
+    'pieza.personales': 'Proyectos personales',
+    'pieza.verMarca': 'Ver la marca (se abre en otra pestaña)',
     'branding.hint': 'Arrastrá las tarjetas y hacé click para darlas vuelta',
     'branding.view': 'VER',
     'branding.hint.mobile': 'Tocá una tarjeta para darla vuelta',
@@ -24,9 +46,7 @@ const TRANSLATIONS = {
     'branding.obsolet.desc': 'Mi marca de ropa independiente. Me encargo de todo: identidad, diseño de prendas y estampas, producción, logística y redes.',
     'branding.benzaiten.desc': 'Identidad visual para un spa y centro de bienestar. [Reemplazá este texto con la descripción del proyecto.]',
     'branding.karamelo.desc': 'Trabajo freelance para una marca de ropa: diseño de estampas, packaging, redes sociales y branding.',
-    'animacion.placeholder': 'Sección Animación — contenido próximamente.',
-    'modelado.placeholder': 'Sección Modelado y Render — contenido próximamente.',
-    'contacto.placeholder': 'Formulario de contacto — próximamente.',
+    'modelado.placeholder': 'Sección 3D + Motion Graphics — contenido próximamente.',
     'sobremi.title': 'SobreMi',
     'sobremi.p1': 'Soy Lautaro Saez, diseñador gráfico, animador y artista 3D. Formé mi mirada a través del estudio formal del diseño, pero encontré mi voz en el cruce entre lo prolijo y lo experimental: un balance entre composiciones limpias y texturas crudas que rompen la perfección. Cada proyecto es una excusa para probar algo nuevo, ya sea en una pieza gráfica, una animación o una escena 3D.',
     'sobremi.p2': 'Trabajo principalmente con Illustrator, Blender y After Effects, moviéndome libremente entre el diseño 2D y el 3D según lo que pida cada idea.',
@@ -36,23 +56,45 @@ const TRANSLATIONS = {
     'modal.email': 'Email',
     'modal.message': 'Mensaje',
     'modal.submit': 'Enviar',
-    'modal.sending': 'Enviando...',
+    'modal.sending': 'Enviando…',
     'modal.success': '¡Gracias! Tu mensaje fue enviado.',
     'modal.error': 'Hubo un error. Probá de nuevo o escribime directamente por email.'
   },
   en: {
+    'nav.skip': 'Skip to content',
+    'titulo.inicio': 'Lautaro Saez — Portfolio',
+    'titulo.diseno': 'Design',
+    'titulo.estampas': 'Prints',
+    'titulo.posters': 'Posters',
+    'titulo.branding': 'Branding',
+    'titulo.modelado': '3D + Motion Graphics',
+    'home.postal': 'Lighthouse postcard: flip it',
+    'estampas.ver': 'See the prints in detail',
+    'posters.ver': 'See the poster full size',
+    'posters.pausar': 'Pause the slideshow',
+    'posters.reanudar': 'Resume the slideshow',
+    'branding.obsolet.aria': 'Obsolet: flip to see the description',
+    'branding.benzaiten.aria': 'Benzaiten: flip to see the description',
+    'branding.karamelo.aria': 'Karamelo: flip to see the description',
+
     'nav.menu': 'Menu',
     'nav.diseno': 'Design',
-    'nav.animacion': 'Animation',
-    'nav.modelado': '3D Modeling & Render',
+    'nav.modelado': '3D + Motion Graphics',
     'nav.sobremi': 'AboutMe',
     'nav.branding': '- Branding',
     'nav.estampas': '- Prints',
     'nav.posters': '- Posters',
+    'hub.branding': 'BRANDING',
+    'hub.estampas': 'PRINTS',
+    'hub.posters': 'POSTERS',
+    'hub.enter': '> ENTER',
+    'hub.hint': 'Pick a category',
     'contact.button': 'CONTACT',
     'estampa.hint': 'Click to see in detail',
-    'diseno.placeholder': 'Design section — content coming soon.',
-    'diseno.branding.placeholder': 'Branding — content coming soon.',
+    'pieza.para': 'For',
+    'pieza.personal': 'Personal project',
+    'pieza.personales': 'Personal projects',
+    'pieza.verMarca': 'See the brand (opens in a new tab)',
     'branding.hint': 'Drag the cards around and click to flip them',
     'branding.view': 'VIEW',
     'branding.hint.mobile': 'Tap a card to flip it',
@@ -62,9 +104,7 @@ const TRANSLATIONS = {
     'branding.obsolet.desc': 'My independent clothing brand. I handle everything: identity, garment and print design, production, logistics and social media.',
     'branding.benzaiten.desc': 'Visual identity for a spa and wellness center. [Replace this text with the project description.]',
     'branding.karamelo.desc': 'Freelance work for a clothing brand: print design, packaging, social media and branding.',
-    'animacion.placeholder': 'Animation section — content coming soon.',
-    'modelado.placeholder': '3D Modeling & Render section — content coming soon.',
-    'contacto.placeholder': 'Contact form — coming soon.',
+    'modelado.placeholder': '3D + Motion Graphics section — content coming soon.',
     'sobremi.title': 'About Me',
     'sobremi.p1': "I'm Lautaro Saez, a graphic designer, animator and 3D artist. I built my eye through formal design training, but found my voice at the crossroads between polished and experimental: a balance between clean compositions and raw textures that break the perfection. Every project is a chance to try something new, whether it's a graphic piece, an animation, or a 3D scene.",
     'sobremi.p2': 'I mainly work with Illustrator, Blender and After Effects, moving freely between 2D and 3D design depending on what each idea calls for.',
@@ -74,13 +114,21 @@ const TRANSLATIONS = {
     'modal.email': 'Email',
     'modal.message': 'Message',
     'modal.submit': 'Send',
-    'modal.sending': 'Sending...',
+    'modal.sending': 'Sending…',
     'modal.success': 'Thanks! Your message was sent.',
     'modal.error': 'Something went wrong. Try again or email me directly.'
   }
 };
 
-let currentLang = localStorage.getItem('lang') || 'es';
+// idioma: el que elegiste con el botón; si nunca lo tocaste, el primero de tu navegador
+// que sea español o inglés (si no es ninguno de los dos, español)
+function idiomaDelNavegador() {
+  const idiomas = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'es'];
+  const encontrado = idiomas.map((l) => l.slice(0, 2).toLowerCase()).find((l) => l === 'es' || l === 'en');
+  return encontrado || 'es';
+}
+
+let currentLang = localStorage.getItem('lang') || idiomaDelNavegador();
 
 function applyLanguage(lang) {
   currentLang = lang;
@@ -104,23 +152,460 @@ function applyLanguage(lang) {
 
   const toggleBtn = document.getElementById('lang-toggle');
   if (toggleBtn) {
-    toggleBtn.textContent = lang === 'es' ? 'EN' : 'ES';
+    // "ES / EN": el actual en negro, el otro en gris (como el ítem activo del menú)
+    toggleBtn.innerHTML = ['es', 'en']
+      .map((l) => `<span${l === lang ? ' class="is-active"' : ''}>${l.toUpperCase()}</span>`)
+      .join(' / ');
+  }
+
+  // textos armados por script.js (ej: el contexto de cada pieza): se vuelven a pintar
+  document.querySelectorAll('.pieza-contexto').forEach((el) => pintarContexto(el, el._pieza));
+}
+
+// ============================
+// CONTEXTO DE CADA PIEZA (Estampas y Posters)
+// Una línea debajo de la imagen: en el visor de la computadora y en la galería del celular.
+// El orden es el de los archivos: estampas → detalle-1, detalle-2…; posters → poster-1, poster-2…
+// Cada pieza puede ser:
+//   { tipo: 'marca', nombre: 'KRML', url: 'https://instagram.com/...' }  → "Para KRML ↗" (link a la marca)
+//   { tipo: 'marca', nombre: 'KRML' }                                     → "Para KRML" (sin link)
+//   { tipo: 'personal' }                                                  → "Proyecto personal"
+//   { tipo: 'personal', nota: { es: 'Marca ficticia', en: 'Fictional brand' } }
+//                                                                         → "Proyecto personal · Marca ficticia"
+//   null                                                                  → no muestra nada
+// La nota también sirve en las piezas de marca (ej: { es: 'Colección 2024', en: '2024 collection' }).
+// ============================
+// Marcas y tipos que se repiten
+const OBSOLET = { tipo: 'marca', nombre: 'Obsolet', url: 'https://www.instagram.com/oobsolet' };
+const KARAMELO = { tipo: 'marca', nombre: 'Karamelo', url: 'https://www.instagram.com/elsimbolodekaramelo/' };
+const FICTICIA = { tipo: 'personal', nota: { es: 'Marca ficticia', en: 'Fictional brand' } };
+const PERSONAL = { tipo: 'personal' };
+
+const CONTEXTO_PIEZAS = {
+  estampas: [
+    /* detalle-1  */ OBSOLET,
+    /* detalle-2  */ OBSOLET,
+    /* detalle-3  */ FICTICIA,
+    /* detalle-4  */ OBSOLET,
+    /* detalle-5  */ OBSOLET,
+    /* detalle-6  */ OBSOLET,
+    /* detalle-7  */ FICTICIA,
+    /* detalle-8  */ FICTICIA,
+    /* detalle-9  */ FICTICIA,
+    /* detalle-10 */ FICTICIA,
+    /* detalle-11 */ OBSOLET,
+    /* detalle-12 */ OBSOLET,
+    /* detalle-13 */ OBSOLET,
+    /* detalle-14 */ KARAMELO,
+    /* detalle-15 */ OBSOLET,
+    /* detalle-16 */ KARAMELO,
+    /* detalle-17 */ OBSOLET,
+    /* detalle-18 */ FICTICIA,
+    /* detalle-19 */ OBSOLET,
+  ],
+  posters: [
+    /* poster-1 */ PERSONAL,
+    /* poster-2 */ PERSONAL,
+    /* poster-3 */ PERSONAL,
+    /* poster-4 */ PERSONAL,
+    /* poster-5 */ PERSONAL,
+    /* poster-6 */ PERSONAL,
+    /* poster-7 */ PERSONAL,
+    /* poster-8 */ PERSONAL,
+    /* poster-9 */ PERSONAL,
+  ],
+};
+
+// Escribe en `el` la línea de contexto de una pieza (o la deja vacía si no tiene datos)
+//   plural: true → para el encabezado que resume a toda una galería ("Proyectos personales")
+function pintarContexto(el, pieza, plural = el._plural) {
+  el._pieza = pieza; // se guarda para volver a pintarla si cambia el idioma
+  el._plural = plural;
+  el.textContent = '';
+  if (!pieza) return;
+  const t = TRANSLATIONS[currentLang];
+
+  if (pieza.tipo === 'marca') {
+    el.append(t['pieza.para'] + ' ');
+    if (pieza.url) {
+      const link = document.createElement('a');
+      link.href = pieza.url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.title = t['pieza.verMarca'];
+      link.setAttribute('translate', 'no'); // el traductor del navegador no cambia el nombre de la marca
+      link.textContent = pieza.nombre + ' ↗';
+      el.append(link);
+    } else {
+      const nombre = document.createElement('strong');
+      nombre.setAttribute('translate', 'no');
+      nombre.textContent = pieza.nombre;
+      el.append(nombre);
+    }
+  } else {
+    el.append(t[plural ? 'pieza.personales' : 'pieza.personal']);
+  }
+
+  if (pieza.nota) {
+    const nota = typeof pieza.nota === 'string' ? pieza.nota : pieza.nota[currentLang] || pieza.nota.es;
+    el.append(' · ' + nota);
   }
 }
 
 // ---- Submenu de Diseño: si venís de otra página de Diseño (ej: Branding → Estampas),
 //      el submenu ya estaba desplegado, así que aparece directo, sin volver a animarse.
 //      Corre antes de DOMContentLoaded para que la animación no llegue a arrancar. ----
-const esPaginaDiseno = /\/diseno-[\w-]+\.html$/.test(location.pathname);
+const esPaginaDiseno = /\/diseno(-[\w-]+)?\.html$/.test(location.pathname); // hub (diseno.html) + categorías
 try {
-  if (esPaginaDiseno && sessionStorage.getItem('veniaDeDiseno') === '1') {
+  // primero leemos cuál fue la página anterior y enseguida anotamos esta.
+  // (no se usa 'pagehide': con la transición entre páginas, Chrome lo dispara
+  //  después de que la página nueva ya leyó el dato, y llegaba tarde)
+  const veniaDeDiseno = sessionStorage.getItem('veniaDeDiseno') === '1';
+  sessionStorage.setItem('veniaDeDiseno', esPaginaDiseno ? '1' : '0');
+  if (esPaginaDiseno && veniaDeDiseno) {
     document.documentElement.classList.add('submenu-sin-animacion');
   }
-  window.addEventListener('pagehide', () => {
-    sessionStorage.setItem('veniaDeDiseno', esPaginaDiseno ? '1' : '0');
-  });
 } catch (e) {
   // sin sessionStorage (modo privado estricto): simplemente se anima siempre, como antes
+}
+
+// ============================
+// FÍSICA DE GESTOS (a la Apple): lo que agarrás sigue al dedo 1:1, al soltarlo
+// conserva la velocidad que traía, sigue de largo por inercia, los bordes
+// ceden como una goma en vez de frenar en seco, y se puede volver a agarrar
+// en pleno movimiento. Lo usan el tablero (home y Estampas), las tarjetas de
+// Branding y el swipe de los visores de imágenes.
+// ============================
+function isMobile() {
+  return window.matchMedia('(max-width: 768px)').matches;
+}
+
+function prefiereMenosMovimiento() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// Resorte en una dimensión, con los dos parámetros que usa Apple:
+//   respuesta     → cuánto tarda (aprox.) en llegar, en segundos. Más bajo = más ágil
+//   amortiguacion → 1 = llega sin pasarse; menos de 1 = se pasa un poco y rebota
+// No tiene duración fija: arranca desde donde está y con la velocidad que traía,
+// por eso se puede interrumpir en cualquier momento sin saltos.
+//   terminarEn → opcional: corta apenas pasa ese valor, sin esperar a que se asiente
+//                (para lo que sale de pantalla: no tiene sentido frenarlo donde nadie lo ve)
+function resorte({ desde, hasta, velocidad = 0, respuesta = 0.4, amortiguacion = 1, precision = 0.5, terminarEn, alCambiar, alTerminar }) {
+  const rigidez = Math.pow((2 * Math.PI) / respuesta, 2);
+  const friccion = (4 * Math.PI * amortiguacion) / respuesta;
+  let x = desde;
+  let v = velocidad;
+  let anterior = null;
+  let id = requestAnimationFrame(paso);
+
+  function paso(ts) {
+    const dt = anterior === null ? 0 : Math.min((ts - anterior) / 1000, 0.064);
+    anterior = ts;
+    const pasos = Math.ceil(dt / 0.004); // pasitos de 4ms: estable aunque un cuadro llegue tarde
+    for (let i = 0; i < pasos; i++) {
+      const h = dt / pasos;
+      v += (-rigidez * (x - hasta) - friccion * v) * h;
+      x += v * h;
+    }
+    const cruzo = terminarEn !== undefined && (hasta > desde ? x >= terminarEn : x <= terminarEn);
+    if (cruzo || (Math.abs(x - hasta) < precision && Math.abs(v) < 20)) {
+      alCambiar(cruzo ? x : hasta);
+      if (alTerminar) alTerminar(v);
+      return;
+    }
+    alCambiar(x);
+    id = requestAnimationFrame(paso);
+  }
+
+  return {
+    parar() {
+      cancelAnimationFrame(id);
+      return x;
+    },
+  };
+}
+
+// Velocidad del dedo (px/s), medida sobre los últimos ~100ms del gesto
+function crearRastreador() {
+  let muestras = [];
+  return {
+    reiniciar() {
+      muestras = [];
+    },
+    agregar(x, y) {
+      const t = performance.now();
+      muestras.push({ x, y, t });
+      while (muestras.length > 2 && t - muestras[0].t > 100) muestras.shift();
+    },
+    velocidad() {
+      const ahora = performance.now();
+      if (muestras.length < 2 || ahora - muestras[muestras.length - 1].t > 80) return { x: 0, y: 0 }; // el dedo ya estaba quieto
+      const a = muestras[0];
+      const b = muestras[muestras.length - 1];
+      const dt = (b.t - a.t) / 1000;
+      if (dt <= 0) return { x: 0, y: 0 };
+      const tope = (n) => Math.max(-4000, Math.min(4000, n));
+      return { x: tope((b.x - a.x) / dt), y: tope((b.y - a.y) / dt) };
+    },
+  };
+}
+
+// Hasta dónde llegaría algo lanzado a esa velocidad (la misma cuenta que usa iOS
+// para el scroll). 0.99 frena antes que un scroll normal: las piezas pesan más
+function proyectar(velocidad, desaceleracion = 0.99) {
+  return ((velocidad / 1000) * desaceleracion) / (1 - desaceleracion);
+}
+
+// Goma: cuanto más te pasás del borde, menos te sigue
+function gomaElastica(exceso, dimension, constante = 0.55) {
+  return (exceso * dimension * constante) / (dimension + constante * Math.abs(exceso));
+}
+
+function limitar(valor, min, max) {
+  return Math.max(min, Math.min(max, valor));
+}
+
+function conBordeElastico(valor, min, max, dimension) {
+  if (prefiereMenosMovimiento()) return limitar(valor, min, max);
+  if (valor < min) return min - gomaElastica(min - valor, dimension);
+  if (valor > max) return max + gomaElastica(valor - max, dimension);
+  return valor;
+}
+
+// ---- Piezas arrastrables dentro de un tablero ----
+// Mientras arrastrás se mueve con `translate` (no toca el layout); al terminar,
+// la posición se guarda en left/top en %, así sigue siendo proporcional si cambia la pantalla.
+//   contenedor : el tablero (define los bordes)
+//   habilitado : () => false para no arrastrar (ej: en el teléfono), pero seguir detectando toques
+//   ignorar    : (evento) => true para no agarrar (ej: tocaste un botón adentro)
+//   alAgarrar / alInclinar(grados) / alSoltar({ movio }) : lo propio de cada tablero
+function seguirYSoltar(el, { contenedor, habilitado = () => true, ignorar = () => false, alAgarrar, alInclinar, alSoltar }) {
+  const rastreador = crearRastreador();
+  let activo = false;
+  let arrastra = false;
+  let movio = false;
+  let inicioX = 0, inicioY = 0, ultimoX = 0;
+  let baseLeft = 0, baseTop = 0;
+  let tx = 0, ty = 0; // corrimiento actual respecto de left/top
+  let inclinacion = 0;
+  let inercia = null;
+
+  const limites = () => ({
+    maxX: contenedor.clientWidth - el.offsetWidth,
+    maxY: contenedor.clientHeight - el.offsetHeight,
+  });
+
+  function pintar() {
+    el.style.translate = `${tx}px ${ty}px`;
+  }
+
+  function fijar() {
+    el.style.left = ((baseLeft + tx) / contenedor.clientWidth) * 100 + '%';
+    el.style.top = ((baseTop + ty) / contenedor.clientHeight) * 100 + '%';
+    tx = ty = 0;
+    el.style.translate = '';
+  }
+
+  function frenarInercia() {
+    if (!inercia) return;
+    inercia.forEach((r) => r.parar());
+    inercia = null;
+    fijar();
+  }
+
+  el.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0 || ignorar(e)) return;
+    const atrapada = !!inercia;
+    frenarInercia(); // la agarraste en pleno vuelo: queda donde está y sigue al dedo
+    activo = true;
+    movio = atrapada; // atraparla no cuenta como toque (no la da vuelta ni la hace girar)
+    arrastra = habilitado();
+    inclinacion = 0;
+    inicioX = ultimoX = e.clientX;
+    inicioY = e.clientY;
+    baseLeft = el.offsetLeft; // offsetLeft/Top ignoran la rotación: la pieza no salta al agarrarla
+    baseTop = el.offsetTop;
+    rastreador.reiniciar();
+    rastreador.agregar(e.clientX, e.clientY);
+    if (arrastra) {
+      el.setPointerCapture(e.pointerId);
+      if (alAgarrar) alAgarrar();
+    }
+  });
+
+  el.addEventListener('pointermove', (e) => {
+    if (!activo) return;
+    // si se movió más de unos pocos px, cuenta como arrastre (no como toque/click)
+    if (Math.abs(e.clientX - inicioX) > 5 || Math.abs(e.clientY - inicioY) > 5) movio = true;
+    if (!arrastra || !movio) return;
+    rastreador.agregar(e.clientX, e.clientY);
+
+    // se inclina hacia el lado al que la llevás, suavizado
+    const dx = e.clientX - ultimoX;
+    ultimoX = e.clientX;
+    inclinacion += (limitar(dx * 0.5, -6, 6) - inclinacion) * 0.15;
+    if (alInclinar) alInclinar(inclinacion);
+
+    const { maxX, maxY } = limites();
+    tx = conBordeElastico(baseLeft + e.clientX - inicioX, 0, maxX, contenedor.clientWidth) - baseLeft;
+    ty = conBordeElastico(baseTop + e.clientY - inicioY, 0, maxY, contenedor.clientHeight) - baseTop;
+    pintar();
+  });
+
+  function soltar(cancelado) {
+    if (!activo) return;
+    activo = false;
+    if (cancelado) movio = true;
+    if (alSoltar) alSoltar({ movio });
+    if (!arrastra || !movio) return;
+
+    const { maxX, maxY } = limites();
+    const x = baseLeft + tx;
+    const y = baseTop + ty;
+
+    if (prefiereMenosMovimiento()) {
+      tx = limitar(x, 0, maxX) - baseLeft;
+      ty = limitar(y, 0, maxY) - baseTop;
+      fijar();
+      return;
+    }
+
+    // sigue de largo según la velocidad del dedo y se asienta con un rebote
+    // chiquito (lo lanzaste: ahí el rebote se siente natural)
+    const v = rastreador.velocidad();
+    const destinoX = limitar(x + proyectar(v.x), 0, maxX);
+    const destinoY = limitar(y + proyectar(v.y), 0, maxY);
+    let pendientes = 2;
+    const terminar = () => {
+      if (--pendientes === 0) {
+        inercia = null;
+        fijar();
+      }
+    };
+    inercia = [
+      resorte({ desde: x, hasta: destinoX, velocidad: v.x, respuesta: 0.45, amortiguacion: 0.8, alCambiar: (p) => { tx = p - baseLeft; pintar(); }, alTerminar: terminar }),
+      resorte({ desde: y, hasta: destinoY, velocidad: v.y, respuesta: 0.45, amortiguacion: 0.8, alCambiar: (p) => { ty = p - baseTop; pintar(); }, alTerminar: terminar }),
+    ];
+  }
+
+  el.addEventListener('pointerup', () => soltar(false));
+  el.addEventListener('pointercancel', () => soltar(true));
+}
+
+// ---- Swipe para pasar de imagen en los visores (solo táctil) ----
+// La imagen sigue al dedo; al soltar decide la velocidad (un golpecito rápido
+// alcanza), sale por el costado, cambia y la nueva entra desde el otro lado
+// con el mismo envión. Si no alcanza, vuelve a su lugar.
+//   puedeEmpezar : () => false para ignorar el gesto (ej: con zoom)
+//   siguiente / anterior : cambian la imagen (se llaman cuando ya está fuera de pantalla)
+function deslizarParaCambiar(el, { puedeEmpezar = () => true, siguiente, anterior }) {
+  const rastreador = crearRastreador();
+  let activo = false;
+  let horizontal = null; // null = todavía no se sabe hacia dónde va el gesto
+  let inicioX = 0, inicioY = 0;
+  let base = 0;
+  let desplazamiento = 0;
+  let animacion = null;
+  let recienDeslizo = false;
+
+  function pintar() {
+    el.style.translate = desplazamiento ? `${desplazamiento}px 0` : '';
+  }
+
+  function animarA(hasta, velocidad, opciones, alTerminar) {
+    animacion = resorte({
+      desde: desplazamiento,
+      hasta,
+      velocidad,
+      ...opciones,
+      alCambiar: (x) => { desplazamiento = x; pintar(); },
+      alTerminar: (v) => { animacion = null; if (alTerminar) alTerminar(v); },
+    });
+  }
+
+  el.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse' || !puedeEmpezar()) return;
+    if (animacion) desplazamiento = animacion.parar(); // la agarraste en movimiento: sigue desde ahí
+    animacion = null;
+    activo = true;
+    horizontal = null;
+    inicioX = e.clientX;
+    inicioY = e.clientY;
+    base = desplazamiento;
+    rastreador.reiniciar();
+    rastreador.agregar(e.clientX, 0);
+  });
+
+  el.addEventListener('pointermove', (e) => {
+    if (!activo) return;
+    const dx = e.clientX - inicioX;
+    const dy = e.clientY - inicioY;
+    if (horizontal === null) {
+      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return; // todavía no se decidió
+      horizontal = Math.abs(dx) > Math.abs(dy);
+      if (!horizontal) { soltar(e); return; } // gesto vertical: no es para nosotros
+      el.setPointerCapture(e.pointerId);
+    }
+    rastreador.agregar(e.clientX, 0);
+    if (prefiereMenosMovimiento()) return; // con menos movimiento no se desplaza: cambia al soltar
+    desplazamiento = base + dx;
+    pintar();
+  });
+
+  function soltar(e) {
+    if (!activo) return;
+    activo = false;
+    if (!horizontal) {
+      // fue un toque o un gesto vertical: si la agarraste mientras se acomodaba, que termine de acomodarse
+      if (desplazamiento) animarA(0, 0, { respuesta: 0.35, amortiguacion: 1 });
+      return;
+    }
+    recienDeslizo = true;
+    setTimeout(() => { recienDeslizo = false; }, 350);
+
+    const v = rastreador.velocidad().x;
+    const recorrido = desplazamiento || e.clientX - inicioX;
+    // decide adónde iría con ese envión, no solo dónde soltaste
+    const proyectado = recorrido + proyectar(v, 0.998);
+    const ancho = el.offsetWidth;
+    const direccion = Math.abs(proyectado) > ancho * 0.4 ? Math.sign(proyectado) : 0;
+
+    if (prefiereMenosMovimiento()) {
+      desplazamiento = 0;
+      pintar();
+      if (direccion < 0) siguiente();
+      else if (direccion > 0) anterior();
+      return;
+    }
+
+    if (!direccion) {
+      animarA(0, v, { respuesta: 0.35, amortiguacion: 1 });
+      return;
+    }
+
+    // sale del todo por el costado hacia donde iba, cambia, y la nueva entra desde el otro lado
+    // apunta más allá del borde y corta apenas sale del todo (sin frenar fuera de vista)
+    const fuera = (window.innerWidth + ancho) / 2;
+    animarA(direccion * fuera * 1.5, v, { respuesta: 0.3, amortiguacion: 1, terminarEn: direccion * fuera }, (vSalida) => {
+      if (direccion < 0) siguiente();
+      else anterior();
+      desplazamiento = -direccion * fuera;
+      pintar();
+      animarA(0, vSalida, { respuesta: 0.35, amortiguacion: 1 });
+    });
+  }
+
+  el.addEventListener('pointerup', soltar);
+  el.addEventListener('pointercancel', soltar);
+
+  // después de deslizar, el navegador puede mandar un "click": no tiene que abrir el zoom
+  el.addEventListener('click', (e) => {
+    if (!recienDeslizo) return;
+    recienDeslizo = false;
+    e.stopPropagation();
+    e.preventDefault();
+  }, true);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -151,7 +636,6 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener(isVideo ? 'loadeddata' : 'load', reveal, { once: true });
     el.addEventListener('error', () => el.classList.remove('img-pending'), { once: true });
   }
-  window.fadeWhenLoaded = fadeWhenLoaded;
   document
     .querySelectorAll('.moodboard img, #poster-img-a')
     .forEach(fadeWhenLoaded);
@@ -167,6 +651,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   updateBarFade();
   window.addEventListener('scroll', updateBarFade, { passive: true });
+
+  // iOS Safari solo aplica :active a los links si la página escucha touchstart
+  // (lo usan el feedback al tocar los teléfonos del hub y los botones)
+  document.addEventListener('touchstart', () => {}, { passive: true });
 
   const menuToggle = document.createElement('button');
   menuToggle.type = 'button';
@@ -197,7 +685,7 @@ document.addEventListener('DOMContentLoaded', () => {
     viewer.setAttribute('rotation-per-second', '40deg');
     viewer.setAttribute('shadow-intensity', '0');
     // sin camera-controls: arrastrar mueve la pieza por el collage, como las demás
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!prefiereMenosMovimiento()) {
       viewer.setAttribute('auto-rotate', '');
       viewer.setAttribute('auto-rotate-delay', '0');
     }
@@ -251,34 +739,30 @@ document.addEventListener('DOMContentLoaded', () => {
     disenoLi.classList.toggle('submenu-open', isDisenoPage);
     disenoLink.setAttribute('aria-expanded', String(isDisenoPage));
 
-    // al cerrar: la misma cascada pero al revés (sube Posters, después Estampas,
-    // después Branding) y recién cuando termina se oculta el submenu
-    const CIERRE_MS = 680; // último delay (0.28s) + duración (0.4s), igual que en el CSS
+    // al abrir: el espacio se hace rápido y los ítems caen escalonados (ver CSS).
+    // al cerrar: los ítems se desvanecen juntos y el espacio se cierra con un
+    // ease-in-out corto, así los botones de abajo no pisan un ítem que todavía se ve
+    const ABRIR_MS = 250;
+    const CERRAR_MS = 200;
+    const CURVA_ABRIR = 'cubic-bezier(0.23, 1, 0.32, 1)';
+    const CURVA_CERRAR = 'cubic-bezier(0.77, 0, 0.175, 1)';
     let alturaTimer = null;
-    const sinMovimiento = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // el alto del submenu también se anima (a la par de la cascada), así Animación,
-    // 3D y SobreMi se deslizan en vez de saltar cuando aparece/desaparece el espacio
-    // (sin overflow: hidden a propósito: los ítems se desvanecen solos al entrar/salir;
-    //  si se recortaran, se vería un corte en seco, como un rectángulo blanco)
-    // curvas: al abrir el espacio se hace rápido (y después caen los ítems);
-    // al cerrar se achica lento al principio (mientras los ítems se van) y acelera al final,
-    // así los botones de abajo nunca se pisan con un ítem que todavía se ve
-    const CURVA_ABRIR = 'cubic-bezier(0.22, 1, 0.36, 1)';
-    const CURVA_CERRAR = 'cubic-bezier(0.64, 0, 0.78, 0)';
-
-    function animarAltura(desde, hasta, curva, alTerminar) {
+    // el alto del submenu también se anima, así 3D y SobreMi se deslizan
+    // en vez de saltar (sin overflow: hidden a propósito: si se recortaran los ítems,
+    // se vería un corte en seco)
+    function animarAltura(desde, hasta, ms, curva, alTerminar) {
       clearTimeout(alturaTimer);
       submenu.style.transition = 'none';
       submenu.style.height = desde + 'px';
       void submenu.offsetHeight; // fija el alto inicial antes de arrancar la transición
-      submenu.style.transition = `height ${CIERRE_MS}ms ${curva}`;
+      submenu.style.transition = `height ${ms}ms ${curva}`;
       submenu.style.height = hasta + 'px';
       alturaTimer = setTimeout(() => {
         submenu.style.removeProperty('transition');
         submenu.style.removeProperty('height');
         if (alTerminar) alTerminar();
-      }, CIERRE_MS);
+      }, ms);
     }
 
     function abrirSubmenu() {
@@ -286,24 +770,24 @@ document.addEventListener('DOMContentLoaded', () => {
       disenoLi.classList.remove('submenu-closing');
       disenoLi.classList.add('submenu-open');
       disenoLink.setAttribute('aria-expanded', 'true');
-      if (sinMovimiento()) return;
-      animarAltura(altoActual, submenu.scrollHeight, CURVA_ABRIR);
+      if (prefiereMenosMovimiento()) return;
+      animarAltura(altoActual, submenu.scrollHeight, ABRIR_MS, CURVA_ABRIR);
     }
 
     function cerrarSubmenu() {
       disenoLink.setAttribute('aria-expanded', 'false');
-      if (sinMovimiento()) {
+      if (prefiereMenosMovimiento()) {
         disenoLi.classList.remove('submenu-open');
         return;
       }
       disenoLi.classList.add('submenu-closing');
-      animarAltura(submenu.offsetHeight, 0, CURVA_CERRAR, () => {
+      animarAltura(submenu.offsetHeight, 0, CERRAR_MS, CURVA_CERRAR, () => {
         disenoLi.classList.remove('submenu-closing', 'submenu-open');
       });
     }
 
     disenoLink.addEventListener('click', (e) => {
-      if (!window.matchMedia('(max-width: 768px)').matches) return; // en desktop sigue siendo un link
+      if (!isMobile()) return; // en desktop sigue siendo un link
       e.preventDefault();
       // si lo cerrás y lo volvés a abrir a mano, ahí sí queremos la cascada
       document.documentElement.classList.remove('submenu-sin-animacion');
@@ -326,18 +810,18 @@ document.addEventListener('DOMContentLoaded', () => {
       <form class="contact-form" id="contact-form">
         <div>
           <label for="contact-name" data-i18n="modal.name">Nombre</label>
-          <input type="text" id="contact-name" name="name" required>
+          <input type="text" id="contact-name" name="name" autocomplete="name" required>
         </div>
         <div>
           <label for="contact-email" data-i18n="modal.email">Email</label>
-          <input type="email" id="contact-email" name="email" required>
+          <input type="email" id="contact-email" name="email" autocomplete="email" spellcheck="false" required>
         </div>
         <div>
           <label for="contact-message" data-i18n="modal.message">Mensaje</label>
           <textarea id="contact-message" name="message" rows="4" required></textarea>
         </div>
         <button type="submit" class="contact-submit" data-i18n="modal.submit">Enviar</button>
-        <p class="contact-success" id="contact-success" data-i18n="modal.success">¡Gracias! Tu mensaje fue enviado.</p>
+        <p class="contact-success" id="contact-success" role="status" aria-live="polite" data-i18n="modal.success">¡Gracias! Tu mensaje fue enviado.</p>
       </form>
     </div>
   `;
@@ -349,8 +833,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Sobre mí: el título entra con efecto "scramble" (caracteres al azar que se
   //      acomodan en la palabra). Solo visual: el lector de pantalla lee el título real
   //      por el aria-label. La cascada de los párrafos está en el CSS. ----
+  // ---- Sobre mí: con "reducir movimiento" el video no corre en bucle; queda el cuadro fijo (poster) ----
+  const videoSobreMi = document.querySelector('.sobremi-photo video');
+  if (videoSobreMi && prefiereMenosMovimiento()) {
+    videoSobreMi.removeAttribute('autoplay');
+    videoSobreMi.pause();
+  }
+
   const sobremiTitle = document.querySelector('.sobremi-text h1');
-  if (sobremiTitle && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (sobremiTitle && !prefiereMenosMovimiento()) {
     const GLIFOS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#/%&*<>_';
     const DURACION = 600; // ms hasta que se acomoda la última letra
     const INICIO = 100;   // arranca junto con el fundido del título (animation-delay del CSS)
@@ -393,15 +884,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const successMsg = overlay.querySelector('#contact-success');
   const trigger = document.getElementById('contact-trigger');
 
+  let focoAntesDelModal = null;
+
   function openModal() {
+    focoAntesDelModal = document.activeElement;
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-    overlay.querySelector('#contact-name').focus();
+    // en la compu el foco va directo al nombre; en el celular a la X,
+    // así no se abre el teclado de golpe tapando medio formulario
+    const conMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    (conMouse ? overlay.querySelector('#contact-name') : closeBtn).focus();
   }
 
   function closeModal() {
     overlay.classList.remove('is-open');
     document.body.style.overflow = '';
+    // el foco vuelve a donde estaba (el botón CONTACTO)
+    if (focoAntesDelModal) focoAntesDelModal.focus({ preventScroll: true });
+    focoAntesDelModal = null;
   }
 
   // Abrir al tocar el botón CONTACTO
@@ -493,114 +993,43 @@ document.addEventListener('DOMContentLoaded', () => {
       img.style.transform = `rotate(${baseRotation}deg)`;
       img.style.setProperty('--base-rot', baseRotation + 'deg');
 
+      // balanceo en reposo: lo anima el CSS (wiggle-reposo); acá solo se le da a cada
+      // pieza su amplitud, su ritmo y su fase, así no se mueven sincronizadas
       if (img.classList.contains('idle-wiggle')) {
-        startIdleWiggle(img);
+        const duracion = 4.2 + Math.random() * 2.1; // segundos por sentido
+        img.style.setProperty('--wiggle-amp', (parseFloat(img.dataset.wiggleAmplitude) || 2) + 'deg');
+        img.style.setProperty('--wiggle-dur', duracion + 's');
+        img.style.setProperty('--wiggle-delay', -(Math.random() * duracion * 2) + 's');
       }
     });
 
-    // ---- Wiggle idle: una inclinación sutil y constante, para darle vida
-    //      a las imágenes aunque nadie las esté arrastrando ----
-    function startIdleWiggle(img) {
-      const base = parseFloat(img.dataset.rotation) || 0;
-      const amplitude = parseFloat(img.dataset.wiggleAmplitude) || 2; // grados de inclinación máxima hacia cada lado
-      const speed = 0.5 + Math.random() * 0.25; // variación por imagen, para que no laten sincronizadas
-      const phase = Math.random() * Math.PI * 2;
-
-      function loop(ts) {
-        const suspendedUntil = img._idleSuspendUntil || 0;
-        if (!img.classList.contains('is-dragging') && ts > suspendedUntil) {
-          const offset = Math.sin((ts / 1000) * speed + phase) * amplitude;
-          img.style.transform = `rotate(${base + offset}deg)`;
-        }
-        requestAnimationFrame(loop);
-      }
-      requestAnimationFrame(loop);
-    }
-
-    let activeImg = null;
-    let startX = 0, startY = 0;
-    let startLeftPx = 0, startTopPx = 0;
-    let dragMoved = false;
-    let lastMoveX = 0;
-
-    const TILT_SENSIBILIDAD = 0.5; // qué tan fuerte se inclina por cada px de movimiento
-    const TILT_MAX = 6; // grados máximos de inclinación
-
-    function onPointerDown(e) {
-      activeImg = e.currentTarget;
-      dragMoved = false;
-      lastMoveX = e.clientX;
-      currentTilt = 0;
-      activeImg.classList.add('is-dragging');
-      activeImg.setPointerCapture(e.pointerId);
-
-      const boardRect = moodboard.getBoundingClientRect();
-      const imgRect = activeImg.getBoundingClientRect();
-
-      startX = e.clientX;
-      startY = e.clientY;
-      startLeftPx = imgRect.left - boardRect.left;
-      startTopPx = imgRect.top - boardRect.top;
-    }
-
-    let currentTilt = 0;
-
-    function onPointerMove(e) {
-      if (!activeImg) return;
-
-      // si se movió más de unos pocos px, cuenta como arrastre (no como toque/click)
-      if (Math.abs(e.clientX - startX) > 5 || Math.abs(e.clientY - startY) > 5) {
-        dragMoved = true;
-      }
-
-      // wiggle: inclina la imagen según hacia qué lado se está moviendo el puntero,
-      // sumado a su rotación base (si tiene una), suavizado con interpolación
-      const baseRotation = parseFloat(activeImg.dataset.rotation) || 0;
-      const deltaX = e.clientX - lastMoveX;
-      lastMoveX = e.clientX;
-      const targetTilt = Math.max(-TILT_MAX, Math.min(TILT_MAX, deltaX * TILT_SENSIBILIDAD));
-      currentTilt += (targetTilt - currentTilt) * 0.15;
-      activeImg.style.transform = `rotate(${baseRotation + currentTilt}deg)`;
-
-      const boardRect = moodboard.getBoundingClientRect();
-      const imgRect = activeImg.getBoundingClientRect();
-
-      let newLeft = startLeftPx + (e.clientX - startX);
-      let newTop = startTopPx + (e.clientY - startY);
-
-      // límites: no dejar que la imagen salga del contenedor
-      const maxLeft = boardRect.width - imgRect.width;
-      const maxTop = boardRect.height - imgRect.height;
-
-      newLeft = Math.max(0, Math.min(newLeft, maxLeft));
-      newTop = Math.max(0, Math.min(newTop, maxTop));
-
-      // guardamos en % para que se mantenga proporcional si cambia el tamaño de pantalla
-      activeImg.style.left = (newLeft / boardRect.width) * 100 + '%';
-      activeImg.style.top = (newTop / boardRect.height) * 100 + '%';
-    }
-
-    function onPointerUp() {
-      if (activeImg) {
-        activeImg.classList.remove('is-dragging');
-        activeImg._idleSuspendUntil = performance.now() + 650; // deja que termine el transition de vuelta antes de que el wiggle idle retome
-        const baseRotation = parseFloat(activeImg.dataset.rotation) || 0;
-        activeImg.style.transform = `rotate(${baseRotation}deg)`; // vuelve a su inclinación base, con el transition suave del CSS
-        // si NO se arrastró, fue un toque/click
-        if (!dragMoved) {
-          if (activeImg.classList.contains('flip-postcard')) {
+    // ---- Arrastre: sigue al dedo, se inclina hacia donde la llevás, y al soltarla
+    //      sigue de largo con el envión (ver seguirYSoltar, arriba de todo) ----
+    items.forEach((img) => {
+      const baseRotation = () => parseFloat(img.dataset.rotation) || 0;
+      seguirYSoltar(img, {
+        contenedor: moodboard,
+        alAgarrar: () => img.classList.add('is-dragging'),
+        alInclinar: (grados) => {
+          img.style.transform = `rotate(${baseRotation() + grados}deg)`;
+        },
+        alSoltar: ({ movio }) => {
+          img.classList.remove('is-dragging');
+          img.style.transform = `rotate(${baseRotation()}deg)`; // vuelve a su inclinación base, con el transition suave del CSS
+          if (movio) return;
+          // no se arrastró: fue un toque/click
+          if (img.classList.contains('flip-postcard')) {
             // el faro: da vuelta como una postal (eje Y), en vez de girar 360
-            activeImg.classList.toggle('is-flipped');
-          } else if (activeImg.classList.contains('opens-carousel')) {
+            img.classList.toggle('is-flipped');
+          } else if (img.classList.contains('opens-carousel')) {
             // las estampas: abre el carrusel de detalle en vez de girar
             openEstampaCarousel();
-          } else if (!activeImg.classList.contains('no-spin')) {
-            triggerSpin(activeImg);
+          } else if (!img.classList.contains('no-spin')) {
+            triggerSpin(img);
           }
-        }
-      }
-      activeImg = null;
-    }
+        },
+      });
+    });
 
     function triggerSpin(img) {
       img.classList.remove('is-spinning');
@@ -657,6 +1086,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
         </div>
+        <p class="pieza-contexto" aria-live="polite"></p>
       `;
       document.body.appendChild(el);
 
@@ -666,59 +1096,112 @@ document.addEventListener('DOMContentLoaded', () => {
       const closeBtn = el.querySelector('.poster-lightbox-close');
       const prevBtn = el.querySelector('.estampa-detail-prev');
       const nextBtn = el.querySelector('.estampa-detail-next');
+      const contexto = el.querySelector('.pieza-contexto');
+      const mostrarContexto = () => pintarContexto(contexto, CONTEXTO_PIEZAS.estampas[detailIndex]);
 
-      // ---- Crossfade real: las dos imágenes quedan en el mismo lugar exacto,
-      //      una se apaga mientras la otra aparece — sin ningún movimiento,
-      //      así no se nota el cambio de tamaño entre mockups de proporción distinta ----
-      function goTo(newIndex) {
+      // ---- Cambio de mockup con dirección: el actual se corre un poco hacia el lado
+      //      contrario y se apaga, el nuevo entra desde el lado hacia el que vas.
+      //      Un desenfoque mínimo durante el cruce une las dos imágenes, así no se nota
+      //      el cambio de tamaño entre mockups de proporción distinta.
+      //      Con "reducir movimiento" queda solo el fundido ----
+      const DESPLAZAMIENTO = 6; // % del ancho del visor que se corre cada mockup
+      const CURVA = 'cubic-bezier(0.23, 1, 0.32, 1)'; // --ease-out
+      const ENTRA_MS = 300;
+      const SALE_MS = 200; // el que se va, más rápido: deja lugar al nuevo
+
+      const transicion = (ms) => `opacity ${ms}ms ${CURVA}, transform ${ms}ms ${CURVA}, filter ${ms}ms ${CURVA}`;
+
+      function reposo(img, visible) {
+        img.style.transition = 'none';
+        img.style.opacity = visible ? '1' : '0';
+        img.style.transform = '';
+        img.style.filter = '';
+      }
+
+      // deja listas las prendas de al lado, así la nueva nunca entra a medio cargar
+      function precargarVecinos(i) {
+        const total = ESTAMPA_DETAIL_IMAGES.length;
+        [(i + 1) % total, (i - 1 + total) % total].forEach((n) => {
+          new Image().src = ESTAMPA_DETAIL_IMAGES[n];
+        });
+      }
+
+      function goTo(newIndex, direccion) {
         if (isAnimating) return;
         isAnimating = true;
 
+        const sign = direccion === 'prev' ? -1 : 1;
+        const moverse = !prefiereMenosMovimiento();
         const current = images[activeIdx];
         const incoming = images[1 - activeIdx];
 
+        // punto de partida del nuevo: del lado hacia el que vas, invisible y desenfocado
         incoming.style.transition = 'none';
         incoming.style.opacity = '0';
+        incoming.style.transform = moverse ? `translateX(${sign * DESPLAZAMIENTO}%)` : '';
+        incoming.style.filter = moverse ? 'blur(2px)' : '';
         incoming.src = ESTAMPA_DETAIL_IMAGES[newIndex];
-        void incoming.offsetWidth; // fuerza reflow para que no se anime el estado inicial
-
-        requestAnimationFrame(() => {
-          current.style.transition = 'opacity 0.55s ease';
-          incoming.style.transition = 'opacity 0.55s ease';
-          current.style.opacity = '0';
-          incoming.style.opacity = '1';
-        });
+        void incoming.offsetWidth; // fija el punto de partida antes de arrancar la transición
 
         detailIndex = newIndex;
         activeIdx = 1 - activeIdx;
+        precargarVecinos(newIndex);
+        mostrarContexto();
 
-        setTimeout(() => { isAnimating = false; }, 550);
+        // arranca cuando la imagen nueva ya está decodificada (si no, entraría vacía),
+        // pero nunca espera más de 150ms: el clic no puede quedar sin respuesta
+        const lista = Promise.race([
+          incoming.decode().catch(() => {}),
+          new Promise((resolve) => setTimeout(resolve, 150)),
+        ]);
+        lista.then(() => {
+          requestAnimationFrame(() => {
+            current.style.transition = transicion(SALE_MS);
+            current.style.opacity = '0';
+            current.style.transform = moverse ? `translateX(${-sign * DESPLAZAMIENTO}%)` : '';
+            current.style.filter = moverse ? 'blur(2px)' : '';
+
+            incoming.style.transition = transicion(ENTRA_MS);
+            incoming.style.opacity = '1';
+            incoming.style.transform = '';
+            incoming.style.filter = '';
+
+            setTimeout(() => { isAnimating = false; }, ENTRA_MS);
+          });
+        });
       }
 
       function open(startIndex) {
         detailIndex = startIndex || 0;
         activeIdx = 0;
-        imgA.style.transition = 'none';
-        imgB.style.transition = 'none';
+        isAnimating = false;
+        reposo(imgA, true);
+        reposo(imgB, false);
         imgA.src = ESTAMPA_DETAIL_IMAGES[detailIndex];
-        imgA.style.opacity = '1';
         imgB.src = '';
-        imgB.style.opacity = '0';
+        precargarVecinos(detailIndex);
+        mostrarContexto();
+        focoAntes = document.activeElement;
         el.classList.add('is-open');
         document.body.style.overflow = 'hidden';
+        closeBtn.focus({ preventScroll: true }); // con teclado, el foco entra al visor (no queda tapado atrás)
       }
+
+      let focoAntes = null;
 
       function close() {
         el.classList.remove('is-open');
         document.body.style.overflow = '';
+        if (focoAntes) focoAntes.focus({ preventScroll: true }); // y al cerrar vuelve a la pila
+        focoAntes = null;
       }
 
       function next() {
-        goTo((detailIndex + 1) % ESTAMPA_DETAIL_IMAGES.length);
+        goTo((detailIndex + 1) % ESTAMPA_DETAIL_IMAGES.length, 'next');
       }
 
       function prev() {
-        goTo((detailIndex - 1 + ESTAMPA_DETAIL_IMAGES.length) % ESTAMPA_DETAIL_IMAGES.length);
+        goTo((detailIndex - 1 + ESTAMPA_DETAIL_IMAGES.length) % ESTAMPA_DETAIL_IMAGES.length, 'prev');
       }
 
       closeBtn.addEventListener('click', close);
@@ -733,18 +1216,47 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'ArrowLeft') prev();
       });
 
-      // swipe táctil
-      let touchStartX = 0;
-      el.querySelector('.estampa-detail-frame').addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].clientX;
-      }, { passive: true });
-      el.querySelector('.estampa-detail-frame').addEventListener('touchend', (e) => {
-        const deltaX = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(deltaX) < 50) return;
-        deltaX < 0 ? next() : prev();
-      }, { passive: true });
+      // swipe táctil: el mockup sigue al dedo y sale por el costado. Como la imagen
+      // cambia cuando ya está fuera de pantalla, ahí no hace falta el crossfade
+      function mostrarDirecto(newIndex) {
+        const current = images[activeIdx];
+        reposo(current, true);
+        reposo(images[1 - activeIdx], false);
+        current.src = ESTAMPA_DETAIL_IMAGES[newIndex];
+        detailIndex = newIndex;
+        precargarVecinos(newIndex);
+        mostrarContexto();
+        isAnimating = false;
+      }
+
+      const total = ESTAMPA_DETAIL_IMAGES.length;
+      deslizarParaCambiar(el.querySelector('.estampa-detail-frame'), {
+        siguiente: () => mostrarDirecto((detailIndex + 1) % total),
+        anterior: () => mostrarDirecto((detailIndex - 1 + total) % total),
+      });
 
       estampaCarousel = { open };
+    }
+
+    // ---- Teléfono (solo Estampas): en vez de las pilas que se arrastran, todas las prendas
+    //      en una galería de scroll vertical, como Posters. Se arma igual en desktop pero
+    //      ahí el CSS la oculta (y como son lazy, no se descargan) ----
+    if (moodboard.querySelector('.opens-carousel')) {
+      const galeria = document.createElement('div');
+      galeria.className = 'estampa-mobile-gallery';
+      // en el celular las prendas van sin leyenda (solo imágenes); el contexto queda en el carrusel de la compu
+      ESTAMPA_DETAIL_IMAGES.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.className = 'estampa-mobile-item';
+        img.alt = 'Estampa ' + (i + 1);
+        img.loading = 'lazy'; // cargan a medida que bajás (antes del src, si no no aplica)
+        img.decoding = 'async';
+        img.src = src;
+        fadeWhenLoaded(img);
+        galeria.appendChild(img);
+      });
+      moodboard.parentElement.appendChild(galeria); // dentro del <main>, después del tablero
+      agregarBotonArriba();
     }
 
     function openEstampaCarousel() {
@@ -754,15 +1266,76 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     items.forEach((img) => {
-      img.addEventListener('pointerdown', onPointerDown);
       img.addEventListener('animationend', () => img.classList.remove('is-spinning'));
+
+      // teclado: Enter o Espacio hacen lo mismo que el click (dar vuelta la postal / abrir el carrusel)
+      img.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        if (img.classList.contains('flip-postcard')) {
+          e.preventDefault();
+          img.classList.toggle('is-flipped');
+        } else if (img.classList.contains('opens-carousel')) {
+          e.preventDefault();
+          openEstampaCarousel();
+        }
+      });
     });
-    moodboard.addEventListener('pointermove', onPointerMove);
-    document.addEventListener('pointerup', onPointerUp);
+  }
+
+  // ---- Galerías del celular: el contexto de cada pieza ----
+  // Si todas las piezas comparten el mismo (ej: todos los pósters son personales), se muestra
+  // una sola vez arriba, como encabezado, en vez de repetirlo debajo de cada una.
+  // Devuelve true si puso el encabezado (entonces las piezas van sin leyenda propia).
+  function encabezadoDeGaleria(galeria, piezas) {
+    const compartido = piezas.length > 0 && piezas[0] && piezas.every((p) => p === piezas[0]);
+    if (!compartido) return false;
+    const p = document.createElement('p');
+    p.className = 'pieza-contexto pieza-contexto--encabezado';
+    pintarContexto(p, piezas[0], true);
+    galeria.prepend(p);
+    return true;
+  }
+
+  // Agrega una pieza a la galería: si tiene contexto propio, la imagen y su leyenda van
+  // juntas en un <figure>, así queda claro a qué pieza pertenece cada texto
+  function agregarPiezaAGaleria(galeria, img, pieza) {
+    if (!pieza) {
+      galeria.appendChild(img);
+      return;
+    }
+    const figura = document.createElement('figure');
+    figura.className = 'pieza-figura';
+    const leyenda = document.createElement('figcaption');
+    leyenda.className = 'pieza-contexto pieza-contexto--galeria';
+    pintarContexto(leyenda, pieza);
+    figura.append(img, leyenda);
+    galeria.appendChild(figura);
+  }
+
+  // ---- Teléfono: flechita "volver arriba" para las galerías de scroll (Posters y Estampas),
+  //      aparece cuando ya bajaste ~una pantalla ----
+  function agregarBotonArriba() {
+    const toTopBtn = document.createElement('button');
+    toTopBtn.type = 'button';
+    toTopBtn.className = 'to-top-button';
+    toTopBtn.dataset.i18nAria = 'nav.top';
+    toTopBtn.setAttribute('aria-label', TRANSLATIONS[currentLang]['nav.top']);
+    toTopBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+    document.body.appendChild(toTopBtn);
+
+    function updateToTop() {
+      toTopBtn.classList.toggle('is-visible', isMobile() && window.scrollY > window.innerHeight * 0.8);
+    }
+    window.addEventListener('scroll', updateToTop, { passive: true });
+    window.addEventListener('resize', updateToTop);
+
+    toTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: prefiereMenosMovimiento() ? 'auto' : 'smooth' });
+    });
   }
 
   // ---- Función genérica: arma un carrusel (2 imágenes + flechas) con lightbox ----
-  // Se usa tanto para Posters como para Estampas (y cualquier galería futura del mismo tipo)
+  // Hoy la usa solo Posters (Estampas tiene su propio carrusel)
   function initCarouselGallery(idPrefix, total, folder, autoplayMs) {
     const imgA = document.getElementById(idPrefix + '-img-a');
     const imgB = document.getElementById(idPrefix + '-img-b');
@@ -804,8 +1377,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    function goTo(newIndex, direction) {
-      if (isAnimating) return;
+    function goTo(newIndex, direction, opciones = {}) {
+      // con el visor abierto no se bloquea: ahí el que se ve es el swipe del visor,
+      // y dos swipes seguidos no pueden perderse
+      if (isAnimating && !lightbox.classList.contains('is-open')) return;
       isAnimating = true;
 
       const current = images[activeIdx];
@@ -819,8 +1394,10 @@ document.addEventListener('DOMContentLoaded', () => {
       void incoming.offsetWidth;
 
       requestAnimationFrame(() => {
-        current.style.transition = 'transform 0.4s ease';
-        incoming.style.transition = 'transform 0.4s ease';
+        // con menos movimiento cambia de póster sin deslizarse
+        const deslizar = prefiereMenosMovimiento() ? 'none' : 'transform 300ms cubic-bezier(0.77, 0, 0.175, 1)';
+        current.style.transition = deslizar;
+        incoming.style.transition = deslizar;
         current.style.transform = `translateX(${-sign * 100}%)`;
         incoming.style.transform = 'translateX(0)';
       });
@@ -830,11 +1407,16 @@ document.addEventListener('DOMContentLoaded', () => {
       preloadAround(index);
 
       if (lightboxImg && lightbox.classList.contains('is-open')) {
-        setLightboxSrc(index);
-        resetZoom();
+        if (opciones.sinAnimarVisor) {
+          // el swipe ya movió el visor entero: acá solo se cambia la imagen
+          setLightboxSrc(index);
+          resetZoom();
+        } else {
+          cambiarPosterEnVisor(index, sign);
+        }
       }
 
-      setTimeout(() => { isAnimating = false; }, 400);
+      setTimeout(() => { isAnimating = false; }, 300);
     }
 
     setCarouselSrc(imgA, 1);
@@ -846,9 +1428,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Teléfono: en vez del carrusel, todos los pósters en una galería de scroll vertical.
     //      Se arma igual en desktop pero ahí el CSS la oculta. Son solo para ver: tocarlos no abre nada. ----
-    const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
     const mobileGallery = document.createElement('div');
     mobileGallery.className = 'poster-mobile-gallery';
+    const contextos = CONTEXTO_PIEZAS[folder] || [];
+    const compartido = encabezadoDeGaleria(mobileGallery, contextos);
     for (let i = 1; i <= total; i++) {
       const item = document.createElement('img');
       item.className = 'poster-mobile-item';
@@ -857,29 +1440,11 @@ document.addEventListener('DOMContentLoaded', () => {
       item.decoding = 'async';
       setCarouselSrc(item, i);
       fadeWhenLoaded(item);
-      mobileGallery.appendChild(item);
+      agregarPiezaAGaleria(mobileGallery, item, compartido ? null : contextos[i - 1]);
     }
     frame.parentElement.appendChild(mobileGallery);
 
-    // ---- Teléfono: flechita "volver arriba", aparece cuando ya bajaste ~una pantalla ----
-    const toTopBtn = document.createElement('button');
-    toTopBtn.type = 'button';
-    toTopBtn.className = 'to-top-button';
-    toTopBtn.dataset.i18nAria = 'nav.top';
-    toTopBtn.setAttribute('aria-label', TRANSLATIONS[currentLang]['nav.top']);
-    toTopBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
-    document.body.appendChild(toTopBtn);
-
-    function updateToTop() {
-      toTopBtn.classList.toggle('is-visible', isMobile() && window.scrollY > window.innerHeight * 0.8);
-    }
-    window.addEventListener('scroll', updateToTop, { passive: true });
-    window.addEventListener('resize', updateToTop);
-
-    toTopBtn.addEventListener('click', () => {
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-    });
+    agregarBotonArriba();
 
     prevBtn.addEventListener('click', () => {
       goTo(index === 1 ? total : index - 1, 'prev');
@@ -894,9 +1459,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- Autoplay: avanza solo cada tantos ms, se pausa al pasar el mouse ----
     let autoplayTimer = null;
     let autoplayDisabled = false; // una vez que se abre el lightbox, se apaga para siempre
+    let autoplayPausado = false;  // lo pausaste con el botón
+    let foco = false;             // con teclado estás adentro del carrusel: no avanza solo
 
     function startAutoplay() {
-      if (!autoplayMs || autoplayDisabled || isMobile()) return; // en el teléfono no hay carrusel
+      if (!autoplayMs || autoplayDisabled || autoplayPausado || foco || isMobile() || prefiereMenosMovimiento()) return; // en el teléfono no hay carrusel; con menos movimiento, no avanza solo
       stopAutoplay();
       autoplayTimer = setInterval(() => {
         goTo(index === total ? 1 : index + 1, 'next');
@@ -915,11 +1482,50 @@ document.addEventListener('DOMContentLoaded', () => {
       startAutoplay();
     }
 
+    // botón de pausa: el carrusel avanza solo sin fin, así que tiene que poder frenarse
+    // (solo aparece si de verdad va a avanzar solo: no en el celular ni con "reducir movimiento")
+    let botonPausa = null;
+    const ICONO_PAUSA = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>';
+    const ICONO_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"></path></svg>';
+
+    function pintarBotonPausa() {
+      botonPausa.innerHTML = autoplayPausado ? ICONO_PLAY : ICONO_PAUSA;
+      botonPausa.dataset.i18nAria = autoplayPausado ? 'posters.reanudar' : 'posters.pausar';
+      botonPausa.setAttribute('aria-label', TRANSLATIONS[currentLang][botonPausa.dataset.i18nAria]);
+      botonPausa.setAttribute('aria-pressed', String(autoplayPausado));
+    }
+
     if (autoplayMs) {
+      if (frame && !isMobile() && !prefiereMenosMovimiento()) {
+        botonPausa = document.createElement('button');
+        botonPausa.type = 'button';
+        botonPausa.className = 'poster-autoplay-toggle';
+        pintarBotonPausa();
+        botonPausa.addEventListener('click', () => {
+          autoplayPausado = !autoplayPausado;
+          pintarBotonPausa();
+          if (autoplayPausado) stopAutoplay();
+          else startAutoplay();
+        });
+        frame.appendChild(botonPausa);
+      }
+
       startAutoplay();
       if (frame) {
         frame.addEventListener('mouseenter', stopAutoplay);
         frame.addEventListener('mouseleave', startAutoplay);
+        // con teclado: mientras el foco está en el carrusel (flechas, lupa, pausa), no avanza solo
+        const galeria = frame.parentElement;
+        galeria.addEventListener('focusin', (e) => {
+          if (!e.target.matches(':focus-visible')) return; // un click con el mouse no cuenta
+          foco = true;
+          stopAutoplay();
+        });
+        galeria.addEventListener('focusout', (e) => {
+          if (galeria.contains(e.relatedTarget)) return;
+          foco = false;
+          startAutoplay();
+        });
       }
     }
 
@@ -945,6 +1551,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
       </div>
+      <p class="pieza-contexto" aria-live="polite"></p>
     `;
     document.body.appendChild(lightbox);
 
@@ -959,8 +1566,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Muestra al instante la versión liviana (ya cargada en el carrusel/galería)
     // y la reemplaza por el original en alta apenas termina de bajar
+    const lightboxContexto = lightbox.querySelector('.pieza-contexto');
+
     function setLightboxSrc(i) {
       setCarouselSrc(lightboxImg, i);
+      pintarContexto(lightboxContexto, (CONTEXTO_PIEZAS[folder] || [])[i - 1]);
       const full = new Image();
       full.onload = () => {
         if (index === i) {
@@ -969,6 +1579,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       };
       full.src = srcOf(i);
+    }
+
+    // ---- Cambio de póster en el visor, con dirección (igual que en Estampas): el actual se
+    //      corre un poco hacia el lado contrario y se apaga, el nuevo entra desde el lado hacia
+    //      el que vas. El visor tiene una sola imagen (por el zoom), así que el que se va es
+    //      una copia temporal que se borra al terminar. Con "reducir movimiento", solo fundido ----
+    const VISOR_DESPLAZAMIENTO = 6; // % del ancho del póster
+    const VISOR_CURVA = 'cubic-bezier(0.23, 1, 0.32, 1)'; // --ease-out
+
+    function cambiarPosterEnVisor(i, sign) {
+      const moverse = !prefiereMenosMovimiento();
+      lightboxImg.getAnimations().forEach((a) => a.cancel()); // si venía entrando otro, queda en su lugar
+      resetZoom();
+
+      // copia del póster actual, exactamente encima, para animar su salida
+      const fantasma = lightboxImg.cloneNode();
+      fantasma.removeAttribute('id');
+      fantasma.alt = '';
+      fantasma.classList.add('poster-lightbox-fantasma');
+      const caja = lightboxScroll.getBoundingClientRect();
+      const r = lightboxImg.getBoundingClientRect();
+      Object.assign(fantasma.style, {
+        left: r.left - caja.left + 'px',
+        top: r.top - caja.top + 'px',
+        width: r.width + 'px',
+        height: r.height + 'px',
+      });
+      lightboxScroll.appendChild(fantasma);
+      fantasma.animate(
+        [
+          { opacity: 1, transform: 'none', filter: 'blur(0)' },
+          {
+            opacity: 0,
+            transform: moverse ? `translateX(${-sign * VISOR_DESPLAZAMIENTO}%)` : 'none',
+            filter: moverse ? 'blur(2px)' : 'blur(0)',
+          },
+        ],
+        { duration: 200, easing: VISOR_CURVA } // el que se va, más rápido: deja lugar al nuevo
+      ).finished.catch(() => {}).then(() => fantasma.remove());
+
+      // el nuevo: invisible hasta que la imagen esté lista (como mucho 150ms), después entra
+      lightboxImg.style.opacity = '0';
+      setLightboxSrc(i);
+      Promise.race([
+        lightboxImg.decode().catch(() => {}),
+        new Promise((resolve) => setTimeout(resolve, 150)),
+      ]).then(() => {
+        if (index !== i) return; // ya se pidió otro póster: ese se encarga
+        lightboxImg.style.opacity = '';
+        lightboxImg.animate(
+          [
+            {
+              opacity: 0,
+              transform: moverse ? `translateX(${sign * VISOR_DESPLAZAMIENTO}%)` : 'none',
+              filter: moverse ? 'blur(2px)' : 'blur(0)',
+            },
+            { opacity: 1, transform: 'none', filter: 'blur(0)' },
+          ],
+          { duration: 300, easing: VISOR_CURVA }
+        );
+      });
     }
 
     lightboxPrev.addEventListener('click', (e) => {
@@ -1035,23 +1706,33 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    let focoAntesDelVisor = null;
+
     function openLightbox() {
       setLightboxSrc(index);
+      focoAntesDelVisor = document.activeElement;
       lightbox.classList.add('is-open');
       document.body.style.overflow = 'hidden';
       autoplayDisabled = true; // se abrió el lightbox: el autoplay no vuelve a andar
       stopAutoplay();
+      if (botonPausa) botonPausa.hidden = true; // ya no hay nada que pausar
       resetZoom();
+      lightboxClose.focus({ preventScroll: true }); // con teclado, el foco entra al visor
     }
 
     function closeLightbox() {
       lightbox.classList.remove('is-open');
       document.body.style.overflow = '';
       resetZoom();
+      if (focoAntesDelVisor) focoAntesDelVisor.focus({ preventScroll: true }); // y al cerrar vuelve
+      focoAntesDelVisor = null;
     }
 
     imgA.addEventListener('click', openLightbox);
     imgB.addEventListener('click', openLightbox);
+    // la lupa es un botón: así el visor también se abre con teclado
+    const lupa = frame.querySelector('.poster-zoom-hint');
+    if (lupa) lupa.addEventListener('click', openLightbox);
     lightboxClose.addEventListener('click', closeLightbox);
 
     lightbox.addEventListener('click', (e) => {
@@ -1063,25 +1744,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') goTo(index === total ? 1 : index + 1, 'next');
       if (e.key === 'ArrowLeft') goTo(index === 1 ? total : index - 1, 'prev');
+      // zoom con teclado (+ / − / 0), centrado en el póster
+      if (e.key === '+' || e.key === '=' || e.key === '-' || e.key === '0') {
+        e.preventDefault();
+        lightboxImg.style.transformOrigin = 'center center';
+        if (e.key === '0') scale = SCALE_MIN;
+        else scale += e.key === '-' ? -SCALE_STEP : SCALE_STEP;
+        scale = Math.max(SCALE_MIN, Math.min(SCALE_MAX, scale));
+        applyScale();
+      }
     });
 
-    // ---- Swipe táctil: deslizar el dedo sobre la imagen del lightbox cambia de póster ----
-    let touchStartX = 0;
-
-
-    lightboxImg.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].clientX;
-    }, { passive: true });
-
-    lightboxImg.addEventListener('touchend', (e) => {
-      const deltaX = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(deltaX) < 50) return; // swipe muy corto, lo ignoramos
-      if (deltaX < 0) {
-        goTo(index === total ? 1 : index + 1, 'next');
-      } else {
-        goTo(index === 1 ? total : index - 1, 'prev');
-      }
-    }, { passive: true });
+    // ---- Swipe táctil: el póster sigue al dedo y, al soltar, la velocidad decide
+    //      si pasa al siguiente (con zoom no: ahí el dedo es para mirar) ----
+    deslizarParaCambiar(lightboxScroll, {
+      puedeEmpezar: () => scale === 1,
+      siguiente: () => goTo(index === total ? 1 : index + 1, 'next', { sinAnimarVisor: true }),
+      anterior: () => goTo(index === 1 ? total : index - 1, 'prev', { sinAnimarVisor: true }),
+    });
   }
 
   initCarouselGallery('poster', 9, 'posters', 4000);
@@ -1102,7 +1782,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (brandingBoard) {
     const cards = brandingBoard.querySelectorAll('.brand-card');
-    const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
     let topZ = 10;
 
     cards.forEach((card) => {
@@ -1114,7 +1793,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Máquina de escribir: al dar vuelta una tarjeta, la descripción del dorso
     //      se escribe letra por letra (cada vez que la das vuelta) ----
-    const TIPEO_ESPERA = 320;   // ms: arranca cuando el dorso ya se ve (el giro dura 0.7s, a la mitad ya se ve)
+    const TIPEO_ESPERA = 250;   // ms: arranca cuando el dorso ya se ve (el giro dura 0.5s, a la mitad ya se ve)
     const TIPEO_TOTAL = 1300;   // ms aprox. que tarda en escribirse una descripción entera
     const tipeos = new WeakMap(); // timer en curso de cada tarjeta
 
@@ -1134,7 +1813,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const desc = card.querySelector('.brand-card-desc');
       if (!desc) return;
       cancelarTipeo(card);
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // aparece directo
+      if (prefiereMenosMovimiento()) return; // aparece directo
 
       const msPorLetra = Math.min(30, Math.max(10, TIPEO_TOTAL / textoDescripcion(desc).length));
       let n = 0;
@@ -1167,60 +1846,26 @@ document.addEventListener('DOMContentLoaded', () => {
       else cancelarTipeo(card);
     }
 
-    let active = null;
-    let startX = 0, startY = 0, startLeft = 0, startTop = 0;
-    let moved = false, lastX = 0, tilt = 0;
-
     cards.forEach((card) => {
-      card.addEventListener('pointerdown', (e) => {
-        if (e.target.closest('.brand-card-view')) return; // el botón VIEW no arrastra
-        if (e.button !== 0) return;
-        active = card;
-        moved = false;
-        tilt = 0;
-        startX = lastX = e.clientX;
-        startY = e.clientY;
-
-        if (!isMobile()) {
-          // offsetLeft/Top ignoran la rotación, así la tarjeta no "salta" al agarrarla
-          startLeft = card.offsetLeft;
-          startTop = card.offsetTop;
-          card.setPointerCapture(e.pointerId);
+      const rot = () => parseFloat(card.dataset.rotation) || 0;
+      // en el teléfono no se arrastran (así no pelean con el scroll), pero tocarlas las da vuelta
+      seguirYSoltar(card, {
+        contenedor: brandingBoard,
+        habilitado: () => !isMobile(),
+        ignorar: (e) => !!e.target.closest('.brand-card-view'), // el botón VIEW no arrastra
+        alAgarrar: () => {
           card.classList.add('is-dragging');
           card.style.zIndex = ++topZ; // la que agarrás queda arriba de las demás
-        }
+        },
+        alInclinar: (grados) => {
+          card.style.transform = `rotate(${rot() + grados}deg)`;
+        },
+        alSoltar: ({ movio }) => {
+          card.classList.remove('is-dragging');
+          card.style.transform = `rotate(${rot()}deg)`;
+          if (!movio) flip(card); // fue un click, no un arrastre
+        },
       });
-
-      card.addEventListener('pointermove', (e) => {
-        if (active !== card) return;
-        if (Math.abs(e.clientX - startX) > 5 || Math.abs(e.clientY - startY) > 5) moved = true;
-        if (isMobile() || !moved) return;
-
-        const rot = parseFloat(card.dataset.rotation) || 0;
-        const dx = e.clientX - lastX;
-        lastX = e.clientX;
-        tilt += (Math.max(-6, Math.min(6, dx * 0.5)) - tilt) * 0.15;
-        card.style.transform = `rotate(${rot + tilt}deg)`;
-
-        const boardW = brandingBoard.clientWidth;
-        const boardH = brandingBoard.clientHeight;
-        let left = startLeft + (e.clientX - startX);
-        let top = startTop + (e.clientY - startY);
-        left = Math.max(0, Math.min(left, boardW - card.offsetWidth));
-        top = Math.max(0, Math.min(top, boardH - card.offsetHeight));
-        card.style.left = (left / boardW) * 100 + '%';
-        card.style.top = (top / boardH) * 100 + '%';
-      });
-
-      const end = () => {
-        if (active !== card) return;
-        card.classList.remove('is-dragging');
-        card.style.transform = `rotate(${parseFloat(card.dataset.rotation) || 0}deg)`;
-        if (!moved) flip(card); // fue un click, no un arrastre
-        active = null;
-      };
-      card.addEventListener('pointerup', end);
-      card.addEventListener('pointercancel', () => { moved = true; end(); });
 
       // teclado: Enter o Espacio sobre la tarjeta la da vuelta
       card.addEventListener('keydown', (e) => {

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
   <title>Lautaro Saez — Posters</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,10 +12,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#contenido" data-i18n="nav.skip">Saltar al contenido</a>
 
   <header class="logo-wrap">
     <a href="index.html">
-      <img src="assets/logo.png" alt="Lautaro Saez" class="logo">
+      <img src="assets/logo.png" alt="Lautaro Saez" class="logo" width="556" height="83">
     </a>
   </header>
 
@@ -22,30 +24,30 @@
     <ul class="menu-list">
       <li><a href="index.html" class="menu-item" data-i18n="nav.menu">Menu</a></li>
       <li>
-        <a href="diseno-branding.html" class="menu-item" data-i18n="nav.diseno">Diseño</a>
+        <a href="diseno.html" class="menu-item" data-i18n="nav.diseno">Diseño</a>
         <ul class="submenu">
           <li><a href="diseno-branding.html" class="submenu-item submenu-branding" data-i18n="nav.branding">- Branding</a></li>
           <li><a href="diseno-estampas.html" class="submenu-item submenu-estampas" data-i18n="nav.estampas">- Estampas</a></li>
           <li><a href="diseno-posters.html" class="submenu-item submenu-posters active" data-i18n="nav.posters">- Posters</a></li>
         </ul>
       </li>
-      <li><a href="animacion.html" class="menu-item" data-i18n="nav.animacion">Animación</a></li>
-      <li><a href="modelado-render.html" class="menu-item" data-i18n="nav.modelado">Modelado y Render 3D</a></li>
+      <li><a href="modelado-render.html" class="menu-item" data-i18n="nav.modelado">3D + Motion Graphics</a></li>
       <li><a href="sobre-mi.html" class="menu-item" data-i18n="nav.sobremi">SobreMi</a></li>
     </ul>
   </nav>
 
-  <main class="poster-gallery">
+  <main class="poster-gallery" id="contenido">
+    <h1 class="visualmente-oculto" data-i18n="titulo.posters">Posters</h1>
     <button type="button" class="poster-arrow poster-arrow-prev" id="poster-prev" aria-label="Anterior">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
     </button>
 
     <div class="poster-frame">
-      <img src="assets/posters/chicos/poster-1.webp" alt="Poster 1" class="poster-img" id="poster-img-a">
+      <img src="assets/posters/chicos/poster-1.webp" alt="Poster 1" class="poster-img" id="poster-img-a" width="1000" height="1414" fetchpriority="high">
       <img src="" alt="" class="poster-img poster-img-b" id="poster-img-b">
-      <div class="poster-zoom-hint" aria-hidden="true">
+      <button type="button" class="poster-zoom-hint" aria-label="Ver el póster en grande" data-i18n-aria="posters.ver">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-      </div>
+      </button>
     </div>
 
     <button type="button" class="poster-arrow poster-arrow-next" id="poster-next" aria-label="Siguiente">
@@ -55,16 +57,16 @@
 
   <div class="social-icons">
     <a href="https://instagram.com/88318w" target="_blank" rel="noopener" aria-label="Instagram">
-      <img src="assets/instagram.png" alt="Instagram">
+      <img src="assets/instagram.png" alt="Instagram" width="45" height="45">
     </a>
     <a href="https://www.tiktok.com/@88318w" target="_blank" rel="noopener" aria-label="TikTok">
-      <img src="assets/tiktok.png" alt="TikTok">
+      <img src="assets/tiktok.png" alt="TikTok" width="46" height="45">
     </a>
   </div>
 
   <button type="button" class="contact-button" id="contact-trigger">
     <span data-i18n="contact.button">CONTACTO</span>
-    <img src="assets/arrow.png" alt="" class="arrow">
+    <img src="assets/arrow.png" alt="" class="arrow" width="29" height="23">
   </button>
 
   <script src="script.js"></script>

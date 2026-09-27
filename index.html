@@ -3,66 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
   <title>Lautaro Saez — Menu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="stylesheet" href="style.css">
-  <!-- el modelo 3D del collage empieza a bajar apenas abre la página, no al final -->
-  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.0.0/dist/model-viewer.min.js">
-  <link rel="preload" href="assets/modelos/prueba.glb" as="fetch" crossorigin>
 </head>
 <body>
+  <a class="skip-link" href="#contenido" data-i18n="nav.skip">Saltar al contenido</a>
 
   <header class="logo-wrap">
     <a href="index.html">
-      <img src="assets/logo.png" alt="Lautaro Saez" class="logo">
+      <img src="assets/logo.png" alt="Lautaro Saez" class="logo" width="556" height="83">
     </a>
   </header>
 
   <nav class="menu">
     <ul class="menu-list">
       <li><a href="index.html" class="menu-item active" data-i18n="nav.menu">Menu</a></li>
-      <li><a href="diseno-branding.html" class="menu-item" data-i18n="nav.diseno">Diseño</a></li>
-      <li><a href="animacion.html" class="menu-item" data-i18n="nav.animacion">Animación</a></li>
-      <li><a href="modelado-render.html" class="menu-item" data-i18n="nav.modelado">Modelado y Render 3D</a></li>
+      <li><a href="diseno.html" class="menu-item" data-i18n="nav.diseno">Diseño</a></li>
+      <li><a href="modelado-render.html" class="menu-item" data-i18n="nav.modelado">3D + Motion Graphics</a></li>
       <li><a href="sobre-mi.html" class="menu-item" data-i18n="nav.sobremi">SobreMi</a></li>
     </ul>
   </nav>
 
-  <div class="moodboard-wrap">
+  <main class="moodboard-wrap" id="contenido">
+    <h1 class="visualmente-oculto" data-i18n="titulo.inicio">Lautaro Saez — Portfolio</h1>
     <div class="moodboard" id="moodboard">
-      <img src="assets/yes.png" alt="Yes" class="draggable-img" data-mx="2" data-my="8" data-mw="40" data-x="3.8" data-y="14.9" style="width:29.8%; z-index:3;">
-      <div class="draggable-img flip-postcard" data-mx="4" data-my="24" data-mw="92" data-x="22.8" data-y="9.3" data-rotation="-6" style="width:69.9%; z-index:1;">
+      <img src="assets/yes.png" alt="Yes" class="draggable-img" width="382" height="359" data-mx="5" data-my="18" data-mw="40" data-x="3.8" data-y="14.9" style="width:29.8%; z-index:3;">
+      <div class="draggable-img flip-postcard" role="button" tabindex="0" aria-label="Postal del faro: dar vuelta" data-i18n-aria="home.postal" data-mx="4" data-my="24" data-mw="92" data-x="22.8" data-y="9.3" data-rotation="-6" style="width:69.9%; z-index:1;">
         <div class="flip-inner">
           <div class="flip-face flip-front">
-            <img src="assets/faro.webp" alt="Faro">
+            <img src="assets/faro.webp" alt="Faro" width="826" height="641">
           </div>
           <div class="flip-face flip-back">
-            <img src="assets/faro-dorso.webp" alt="Postal — dorso">
+            <img src="assets/faro-dorso.webp" alt="Postal — dorso" width="826" height="641">
           </div>
         </div>
       </div>
-      <img src="assets/24-7.webp" alt="24/7 Open" class="draggable-img" data-mx="64" data-my="60" data-mw="30" data-x="73.6" data-y="12" data-rotation="8" style="width:20%; z-index:2;">
-      <img src="assets/ipod.png" alt="iPod Now Playing" class="draggable-img no-spin idle-wiggle" data-mx="14" data-my="58" data-mw="30" data-x="15.2" data-y="34.6" data-rotation="23.5" data-wiggle-amplitude="6" style="width:20%; z-index:4;">
-      <!-- modelo 3D (script.js le agrega el <model-viewer>; la ruta del .glb está en MODELO_3D) -->
-      <div class="draggable-img no-spin modelo-3d" role="img" aria-label="Modelo 3D" data-mx="52" data-my="77" data-mw="42" data-x="70" data-y="56" style="width:22%; z-index:5;"></div>
+      <img src="assets/24-7.webp" alt="24/7 Open" class="draggable-img" width="351" height="415" data-mx="57" data-my="41.5" data-mw="40" data-x="73.6" data-y="12" data-rotation="8" style="width:20%; z-index:2;">
+      <img src="assets/ipod.png" alt="iPod Now Playing" class="draggable-img no-spin idle-wiggle" width="280" height="467" data-mx="16" data-my="51" data-mw="40" data-x="15.2" data-y="34.6" data-rotation="23.5" data-wiggle-amplitude="6" style="width:20%; z-index:4;">
+      <!-- etiquetas: solo en el celular (en la compu el tablero queda como estaba) -->
+      <img src="assets/portfolio.png" alt="Portfolio" class="draggable-img solo-celular" width="800" height="174" data-mx="28" data-my="13.9" data-mw="68" data-rotation="13" style="width:68%; z-index:2;">
+      <img src="assets/graphic-design.png" alt="Graphic Design" class="draggable-img solo-celular" width="800" height="174" data-mx="5" data-my="70" data-mw="79" data-rotation="-5" style="width:79%; z-index:6;">
+      <!-- modelo 3D: sacado por ahora. Para volver a ponerlo, descomentá la pieza y agregá en el <head>:
+           <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.0.0/dist/model-viewer.min.js">
+           <link rel="preload" href="assets/modelos/prueba.glb" as="fetch" crossorigin>
+      <div class="draggable-img no-spin modelo-3d" role="img" aria-label="Modelo 3D" data-mx="52" data-my="77" data-mw="42" data-x="70" data-y="56" style="width:22%; z-index:5;"></div> -->
     </div>
-  </div>
+  </main>
 
   <div class="social-icons">
     <a href="https://instagram.com/88318w" target="_blank" rel="noopener" aria-label="Instagram">
-      <img src="assets/instagram.png" alt="Instagram">
+      <img src="assets/instagram.png" alt="Instagram" width="45" height="45">
     </a>
     <a href="https://www.tiktok.com/@88318w" target="_blank" rel="noopener" aria-label="TikTok">
-      <img src="assets/tiktok.png" alt="TikTok">
+      <img src="assets/tiktok.png" alt="TikTok" width="46" height="45">
     </a>
   </div>
 
   <button type="button" class="contact-button" id="contact-trigger">
     <span data-i18n="contact.button">CONTACTO</span>
-    <img src="assets/arrow.png" alt="" class="arrow">
+    <img src="assets/arrow.png" alt="" class="arrow" width="29" height="23">
   </button>
 
   <script src="script.js"></script>

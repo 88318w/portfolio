@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
   <title>Lautaro Saez — Sobre Mi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,26 +12,26 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#contenido" data-i18n="nav.skip">Saltar al contenido</a>
 
   <header class="logo-wrap">
     <a href="index.html">
-      <img src="assets/logo.png" alt="Lautaro Saez" class="logo">
+      <img src="assets/logo.png" alt="Lautaro Saez" class="logo" width="556" height="83">
     </a>
   </header>
 
   <nav class="menu">
     <ul class="menu-list">
       <li><a href="index.html" class="menu-item" data-i18n="nav.menu">Menu</a></li>
-      <li><a href="diseno-branding.html" class="menu-item" data-i18n="nav.diseno">Diseño</a></li>
-      <li><a href="animacion.html" class="menu-item" data-i18n="nav.animacion">Animación</a></li>
-      <li><a href="modelado-render.html" class="menu-item" data-i18n="nav.modelado">Modelado y Render 3D</a></li>
+      <li><a href="diseno.html" class="menu-item" data-i18n="nav.diseno">Diseño</a></li>
+      <li><a href="modelado-render.html" class="menu-item" data-i18n="nav.modelado">3D + Motion Graphics</a></li>
       <li><a href="sobre-mi.html" class="menu-item active" data-i18n="nav.sobremi">SobreMi</a></li>
     </ul>
   </nav>
 
-  <main class="sobremi">
+  <main class="sobremi" id="contenido">
     <div class="sobremi-photo">
-      <video src="assets/sobre-mi.mp4" poster="assets/sobre-mi-poster.jpg" autoplay loop muted playsinline></video>
+      <video src="assets/sobre-mi.mp4" aria-label="Lautaro Saez" poster="assets/sobre-mi-poster.jpg" autoplay loop muted playsinline></video>
     </div>
 
     <div class="sobremi-text">
@@ -48,7 +49,7 @@
       </p>
 
       <div class="sobremi-apps-row">
-        <img src="assets/apps.png" alt="Photoshop, Illustrator, After Effects, InDesign, Blender" class="sobremi-apps">
+        <img src="assets/apps.png" alt="Photoshop, Illustrator, After Effects, InDesign, Blender" class="sobremi-apps" width="367" height="64">
         <a href="assets/cv.pdf" download class="sobremi-cv-button" data-i18n="sobremi.cv">CV</a>
       </div>
     </div>
@@ -56,16 +57,16 @@
 
   <div class="social-icons">
     <a href="https://instagram.com/88318w" target="_blank" rel="noopener" aria-label="Instagram">
-      <img src="assets/instagram.png" alt="Instagram">
+      <img src="assets/instagram.png" alt="Instagram" width="45" height="45">
     </a>
     <a href="https://www.tiktok.com/@88318w" target="_blank" rel="noopener" aria-label="TikTok">
-      <img src="assets/tiktok.png" alt="TikTok">
+      <img src="assets/tiktok.png" alt="TikTok" width="46" height="45">
     </a>
   </div>
 
   <button type="button" class="contact-button" id="contact-trigger">
     <span data-i18n="contact.button">CONTACTO</span>
-    <img src="assets/arrow.png" alt="" class="arrow">
+    <img src="assets/arrow.png" alt="" class="arrow" width="29" height="23">
   </button>
 
   <script src="script.js"></script>

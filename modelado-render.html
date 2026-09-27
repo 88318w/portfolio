@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lautaro Saez — Modelado y Render</title>
+  <meta name="theme-color" content="#ffffff">
+  <title>Lautaro Saez — 3D + Motion Graphics</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,41 +12,42 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#contenido" data-i18n="nav.skip">Saltar al contenido</a>
 
   <header class="logo-wrap">
     <a href="index.html">
-      <img src="assets/logo.png" alt="Lautaro Saez" class="logo">
+      <img src="assets/logo.png" alt="Lautaro Saez" class="logo" width="556" height="83">
     </a>
   </header>
 
   <nav class="menu">
     <ul class="menu-list">
       <li><a href="index.html" class="menu-item" data-i18n="nav.menu">Menu</a></li>
-      <li><a href="diseno-branding.html" class="menu-item" data-i18n="nav.diseno">Diseño</a></li>
-      <li><a href="animacion.html" class="menu-item" data-i18n="nav.animacion">Animación</a></li>
-      <li><a href="modelado-render.html" class="menu-item active" data-i18n="nav.modelado">Modelado y Render 3D</a></li>
+      <li><a href="diseno.html" class="menu-item" data-i18n="nav.diseno">Diseño</a></li>
+      <li><a href="modelado-render.html" class="menu-item active" data-i18n="nav.modelado">3D + Motion Graphics</a></li>
       <li><a href="sobre-mi.html" class="menu-item" data-i18n="nav.sobremi">SobreMi</a></li>
     </ul>
   </nav>
 
-  <img src="assets/24-7.png" alt="24/7 Open" class="decor-image">
+  <img src="assets/24-7.png" alt="" class="decor-image" width="351" height="415">
 
-  <main class="content">
-    <p class="content-placeholder" data-i18n="modelado.placeholder">Sección Modelado y Render — contenido próximamente.</p>
+  <main class="content" id="contenido">
+    <h1 class="visualmente-oculto" data-i18n="titulo.modelado">3D + Motion Graphics</h1>
+    <p class="content-placeholder" data-i18n="modelado.placeholder">Sección 3D + Motion Graphics — contenido próximamente.</p>
   </main>
 
   <div class="social-icons">
     <a href="https://instagram.com/88318w" target="_blank" rel="noopener" aria-label="Instagram">
-      <img src="assets/instagram.png" alt="Instagram">
+      <img src="assets/instagram.png" alt="Instagram" width="45" height="45">
     </a>
     <a href="https://www.tiktok.com/@88318w" target="_blank" rel="noopener" aria-label="TikTok">
-      <img src="assets/tiktok.png" alt="TikTok">
+      <img src="assets/tiktok.png" alt="TikTok" width="46" height="45">
     </a>
   </div>
 
   <button type="button" class="contact-button" id="contact-trigger">
     <span data-i18n="contact.button">CONTACTO</span>
-    <img src="assets/arrow.png" alt="" class="arrow">
+    <img src="assets/arrow.png" alt="" class="arrow" width="29" height="23">
   </button>
 
   <script src="script.js"></script>

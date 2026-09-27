@@ -20,6 +20,8 @@ body {
   overflow-x: hidden;
   transition: background var(--transition-suave), color var(--transition-suave);
   cursor: url('assets/cursor.png') 4 4, auto;
+  touch-action: manipulation;             /* sin la demora del doble toque en el celular */
+  -webkit-tap-highlight-color: transparent; /* sin el flash gris de iOS: cada botón ya tiene su :active */
 }
 
 a {
@@ -30,7 +32,40 @@ a {
 
 img {
   max-width: 100%;
+  height: auto; /* las imágenes tienen width/height en el HTML (para reservar su lugar); el alto real sale del ancho */
   display: block;
+}
+
+/* ============================
+   ACCESIBILIDAD: link "saltar al contenido" y texto solo para lectores de pantalla
+============================ */
+.skip-link {
+  position: fixed;
+  top: 0.8rem;
+  left: 0.8rem;
+  z-index: 3000;
+  padding: 0.6rem 1rem;
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  font-weight: 700;
+  font-size: 0.9rem;
+  transform: translateY(-200%); /* escondido hasta que llega el foco con Tab */
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ============================
@@ -55,6 +90,8 @@ textarea:focus-visible,
   --padding-vertical: 3vh;
   --ancho-bloque: min(30vw, 540px);
   --transition-suave: 0.25s ease;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);     /* entradas y respuestas: arranca rápido */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1); /* movimiento en pantalla (slides, giros) */
 
   /* tema claro (default) */
   --bg: #ffffff;
@@ -202,8 +239,10 @@ textarea:focus-visible,
 }
 
 /* hover: se pone negro */
-.menu-item:hover {
-  color: var(--text);
+@media (hover: hover) and (pointer: fine) {
+  .menu-item:hover {
+    color: var(--text);
+  }
 }
 
 /* estado activo (la sección en la que estás): se queda negro */
@@ -226,7 +265,7 @@ textarea:focus-visible,
   letter-spacing: -0.025em;
   line-height: 27px;
   transition: opacity var(--transition-suave);
-  animation: submenu-fade-in 0.4s ease both;
+  animation: submenu-fade-in 300ms var(--ease-out) both;
 }
 
 /* el escalonado se cuenta por <li> (cada link es hijo único de su <li>) */
@@ -257,8 +296,10 @@ textarea:focus-visible,
   }
 }
 
-.submenu-item:hover {
-  opacity: 0.7;
+@media (hover: hover) and (pointer: fine) {
+  .submenu-item:hover {
+    opacity: 0.7;
+  }
 }
 
 .submenu-branding {
@@ -318,8 +359,10 @@ textarea:focus-visible,
   transition: opacity var(--transition-suave);
 }
 
-.social-icons a:hover {
-  opacity: 0.7;
+@media (hover: hover) and (pointer: fine) {
+  .social-icons a:hover {
+    opacity: 0.7;
+  }
 }
 
 .social-icons img {
@@ -327,12 +370,6 @@ textarea:focus-visible,
   height: 100%;
 }
 
-@media (max-width: 768px) {
-  .social-icons {
-    left: 1.2rem;
-    bottom: calc(1.2rem + 3.8rem + 1rem);
-  }
-}
 .contact-button {
   position: fixed;
   bottom: var(--padding-vertical);
@@ -352,6 +389,7 @@ textarea:focus-visible,
   border: none;
   cursor: url('assets/pointer-white.png') 14 2, pointer;
   z-index: 100;
+  transition: scale 160ms var(--ease-out);
 }
 
 .contact-button .arrow {
@@ -385,12 +423,19 @@ textarea:focus-visible,
   width: min(90vw, 480px);
   padding: 2.4rem;
   position: relative;
-  transform: translateY(12px);
-  transition: transform var(--transition-suave);
+  transform: translateY(8px) scale(0.97);
+  transition: transform 200ms var(--ease-out);
 }
 
 .contact-overlay.is-open .contact-modal {
-  transform: translateY(0);
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-modal,
+  .contact-overlay.is-open .contact-modal {
+    transform: none;
+  }
 }
 
 .contact-modal h2 {
@@ -440,8 +485,9 @@ textarea:focus-visible,
   resize: vertical;
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
+/* foco de los campos: el borde se pone negro (reemplaza al contorno) */
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
   outline: none;
   border-color: var(--text);
 }
@@ -456,11 +502,13 @@ textarea:focus-visible,
   letter-spacing: 0.03em;
   cursor: url('assets/pointer.png') 14 2, pointer;
   font-family: inherit;
-  transition: opacity var(--transition-suave);
+  transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
 }
 
-.contact-submit:hover {
-  opacity: 0.85;
+@media (hover: hover) and (pointer: fine) {
+  .contact-submit:hover {
+    opacity: 0.85;
+  }
 }
 
 .contact-success {
@@ -472,6 +520,21 @@ textarea:focus-visible,
 
 .contact-success.is-visible {
   display: block;
+  transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+}
+
+/* el mensaje aparece con un fundido y una subida mínima, en vez de saltar */
+@starting-style {
+  .contact-success.is-visible {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-success.is-visible {
+    transition: opacity 200ms var(--ease-out);
+  }
 }
 
 /* ============================
@@ -483,29 +546,31 @@ textarea:focus-visible,
   right: var(--padding-lateral);
   z-index: 110;
   background: none;
-  border: 1px solid var(--gris-menu);
-  color: var(--text);
+  border: none;
+  color: var(--gris-menu);
   font-family: inherit;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.03em;
-  padding: 0.45rem 0.9rem;
+  padding: 0.45rem 0; /* área de toque sin caja visible */
   cursor: url('assets/pointer.png') 14 2, pointer;
-  transition: border-color var(--transition-suave), color var(--transition-suave);
 }
 
-.lang-toggle:hover {
-  border-color: var(--text);
+/* "ES / EN" como el menú: el idioma actual en negro, el otro en gris */
+.lang-toggle span {
+  transition: color var(--transition-suave);
 }
 
-@media (max-width: 768px) {
-  .lang-toggle {
-    top: 1.2rem;
-    right: 1.2rem;
-    font-size: 0.75rem;
-    padding: 0.35rem 0.7rem;
+.lang-toggle .is-active {
+  color: var(--text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lang-toggle:hover span:not(.is-active) {
+    color: var(--text);
   }
 }
+
 .moodboard-wrap {
   margin-left: calc(var(--padding-lateral) + var(--ancho-bloque) + 2vw);
   padding-top: 0vh;
@@ -528,11 +593,14 @@ textarea:focus-visible,
   touch-action: none;
   user-select: none;
   -webkit-user-drag: none;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), scale 200ms var(--ease-out);
 }
 
+/* al agarrarla se "levanta" apenas. Mientras arrastrás, la inclinación responde
+   sin demora; solo la levantada (`scale`) se anima */
 .draggable-img.is-dragging {
-  transition: none; /* mientras arrastrás, respuesta instantánea, sin demora */
+  transition: scale 150ms var(--ease-out);
+  scale: 1.03;
 }
 
 .draggable-img:active {
@@ -557,19 +625,57 @@ textarea:focus-visible,
   --poster-color: transparent;
 }
 
+/* piezas que solo van en el collage del celular (ej: etiquetas PORTFOLIO / GRAPHIC DESIGN) */
+.draggable-img.solo-celular {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .draggable-img.solo-celular {
+    display: block;
+  }
+}
+
 .draggable-img.fade-in-entrance {
-  animation: poster-fade-in 0.6s ease both;
+  animation: poster-fade-in 300ms var(--ease-out) both;
+}
+
+/* balanceo en reposo (piezas con .idle-wiggle): usa la propiedad `rotate`, que se suma
+   al transform inline (inclinación base + tilt del arrastre) sin pisarlo.
+   Duración, amplitud y fase las pone script.js por pieza */
+.draggable-img.idle-wiggle {
+  animation: wiggle-reposo var(--wiggle-dur, 5s) ease-in-out var(--wiggle-delay, 0s) infinite alternate;
+}
+
+/* mientras carga la imagen (ver fadeWhenLoaded en script.js): fundido + balanceo juntos */
+.draggable-img.idle-wiggle.img-appear {
+  animation:
+    img-aparece 300ms var(--ease-out),
+    wiggle-reposo var(--wiggle-dur, 5s) ease-in-out var(--wiggle-delay, 0s) infinite alternate;
+}
+
+.draggable-img.idle-wiggle.is-dragging {
+  animation-play-state: paused;
+}
+
+@keyframes wiggle-reposo {
+  from { rotate: calc(-1 * var(--wiggle-amp, 2deg)); }
+  to   { rotate: var(--wiggle-amp, 2deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draggable-img.idle-wiggle,
+  .draggable-img.idle-wiggle.img-appear {
+    animation: none;
+  }
+
+  .draggable-img.is-dragging {
+    scale: 1.01;
+  }
 }
 
 .draggable-img.opens-carousel {
   cursor: url('assets/zoom-in.png') 16 16, zoom-in;
-}
-
-.estampa-visual {
-  width: 100%;
-  height: auto;
-  display: block;
-  pointer-events: none;
 }
 
 .estampa-hint-text {
@@ -596,8 +702,6 @@ textarea:focus-visible,
 
 @media (max-width: 768px) {
   .estampa-hint-text {
-    bottom: 1rem;
-    right: 1.2rem;
     font-size: 0.75rem;
   }
 }
@@ -622,7 +726,7 @@ textarea:focus-visible,
   position: relative;
   width: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: transform 500ms var(--ease-in-out);
 }
 
 .flip-postcard.is-flipped .flip-inner {
@@ -667,20 +771,6 @@ textarea:focus-visible,
   }
 }
 
-@media (max-width: 768px) {
-  .moodboard-wrap {
-    margin-left: 0;
-    padding: 1.2rem;
-    width: 100%;
-    height: auto;
-  }
-
-  .moodboard {
-    aspect-ratio: 1 / 1.3;
-    height: auto;
-  }
-}
-
 /* ============================
    GALERÍA DE POSTERS
 ============================ */
@@ -703,7 +793,7 @@ textarea:focus-visible,
   overflow: hidden;
   background: #f2f2f2;
   position: relative;
-  animation: poster-fade-in 0.6s ease both;
+  animation: poster-fade-in 300ms var(--ease-out) both;
 }
 
 @keyframes poster-fade-in {
@@ -722,22 +812,60 @@ textarea:focus-visible,
   }
 }
 
-.poster-zoom-hint {
+/* lupa y pausa: botones redondos sobre el póster (la lupa abre el visor, igual que
+   hacer click en la imagen; así también se llega con teclado) */
+.poster-zoom-hint,
+.poster-autoplay-toggle {
   position: absolute;
   bottom: 0.9rem;
   right: 0.9rem;
   width: 2rem;
   height: 2rem;
+  padding: 0;
+  border: none;
   border-radius: 50%;
   background: rgba(17, 17, 17, 0.35);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none; /* que no le robe el click a la imagen de abajo */
+  cursor: url('assets/pointer.png') 14 2, pointer;
   z-index: 5;
   opacity: 0.75;
-  transition: opacity var(--transition-suave);
+  transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
+}
+
+.poster-autoplay-toggle {
+  right: auto;
+  left: 0.9rem;
+}
+
+.poster-autoplay-toggle[hidden] {
+  display: none;
+}
+
+.poster-autoplay-toggle svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.poster-zoom-hint:focus-visible,
+.poster-autoplay-toggle:focus-visible {
+  opacity: 1;
+  outline-color: #ffffff;
+  outline-offset: 2px;
+}
+
+.poster-zoom-hint:active,
+.poster-autoplay-toggle:active {
+  scale: 0.94;
+  transition-duration: 100ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .poster-autoplay-toggle:hover {
+    opacity: 1;
+  }
 }
 
 .poster-zoom-hint svg {
@@ -745,8 +873,10 @@ textarea:focus-visible,
   height: 1.05rem;
 }
 
-.poster-frame:hover .poster-zoom-hint {
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .poster-frame:hover .poster-zoom-hint {
+    opacity: 1;
+  }
 }
 
 .poster-img {
@@ -770,17 +900,20 @@ textarea:focus-visible,
   cursor: url('assets/pointer.png') 14 2, pointer;
   padding: 0.5rem;
   flex-shrink: 0;
-  transition: opacity var(--transition-suave);
-  animation: poster-fade-in 0.6s ease both;
+  transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
+  animation: poster-fade-in 300ms var(--ease-out) both;
   animation-delay: 0.15s;
 }
 
-.poster-arrow:hover {
-  opacity: 0.6;
+@media (hover: hover) and (pointer: fine) {
+  .poster-arrow:hover {
+    opacity: 0.6;
+  }
 }
 
-/* galería vertical de pósters: solo existe en el teléfono (ver media query de mobile) */
-.poster-mobile-gallery {
+/* galerías verticales de pósters y de estampas: solo existen en el teléfono (ver media query de mobile) */
+.poster-mobile-gallery,
+.estampa-mobile-gallery {
   display: none;
 }
 
@@ -837,19 +970,245 @@ textarea:focus-visible,
   height: clamp(1.6rem, 2.5vw, 2.4rem);
 }
 
+/* ============================
+   HUB DE DISEÑO (diseno.html): tres celulares viejos, uno por categoría.
+   Cada uno toma su color de --phone-color y su inclinación de --tilt
+   (definidos en el HTML). Al pasar el mouse se enderezan, suben y se
+   "prende" la luz de la pantalla.
+============================ */
+.hub {
+  margin-left: calc(var(--padding-lateral) + var(--ancho-bloque) + 2vw);
+  width: calc(100vw - var(--padding-lateral) - var(--ancho-bloque) - 2vw);
+  height: 100vh;
+  padding-right: var(--padding-lateral);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hub-phones {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+}
+
+/* entrada: suben en cascada (la animación va en el contenedor, así no pisa el hover) */
+.hub-slot {
+  animation: hub-sube 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hub-slot:nth-child(1) { animation-delay: 0.08s; }
+.hub-slot:nth-child(2) { animation-delay: 0.18s; margin-bottom: 2.5rem; } /* el del medio, un poco más arriba */
+.hub-slot:nth-child(3) { animation-delay: 0.28s; }
+
+@keyframes hub-sube {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+.hub-phone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: clamp(140px, 13vw, 220px);
+  aspect-ratio: 0.43;
+  padding: 9% 9% 10%;
+  box-sizing: border-box;
+  container-type: inline-size; /* los textos de la pantalla escalan con el celular (cqw) */
+  background: var(--phone-color);
+  border-radius: 22% / 11%;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.12),
+    inset -6px -8px 14px rgba(0, 0, 0, 0.35),
+    inset 6px 6px 12px rgba(255, 255, 255, 0.15),
+    0 18px 30px -12px rgba(0, 0, 0, 0.45);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out);
+}
+
+.hub-phone:focus-visible {
+  transform: translateY(-14px) rotate(0deg);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.12),
+    inset -6px -8px 14px rgba(0, 0, 0, 0.35),
+    inset 6px 6px 12px rgba(255, 255, 255, 0.15),
+    0 30px 40px -14px rgba(0, 0, 0, 0.5);
+}
+
+/* hover solo con mouse: en el celular quedaría "pegado" después del toque */
+@media (hover: hover) and (pointer: fine) {
+  .hub-phone:hover {
+    transform: translateY(-14px) rotate(0deg);
+    box-shadow:
+      inset 0 0 0 2px rgba(255, 255, 255, 0.12),
+      inset -6px -8px 14px rgba(0, 0, 0, 0.35),
+      inset 6px 6px 12px rgba(255, 255, 255, 0.15),
+      0 30px 40px -14px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.hub-speaker {
+  width: 30%;
+  height: 1.4%;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  margin-bottom: 7%;
+}
+
+/* pantalla LCD verdosa con texto pixelado */
+.hub-screen {
+  width: 100%;
+  aspect-ratio: 1 / 1.05;
+  box-sizing: border-box;
+  padding: 8% 9%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #a9b88a;
+  border-radius: 6%;
+  box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.35), inset 0 6px 12px rgba(0, 0, 0, 0.25);
+  font-family: 'VT323', ui-monospace, monospace;
+  font-size: 9cqw;
+  line-height: 1;
+  color: #1f2a14;
+  transition: background 200ms ease, box-shadow 200ms ease;
+}
+
+/* al pasar el mouse se "prende" la luz de la pantalla */
+.hub-phone:focus-visible .hub-screen {
+  background: #cde89c;
+  box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.3), 0 0 22px rgba(205, 232, 156, 0.75);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hub-phone:hover .hub-screen {
+    background: #cde89c;
+    box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.3), 0 0 22px rgba(205, 232, 156, 0.75);
+  }
+}
+
+.hub-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* rayitas de señal, en escalera */
+.hub-signal {
+  width: 1.3em;
+  height: 0.8em;
+  background: linear-gradient(to right,
+    currentColor 0 18%, transparent 18% 27%,
+    currentColor 27% 45%, transparent 45% 54%,
+    currentColor 54% 72%, transparent 72% 81%,
+    currentColor 81%);
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+
+.hub-battery {
+  width: 1.3em;
+  height: 0.6em;
+  box-sizing: border-box;
+  border: 0.12em solid currentColor;
+  padding: 0.08em;
+  background: currentColor content-box;
+}
+
+.hub-label {
+  font-size: 15cqw;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.hub-enter {
+  font-size: 9cqw;
+}
+
+.hub-phone:focus-visible .hub-enter {
+  animation: cursor-parpadeo 0.8s steps(1) infinite;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hub-phone:hover .hub-enter {
+    animation: cursor-parpadeo 0.8s steps(1) infinite;
+  }
+}
+
+/* al tocar (sobre todo en el celular, donde no hay hover): se endereza, sube un poco
+   y se hunde apenas; la pantalla se prende. Presionar es inmediato, soltar vuelve suave */
+.hub-phone:active {
+  transform: translateY(-6px) rotate(0deg) scale(0.98);
+  transition-duration: 100ms;
+}
+
+.hub-phone:active .hub-screen {
+  background: #cde89c;
+  box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.3), 0 0 22px rgba(205, 232, 156, 0.75);
+  transition-duration: 100ms;
+}
+
+/* botón de navegación redondo */
+.hub-nav {
+  width: 36%;
+  aspect-ratio: 1.6;
+  margin: 9% 0 7%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* teclado numérico 3 x 4 */
+.hub-keys {
+  flex: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 5cqw 7cqw;
+}
+
+.hub-keys i {
+  border-radius: 40% / 50%;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hub-slot {
+    animation: none;
+  }
+
+  .hub-phone {
+    transition: none;
+  }
+
+  /* sin movimiento: el teléfono no se levanta; la pantalla que se prende alcanza como respuesta */
+  .hub-phone:hover,
+  .hub-phone:focus-visible,
+  .hub-phone:active {
+    transform: rotate(var(--tilt, 0deg));
+  }
+}
+
 @media (max-width: 768px) {
-  .poster-gallery {
+  .hub {
     margin-left: 0;
     width: 100%;
     height: auto;
-    padding: 15rem 1rem 8rem;
-    gap: 0.8rem;
+    min-height: 100svh;
+    padding: calc(var(--m-bar) + 1rem) 1.2rem 4rem;
   }
 
-  .poster-frame {
-    height: auto;
-    width: 100%;
-    max-width: 320px;
+  .hub-phones {
+    gap: 4vw;
+  }
+
+  .hub-phone {
+    width: 24vw;
   }
 }
 
@@ -857,7 +1216,7 @@ textarea:focus-visible,
    CARRUSEL DE DETALLE — ESTAMPAS (sin zoom)
 ============================ */
 .estampa-detail-frame {
-  height: min(96vh, 1100px);
+  height: min(86vh, 1000px); /* deja lugar abajo para la línea de contexto */
   width: min(86vw, 1050px);
   position: relative;
   overflow: hidden;
@@ -910,6 +1269,73 @@ textarea:focus-visible,
   max-width: 96vw;
 }
 
+/* la imagen arriba y la línea de contexto debajo */
+.poster-lightbox {
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+/* ============================
+   CONTEXTO DE LA PIEZA: "Para KRML ↗" / "Proyecto personal · Marca ficticia"
+   (los datos están en CONTEXTO_PIEZAS, en script.js)
+============================ */
+.pieza-contexto {
+  min-height: 1.4em; /* guarda el lugar aunque la pieza no tenga datos: la imagen no salta */
+  max-width: 90vw;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #111111;
+  text-align: center;
+}
+
+.pieza-contexto a {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: opacity var(--transition-suave);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pieza-contexto a:hover {
+    opacity: 0.6;
+  }
+}
+
+/* ---- en las galerías del celular ---- */
+
+/* pieza + su leyenda: un solo bloque, con el texto pegado a su imagen
+   (la galería separa más un bloque del siguiente, así no se confunde a quién pertenece) */
+.pieza-figura {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* leyenda discreta: chica y en gris, para que no compita con la pieza;
+   el nombre de la marca en negro, porque es el link */
+.pieza-contexto--galeria,
+.pieza-contexto--encabezado {
+  min-height: 0;
+  max-width: none;
+  font-size: 0.8rem;
+  color: var(--gris-menu);
+  text-align: left;
+}
+
+.pieza-contexto--galeria a,
+.pieza-contexto--encabezado a {
+  color: var(--text);
+}
+
+/* cuando toda la galería comparte el contexto (ej: todos los pósters son personales),
+   va una sola vez arriba, como etiqueta de sección */
+.pieza-contexto--encabezado {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
 .poster-lightbox-arrow {
   background: none;
   border: none;
@@ -917,11 +1343,13 @@ textarea:focus-visible,
   cursor: url('assets/pointer.png') 14 2, pointer;
   padding: 0.6rem;
   flex-shrink: 0;
-  transition: opacity var(--transition-suave);
+  transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
 }
 
-.poster-lightbox-arrow:hover {
-  opacity: 0.6;
+@media (hover: hover) and (pointer: fine) {
+  .poster-lightbox-arrow:hover {
+    opacity: 0.6;
+  }
 }
 
 .poster-lightbox-arrow svg {
@@ -931,7 +1359,7 @@ textarea:focus-visible,
 
 .poster-lightbox-scroll {
   max-width: 80vw;
-  max-height: 92vh;
+  max-height: 84vh; /* deja lugar abajo para la línea de contexto */
   overflow: hidden;
   position: relative;
   display: flex;
@@ -939,15 +1367,54 @@ textarea:focus-visible,
   justify-content: center;
 }
 
+/* el swipe horizontal lo maneja script.js (la imagen sigue al dedo);
+   el pellizco para hacer zoom sigue siendo del navegador */
+.poster-lightbox-scroll,
+.estampa-detail-frame {
+  touch-action: pan-y pinch-zoom;
+}
+
+/* visores (pósters y detalle de Estampas): la imagen entra acercándose.
+   Usa `scale`, no `transform`: el swipe usa `translate` en este mismo contenedor
+   y el zoom usa `transform` en la imagen de adentro */
+.poster-lightbox .poster-lightbox-scroll,
+.poster-lightbox .estampa-detail-frame {
+  scale: 0.97;
+  transition: scale 250ms var(--ease-out);
+}
+
+.poster-lightbox.is-open .poster-lightbox-scroll,
+.poster-lightbox.is-open .estampa-detail-frame {
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster-lightbox .poster-lightbox-scroll,
+  .poster-lightbox .estampa-detail-frame {
+    scale: 1;
+    transition: none;
+  }
+}
+
 .poster-lightbox-img {
   max-width: 80vw;
-  max-height: 92vh;
+  max-height: 84vh;
   width: auto;
   height: auto;
   display: block;
   cursor: url('assets/zoom-in.png') 16 16, auto;
   transition: transform 0.15s ease-out;
   will-change: transform;
+}
+
+/* copia temporal del póster que se va al pasar al siguiente (la arma script.js):
+   queda encima, en el mismo lugar exacto, y no recibe clics */
+.poster-lightbox-fantasma {
+  position: absolute;
+  max-width: none;
+  max-height: none;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .poster-lightbox-img.is-zoomed {
@@ -999,8 +1466,10 @@ textarea:focus-visible,
   transition: background var(--transition-suave);
 }
 
-.poster-zoom-reset:hover {
-  background: rgba(255, 255, 255, 0.3);
+@media (hover: hover) and (pointer: fine) {
+  .poster-zoom-reset:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
 }
 
 .poster-zoom-reset svg {
@@ -1087,12 +1556,14 @@ textarea:focus-visible,
   font-size: 0.95rem;
   letter-spacing: 0.03em;
   padding: 0.7rem 1.4rem;
-  transition: opacity var(--transition-suave);
+  transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
   cursor: url('assets/pointer-white.png') 14 2, pointer;
 }
 
-.sobremi-cv-button:hover {
-  opacity: 0.85;
+@media (hover: hover) and (pointer: fine) {
+  .sobremi-cv-button:hover {
+    opacity: 0.85;
+  }
 }
 
 /* ---- Entrada del texto de Sobre mí: título (con scramble, ver script.js),
@@ -1131,16 +1602,12 @@ textarea:focus-visible,
 @media (max-width: 768px) {
   .sobremi {
     margin-left: 0;
-    padding: 15rem 1.2rem 8rem;
     flex-direction: column;
-    gap: 2.5rem;
     height: auto;
   }
 
   .sobremi-photo {
     height: auto;
-    width: 100%;
-    max-width: 320px;
   }
 
   .sobremi-text {
@@ -1163,34 +1630,9 @@ textarea:focus-visible,
 @media (max-width: 768px) {
   .content {
     margin-left: 0;
-    padding: 15rem 1.2rem 8rem;
   }
 }
 @media (max-width: 768px) {
-  .logo-wrap {
-    top: 1.5rem;
-    left: 1.2rem;
-  }
-
-  .logo {
-    width: calc(100% - 2.4rem);
-  }
-
-  .menu {
-    top: 9rem;
-    left: 1.2rem;
-  }
-
-  .menu-item {
-    font-size: 1.3rem;
-  }
-
-  .decor-image {
-    width: 34vw;
-    bottom: 6rem;
-    right: 1rem;
-  }
-
   .contact-button {
     width: calc(100% - 2.4rem);
     left: 1.2rem;
@@ -1225,11 +1667,13 @@ textarea:focus-visible,
   cursor: url('assets/refresh.png') 16 16, pointer; /* mismo cursor que la postal del faro: se dan vuelta */
   touch-action: none;
   user-select: none;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), scale 200ms var(--ease-out);
 }
 
+/* al agarrarla se levanta apenas; la inclinación del arrastre sigue sin demora */
 .brand-card.is-dragging {
-  transition: none;
+  transition: scale 150ms var(--ease-out);
+  scale: 1.03;
   cursor: url('assets/palm-of-hand.png') 16 16, grabbing;
 }
 
@@ -1238,7 +1682,7 @@ textarea:focus-visible,
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: transform 500ms var(--ease-in-out);
 }
 
 .brand-card.is-flipped .brand-card-inner {
@@ -1313,13 +1757,18 @@ textarea:focus-visible,
   font-size: max(0.85rem, 2.1cqw);
   padding: 0.55em 1.2em;
   cursor: url('assets/pointer-white.png') 14 2, pointer;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, scale 160ms var(--ease-out);
 }
 
 /* Hover: el texto pasa de blanco al color de su tarjeta (amarillo, verde o rojo) */
-.brand-card-view:hover,
 .brand-card-view:focus-visible {
   color: var(--card-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-card-view:hover {
+    color: var(--card-color);
+  }
 }
 
 /* Portada con imagen o GIF: llena todo el frente.
@@ -1365,6 +1814,10 @@ textarea:focus-visible,
   .brand-card-inner {
     transition: none;
   }
+
+  .brand-card.is-dragging {
+    scale: 1.01;
+  }
 }
 
 /* Mobile: tarjetas apiladas, sin arrastre (así no pelea con el scroll) */
@@ -1373,7 +1826,6 @@ textarea:focus-visible,
     margin-left: 0;
     width: 100%;
     height: auto;
-    padding: 25rem 1.2rem 12rem;
   }
 
   .branding-board {
@@ -1548,8 +2000,9 @@ body.viewer-open {
     height: 2.4rem; /* mismo alto que los íconos de redes, así quedan alineados */
     display: flex;
     align-items: center;
-    font-size: 0.85rem;
-    padding: 0 0.9rem;
+    font-size: 1rem;
+    padding: 0;
+    gap: 0.3em; /* con flex los espacios de "ES / EN" se pierden */
     z-index: 185;
     opacity: 0;
     visibility: hidden;
@@ -1584,7 +2037,7 @@ body.viewer-open {
     width: 100%;
     height: 2px;
     background: var(--text);
-    transition: transform 0.3s ease, opacity 0.2s ease;
+    transition: transform 200ms var(--ease-out), opacity 150ms var(--ease-out);
   }
 
   body.menu-open .menu-toggle span:nth-child(1) {
@@ -1621,6 +2074,12 @@ body.viewer-open {
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .menu {
+      transform: none;
+    }
+  }
+
   .menu .menu-item {
     font-size: 2.1rem;
     line-height: 1.2;
@@ -1640,68 +2099,40 @@ body.viewer-open {
     display: block;
   }
 
-  /* cascada: Branding baja primero, después Estampas, después Posters,
-     cada uno como saliendo del de arriba */
+  /* al abrir: el espacio se hace rápido y los ítems caen apenas, escalonados.
+     Son transiciones (no keyframes): si lo reabrís a mitad de cierre, siguen desde donde están */
   .menu .submenu-item {
-    animation: submenu-drop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: none; /* anula el fundido de escritorio (submenu-fade-in) */
+    transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
   }
 
-  .menu .submenu li:nth-child(1) .submenu-item {
-    animation-delay: 0s;
-  }
+  .menu .submenu li:nth-child(2) .submenu-item { transition-delay: 40ms; }
+  .menu .submenu li:nth-child(3) .submenu-item { transition-delay: 80ms; }
 
-  .menu .submenu li:nth-child(2) .submenu-item {
-    animation-delay: 0.14s;
-  }
-
-  .menu .submenu li:nth-child(3) .submenu-item {
-    animation-delay: 0.28s;
-  }
-
-  @keyframes submenu-drop {
-    from {
+  /* estado de partida cuando el submenu pasa de display: none a block */
+  @starting-style {
+    .menu-list > li.submenu-open > .submenu .submenu-item {
       opacity: 0;
-      transform: translateY(-100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+      transform: translateY(-0.5rem);
     }
   }
 
-  /* al cerrar: la cascada al revés. Sube Posters primero, después Estampas,
-     después Branding, cada uno metiéndose en el de arriba (script.js oculta
-     el submenu cuando termina) */
+  /* al cerrar: se desvanecen todos juntos, rápido (script.js oculta el submenu al terminar) */
   .menu-list > li.submenu-closing > .submenu .submenu-item {
-    animation: submenu-lift 0.4s cubic-bezier(0.64, 0, 0.78, 0) both;
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition-duration: 120ms;
+    transition-delay: 0ms;
   }
 
-  .menu-list > li.submenu-closing > .submenu li:nth-child(3) .submenu-item {
-    animation-delay: 0s;
-  }
-
-  .menu-list > li.submenu-closing > .submenu li:nth-child(2) .submenu-item {
-    animation-delay: 0.14s;
-  }
-
-  .menu-list > li.submenu-closing > .submenu li:nth-child(1) .submenu-item {
-    animation-delay: 0.28s;
-  }
-
-  @keyframes submenu-lift {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
+  /* venías de otra página de Diseño: el submenu ya estaba abierto, no se anima */
+  .submenu-sin-animacion .menu .submenu-item {
+    transition: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .menu .submenu-item {
-      animation: none;
+      transition: none;
     }
   }
 
@@ -1711,7 +2142,7 @@ body.viewer-open {
     opacity: 0;
     visibility: hidden;
     z-index: 185;
-    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+    transition: opacity 0.25s ease, scale 160ms var(--ease-out), visibility 0s linear 0.25s;
   }
 
   .social-icons {
@@ -1729,21 +2160,21 @@ body.viewer-open {
     opacity: 1;
     visibility: visible;
     transform: none;
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+    transition: opacity 0.25s ease, transform 0.25s ease, scale 160ms var(--ease-out), visibility 0s;
   }
 
   /* al abrir el menú, los textos bajan en cascada (mismo estilo que el submenu de
      Diseño). Se anima cada <li> entero: si el submenu está abierto, baja junto con
      "Diseño". Se reinicia cada vez que abrís el menú */
   body.menu-open .menu-list > li {
-    animation: menu-texto-baja 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: menu-texto-baja 300ms var(--ease-out) both;
   }
 
-  body.menu-open .menu-list > li:nth-child(1) { animation-delay: 0.06s; }
-  body.menu-open .menu-list > li:nth-child(2) { animation-delay: 0.12s; }
-  body.menu-open .menu-list > li:nth-child(3) { animation-delay: 0.18s; }
-  body.menu-open .menu-list > li:nth-child(4) { animation-delay: 0.24s; }
-  body.menu-open .menu-list > li:nth-child(5) { animation-delay: 0.30s; }
+  body.menu-open .menu-list > li:nth-child(1) { animation-delay: 0s; }
+  body.menu-open .menu-list > li:nth-child(2) { animation-delay: 0.04s; }
+  body.menu-open .menu-list > li:nth-child(3) { animation-delay: 0.08s; }
+  body.menu-open .menu-list > li:nth-child(4) { animation-delay: 0.12s; }
+  body.menu-open .menu-list > li:nth-child(5) { animation-delay: 0.16s; }
 
   @keyframes menu-texto-baja {
     from {
@@ -1758,16 +2189,16 @@ body.viewer-open {
   body.menu-open .social-icons a,
   body.menu-open .lang-toggle,
   body.menu-open .contact-button {
-    animation: menu-boton-sube 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: menu-boton-sube 300ms var(--ease-out) both;
   }
 
-  body.menu-open .social-icons a:nth-child(1) { animation-delay: 0.18s; }
-  body.menu-open .social-icons a:nth-child(2) { animation-delay: 0.24s; }
-  body.menu-open .lang-toggle { animation-delay: 0.30s; }
-  body.menu-open .contact-button { animation-delay: 0.36s; }
+  body.menu-open .social-icons a:nth-child(1) { animation-delay: 0.08s; }
+  body.menu-open .social-icons a:nth-child(2) { animation-delay: 0.12s; }
+  body.menu-open .lang-toggle { animation-delay: 0.16s; }
+  body.menu-open .contact-button { animation-delay: 0.2s; }
 
   body.menu-open .contact-button .arrow {
-    animation: menu-flecha-entra 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+    animation: menu-flecha-entra 300ms var(--ease-out) 0.25s both;
   }
 
   @keyframes menu-boton-sube {
@@ -1814,6 +2245,31 @@ body.viewer-open {
   .estampa-hint-text {
     bottom: 1.2rem;
     right: 1.2rem;
+  }
+
+  /* ---- Estampas: en vez de las pilas que se arrastran, todas las prendas en una
+     galería de scroll vertical, como Posters (la arma script.js) ---- */
+  .moodboard-wrap--estampas .moodboard,
+  .estampa-hint-text {
+    display: none;
+  }
+
+  /* el <main> de Estampas queda solo como contenedor de la galería */
+  .moodboard-wrap--estampas {
+    height: auto;
+    padding: 0;
+  }
+
+  .estampa-mobile-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* más aire entre prendas que entre una prenda y su leyenda (0.5rem) */
+    padding: calc(var(--m-bar) + 0.5rem) 1.2rem 2rem;
+  }
+
+  .estampa-mobile-item {
+    width: 100%;
+    height: auto;
   }
 
   /* ---- Posters: galería de scroll vertical, todos uno abajo del otro (sin carrusel) ---- */
@@ -1866,7 +2322,7 @@ body.viewer-open {
     width: min(55vw, 200px);
   }
 
-  /* ---- Páginas con contenido simple (Animación, 3D) ---- */
+  /* ---- Páginas con contenido simple (3D) ---- */
   .content {
     padding: calc(var(--m-bar) + 2rem) 1.2rem 3rem;
     min-height: auto;
@@ -1911,6 +2367,24 @@ body.viewer-open {
 }
 
 /* ============================
+   AL PRESIONAR: el botón se hunde apenas (feedback inmediato, también en el celular).
+   Usa `scale` y no `transform`, para no chocar con las animaciones de entrada
+============================ */
+.contact-submit:active,
+.sobremi-cv-button:active,
+.brand-card-view:active,
+.poster-arrow:active,
+.poster-lightbox-arrow:active {
+  scale: 0.97;
+  transition-duration: 100ms;
+}
+
+.contact-button:active {
+  scale: 0.985; /* barra ancha: con 0.97 los bordes se moverían demasiado */
+  transition-duration: 100ms;
+}
+
+/* ============================
    FUNDIDO SUAVE AL CARGAR IMÁGENES
    (solo las que todavía no cargaron; las que ya están en caché aparecen directo)
 ============================ */
@@ -1919,7 +2393,7 @@ body.viewer-open {
 }
 
 .img-appear {
-  animation: img-aparece 0.5s ease;
+  animation: img-aparece 300ms var(--ease-out);
 }
 
 @keyframes img-aparece {

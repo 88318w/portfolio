@@ -1,18 +1,17 @@
 # Portfolio — Lautaro Saez
 
-Sitio de portfolio personal (diseño, animación y modelado/render 3D). HTML, CSS y JavaScript vanilla — sin frameworks, sin build step.
+Sitio de portfolio personal (diseño y 3D + motion graphics). HTML, CSS y JavaScript vanilla — sin frameworks, sin build step.
 
 ## Estructura
 
 ```
 index.html              → Menu / home con moodboard draggable
+diseno.html             → Hub de Diseño (tres celulares: Branding / Estampas / Posters)
 diseno-branding.html
 diseno-estampas.html
 diseno-posters.html
-animacion.html
 modelado-render.html
 sobre-mi.html
-contacto.html
 style.css
 script.js
 assets/                 → imágenes, gifs, video, cursores custom, cv.pdf

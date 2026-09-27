@@ -2151,4 +2151,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ---- Celular: las piezas de las páginas de scroll (Branding, Posters, Estampas, 3D) entran
+  //      subiendo con un fundido cuando llegan a la pantalla; las que entran juntas, escalonadas ----
+  if (isMobile() && !prefiereMenosMovimiento() && 'IntersectionObserver' in window) {
+    const piezas = document.querySelectorAll(
+      '.brand-mobile-hint, .brand-card, .reel, .poster-mobile-gallery > *, .estampa-mobile-gallery > *'
+    );
+    const obs = new IntersectionObserver((entradas) => {
+      entradas.filter((e) => e.isIntersecting).forEach((e, i) => {
+        e.target.style.transitionDelay = i * 80 + 'ms';
+        e.target.classList.add('is-visible');
+        e.target.addEventListener('transitionend', () => { e.target.style.transitionDelay = ''; }, { once: true });
+        obs.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    piezas.forEach((el) => {
+      el.classList.add('entra-al-scroll');
+      obs.observe(el);
+    });
+  }
+
 });

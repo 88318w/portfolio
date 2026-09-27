@@ -950,226 +950,201 @@ textarea:focus-visible,
 }
 
 /* ============================
-   HUB DE DISEÑO (diseno.html): tres celulares viejos, uno por categoría.
-   Cada uno toma su color de --phone-color y su inclinación de --tilt
-   (definidos en el HTML). Al pasar el mouse se enderezan, suben y se
-   "prende" la luz de la pantalla.
+   HUB DE DISEÑO (diseno.html): tres aparatos (cámara, Game Boy, iPhone), uno por categoría.
+   La imagen de cada aparato tiene la pantalla transparente; detrás va .hub-pantalla con el
+   texto y un efecto de pantalla vieja (líneas de barrido, brillo, franja de interferencia).
+   Al pasar el mouse la pantalla "sintoniza" y se ilumina.
 ============================ */
 .hub {
   margin-left: calc(var(--padding-lateral) + var(--ancho-bloque) + 2vw);
   width: calc(100vw - var(--padding-lateral) - var(--ancho-bloque) - 2vw);
   height: 100vh;
   padding-right: var(--padding-lateral);
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.hub-phones {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(1.5rem, 4vw, 4.5rem);
+/* la composición entera escala junto: las piezas se ubican en % de esta caja */
+.hub-escena {
+  position: relative;
+  width: min(100%, 94vh);
+  aspect-ratio: 720 / 645;
 }
 
-/* entrada: suben en cascada (la animación va en el contenedor, así no pisa el hover) */
-.hub-slot {
-  animation: hub-sube 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hub-aparato {
+  position: absolute;
+  display: block;
+  rotate: var(--rot);
+  transition: scale 250ms var(--ease-out);
+  animation: hub-entra 0.6s var(--ease-out) both;
 }
 
-.hub-slot:nth-child(1) { animation-delay: 0.08s; }
-.hub-slot:nth-child(2) { animation-delay: 0.18s; margin-bottom: 2.5rem; } /* el del medio, un poco más arriba */
-.hub-slot:nth-child(3) { animation-delay: 0.28s; }
+.hub-aparato--iphone { animation-delay: 0.05s; }
+.hub-aparato--camara { animation-delay: 0.13s; }
+.hub-aparato--gameboy { animation-delay: 0.21s; }
 
-@keyframes hub-sube {
+@keyframes hub-entra {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    translate: 0 24px;
   }
 }
 
-.hub-phone {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: clamp(140px, 13vw, 220px);
-  aspect-ratio: 0.43;
-  padding: 9% 9% 10%;
-  box-sizing: border-box;
-  container-type: inline-size; /* los textos de la pantalla escalan con el celular (cqw) */
-  background: var(--phone-color);
-  border-radius: 22% / 11%;
-  box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.12),
-    inset -6px -8px 14px rgba(0, 0, 0, 0.35),
-    inset 6px 6px 12px rgba(255, 255, 255, 0.15),
-    0 18px 30px -12px rgba(0, 0, 0, 0.45);
-  transform: rotate(var(--tilt, 0deg));
-  transition: transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out);
-}
-
-.hub-phone:focus-visible {
-  transform: translateY(-14px) rotate(0deg);
-  box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.12),
-    inset -6px -8px 14px rgba(0, 0, 0, 0.35),
-    inset 6px 6px 12px rgba(255, 255, 255, 0.15),
-    0 30px 40px -14px rgba(0, 0, 0, 0.5);
-}
-
-/* hover solo con mouse: en el celular quedaría "pegado" después del toque */
-@media (hover: hover) and (pointer: fine) {
-  .hub-phone:hover {
-    transform: translateY(-14px) rotate(0deg);
-    box-shadow:
-      inset 0 0 0 2px rgba(255, 255, 255, 0.12),
-      inset -6px -8px 14px rgba(0, 0, 0, 0.35),
-      inset 6px 6px 12px rgba(255, 255, 255, 0.15),
-      0 30px 40px -14px rgba(0, 0, 0, 0.5);
-  }
-}
-
-.hub-speaker {
-  width: 30%;
-  height: 1.4%;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.45);
-  margin-bottom: 7%;
-}
-
-/* pantalla LCD verdosa con texto pixelado */
-.hub-screen {
+.hub-aparato img {
+  position: relative;
+  z-index: 1; /* el aparato va encima; la pantalla se ve por el hueco transparente */
   width: 100%;
-  aspect-ratio: 1 / 1.05;
-  box-sizing: border-box;
-  padding: 8% 9%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: #a9b88a;
-  border-radius: 6%;
-  box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.35), inset 0 6px 12px rgba(0, 0, 0, 0.25);
-  font-family: 'VT323', ui-monospace, monospace;
-  font-size: 9cqw;
-  line-height: 1;
-  color: #1f2a14;
-  transition: background 200ms ease, box-shadow 200ms ease;
-}
-
-/* al pasar el mouse se "prende" la luz de la pantalla */
-.hub-phone:focus-visible .hub-screen {
-  background: #cde89c;
-  box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.3), 0 0 22px rgba(205, 232, 156, 0.75);
+  height: auto;
+  pointer-events: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .hub-phone:hover .hub-screen {
-    background: #cde89c;
-    box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.3), 0 0 22px rgba(205, 232, 156, 0.75);
+  .hub-aparato:hover {
+    scale: 1.03;
   }
 }
 
-.hub-status {
+.hub-aparato:active {
+  scale: 0.98;
+  transition-duration: 100ms;
+}
+
+/* ---- pantalla "viva" ---- */
+.hub-pantalla {
+  --pant-bg: #0a0a0a;
+  --pant-fg: #f2f2f2;
+  position: absolute;
+  /* un poco más grande que el hueco, así no queda ningún borde sin cubrir */
+  left: calc(var(--x) - 0.5%);
+  top: calc(var(--y) - 0.5%);
+  width: calc(var(--w) + 1%);
+  height: calc(var(--h) + 1%);
+  container-type: size;
+  overflow: hidden;
+  background: var(--pant-bg);
+  color: var(--pant-fg);
+  font-family: 'VT323', ui-monospace, monospace;
+  box-shadow: inset 0 0 1.5rem rgba(0, 0, 0, 0.55); /* bordes más oscuros, como un tubo */
+  filter: brightness(0.85);
+  transition: filter 250ms var(--ease-out);
+}
+
+.hub-aparato--gameboy .hub-pantalla { --pant-bg: #9bbc0f; --pant-fg: #0f380f; } /* LCD verde */
+.hub-aparato--camara .hub-pantalla { --pant-bg: #0d1b2a; --pant-fg: #9ee7ff; }
+
+/* líneas de barrido */
+.hub-pantalla::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+
+/* franja de interferencia que baja cada tanto */
+.hub-pantalla::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20%;
+  height: 18%;
+  z-index: 3;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.14), transparent);
+  animation: hub-interferencia 5s linear infinite;
+  pointer-events: none;
+}
+
+.hub-aparato--camara .hub-pantalla::after { animation-delay: -1.7s; }
+.hub-aparato--gameboy .hub-pantalla::after { animation-delay: -3.4s; }
+
+@keyframes hub-interferencia {
+  to { transform: translateY(750%); }
+}
+
+.hub-pantalla-texto {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100cqw;
+  height: 100cqh;
+  translate: -50% -50%;
+  padding: 8cqmin;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
+  line-height: 1;
+  text-shadow: 0 0 0.35em currentColor; /* brillo del fósforo */
 }
 
-/* rayitas de señal, en escalera */
-.hub-signal {
-  width: 1.3em;
-  height: 0.8em;
-  background: linear-gradient(to right,
-    currentColor 0 18%, transparent 18% 27%,
-    currentColor 27% 45%, transparent 45% 54%,
-    currentColor 54% 72%, transparent 72% 81%,
-    currentColor 81%);
-  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+/* aparatos girados 90°: el texto se endereza para leerse a lo largo de la pantalla */
+.hub-pantalla-texto--girada {
+  width: 100cqh;
+  height: 100cqw;
+  rotate: -90deg;
 }
 
-.hub-battery {
-  width: 1.3em;
-  height: 0.6em;
-  box-sizing: border-box;
-  border: 0.12em solid currentColor;
-  padding: 0.08em;
-  background: currentColor content-box;
+.hub-canal,
+.hub-enter {
+  font-size: 9cqmin;
 }
 
 .hub-label {
-  font-size: 15cqw;
+  font-size: 20cqmin;
   letter-spacing: 0.02em;
-  text-align: center;
 }
 
-.hub-enter {
-  font-size: 9cqw;
+/* al pasar el mouse (o con foco): se ilumina, sintoniza y el cursor titila */
+.hub-aparato:focus-visible .hub-pantalla {
+  filter: brightness(1.15);
 }
 
-.hub-phone:focus-visible .hub-enter {
+.hub-aparato:focus-visible .hub-pantalla-texto {
+  animation: hub-sintoniza 400ms steps(6);
+}
+
+.hub-aparato:focus-visible .hub-enter {
   animation: cursor-parpadeo 0.8s steps(1) infinite;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .hub-phone:hover .hub-enter {
+  .hub-aparato:hover .hub-pantalla {
+    filter: brightness(1.15);
+  }
+
+  .hub-aparato:hover .hub-pantalla-texto {
+    animation: hub-sintoniza 400ms steps(6);
+  }
+
+  .hub-aparato:hover .hub-enter {
     animation: cursor-parpadeo 0.8s steps(1) infinite;
   }
 }
 
-/* al tocar (sobre todo en el celular, donde no hay hover): se endereza, sube un poco
-   y se hunde apenas; la pantalla se prende. Presionar es inmediato, soltar vuelve suave */
-.hub-phone:active {
-  transform: translateY(-6px) rotate(0deg) scale(0.98);
-  transition-duration: 100ms;
+.hub-aparato:active .hub-pantalla {
+  filter: brightness(1.15);
 }
 
-.hub-phone:active .hub-screen {
-  background: #cde89c;
-  box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.3), 0 0 22px rgba(205, 232, 156, 0.75);
-  transition-duration: 100ms;
-}
-
-/* botón de navegación redondo */
-.hub-nav {
-  width: 36%;
-  aspect-ratio: 1.6;
-  margin: 9% 0 7%;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
-  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.25);
-}
-
-/* teclado numérico 3 x 4 */
-.hub-keys {
-  flex: 1;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 5cqw 7cqw;
-}
-
-.hub-keys i {
-  border-radius: 40% / 50%;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+@keyframes hub-sintoniza {
+  0% { opacity: 0.2; translate: -53% -50%; }
+  30% { opacity: 0.9; translate: -48% -50%; }
+  60% { opacity: 0.5; translate: -51% -50%; }
+  100% { opacity: 1; translate: -50% -50%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hub-slot {
+  .hub-aparato,
+  .hub-pantalla::after,
+  .hub-aparato:hover .hub-pantalla-texto,
+  .hub-aparato:focus-visible .hub-pantalla-texto {
     animation: none;
   }
 
-  .hub-phone {
-    transition: none;
-  }
-
-  /* sin movimiento: el teléfono no se levanta; la pantalla que se prende alcanza como respuesta */
-  .hub-phone:hover,
-  .hub-phone:focus-visible,
-  .hub-phone:active {
-    transform: rotate(var(--tilt, 0deg));
+  .hub-aparato:hover,
+  .hub-aparato:active {
+    scale: none;
   }
 }
 
@@ -1178,18 +1153,15 @@ textarea:focus-visible,
     margin-left: 0;
     width: 100%;
     height: auto;
-    min-height: 100svh;
     padding: calc(var(--m-bar) + 1rem) 1.2rem 4rem;
+    align-items: flex-start; /* arriba, debajo de la barra, sin quedar flotando en el medio */
   }
 
-  .hub-phones {
-    gap: 4vw;
-  }
-
-  .hub-phone {
-    width: 24vw;
+  .hub-escena {
+    width: 100%;
   }
 }
+
 
 /* ============================
    CARRUSEL DE DETALLE — ESTAMPAS (sin zoom)

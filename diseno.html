@@ -36,52 +36,46 @@
     </ul>
   </nav>
 
-  <!-- Hub de Diseño: tres celulares viejos, cada uno lleva a una categoría.
-       Están dibujados con CSS (ver "HUB DE DISEÑO" en style.css); si más adelante
-       hacés tu propia imagen/render, se reemplaza el contenido de cada .hub-phone -->
+  <!-- Hub de Diseño: tres aparatos (cámara, Game Boy, iPhone), uno por categoría.
+       Las imágenes tienen la pantalla transparente: la pantalla "viva" (texto + efecto CRT)
+       va detrás, en .hub-pantalla, ubicada con --x/--y/--w/--h en % de la imagen.
+       Cada aparato: posición y ancho en % de la escena, inclinación en --rot -->
   <main class="hub" id="contenido">
     <h1 class="visualmente-oculto" data-i18n="titulo.diseno">Diseño</h1>
-    <div class="hub-phones">
-
-      <div class="hub-slot">
-        <a href="diseno-branding.html" class="hub-phone" style="--phone-color: #d4145a; --tilt: -7deg;">
-          <span class="hub-speaker" aria-hidden="true"></span>
-          <span class="hub-screen">
-            <span class="hub-status" aria-hidden="true"><span class="hub-signal"></span><span class="hub-battery"></span></span>
-            <span class="hub-label" data-i18n="hub.branding">BRANDING</span>
-            <span class="hub-enter" aria-hidden="true" data-i18n="hub.enter">&gt; ENTRAR</span>
-          </span>
-          <span class="hub-nav" aria-hidden="true"></span>
-          <span class="hub-keys" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-        </a>
-      </div>
-
-      <div class="hub-slot">
-        <a href="diseno-estampas.html" class="hub-phone" style="--phone-color: #198655; --tilt: 3deg;">
-          <span class="hub-speaker" aria-hidden="true"></span>
-          <span class="hub-screen">
-            <span class="hub-status" aria-hidden="true"><span class="hub-signal"></span><span class="hub-battery"></span></span>
-            <span class="hub-label" data-i18n="hub.estampas">ESTAMPAS</span>
-            <span class="hub-enter" aria-hidden="true" data-i18n="hub.enter">&gt; ENTRAR</span>
-          </span>
-          <span class="hub-nav" aria-hidden="true"></span>
-          <span class="hub-keys" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-        </a>
-      </div>
-
-      <div class="hub-slot">
-        <a href="diseno-posters.html" class="hub-phone" style="--phone-color: #1b1464; --tilt: -3deg;">
-          <span class="hub-speaker" aria-hidden="true"></span>
-          <span class="hub-screen">
-            <span class="hub-status" aria-hidden="true"><span class="hub-signal"></span><span class="hub-battery"></span></span>
+    <div class="hub-escena">
+      <a href="diseno-posters.html" class="hub-aparato hub-aparato--iphone" style="--rot: 97deg; left: 17.5%; top: 44%; width: 30.3%; z-index: 1;">
+        <span class="hub-pantalla" style="--x: 8.55%; --y: 17.55%; --w: 83.9%; --h: 64.8%;" aria-hidden="true">
+          <span class="hub-pantalla-texto hub-pantalla-texto--girada">
+            <span class="hub-canal">CH 3</span>
             <span class="hub-label" data-i18n="hub.posters">POSTERS</span>
-            <span class="hub-enter" aria-hidden="true" data-i18n="hub.enter">&gt; ENTRAR</span>
+            <span class="hub-enter" data-i18n="hub.enter">&gt; ENTRAR</span>
           </span>
-          <span class="hub-nav" aria-hidden="true"></span>
-          <span class="hub-keys" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-        </a>
-      </div>
-
+        </span>
+        <img src="assets/iphone.png" alt="" width="1017" height="1989">
+        <span class="visualmente-oculto" data-i18n="hub.posters">POSTERS</span>
+      </a>
+      <a href="diseno-branding.html" class="hub-aparato hub-aparato--camara" style="--rot: 8deg; left: 42.6%; top: 26%; width: 55.4%; z-index: 2;">
+        <span class="hub-pantalla" style="--x: 5.48%; --y: 30.8%; --w: 49.6%; --h: 56.6%;" aria-hidden="true">
+          <span class="hub-pantalla-texto">
+            <span class="hub-canal">CH 1</span>
+            <span class="hub-label" data-i18n="hub.branding">BRANDING</span>
+            <span class="hub-enter" data-i18n="hub.enter">&gt; ENTRAR</span>
+          </span>
+        </span>
+        <img src="assets/camara.png" alt="" width="1004" height="666">
+        <span class="visualmente-oculto" data-i18n="hub.branding">BRANDING</span>
+      </a>
+      <a href="diseno-estampas.html" class="hub-aparato hub-aparato--gameboy" style="--rot: 72deg; left: 15.7%; top: -4.5%; width: 35.2%; z-index: 3;">
+        <span class="hub-pantalla" style="--x: 23.1%; --y: 13.18%; --w: 53.7%; --h: 29.9%;" aria-hidden="true">
+          <span class="hub-pantalla-texto hub-pantalla-texto--girada">
+            <span class="hub-canal">CH 2</span>
+            <span class="hub-label" data-i18n="hub.estampas">ESTAMPAS</span>
+            <span class="hub-enter" data-i18n="hub.enter">&gt; ENTRAR</span>
+          </span>
+        </span>
+        <img src="assets/gameboy.png" alt="" width="974" height="1608">
+        <span class="visualmente-oculto" data-i18n="hub.estampas">ESTAMPAS</span>
+      </a>
     </div>
   </main>
 

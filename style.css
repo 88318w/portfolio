@@ -755,6 +755,17 @@ textarea:focus-visible,
   --poster-color: transparent;
 }
 
+/* piezas que solo van en el collage del celular (ej: los auriculares) */
+.draggable-img.solo-celular {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .draggable-img.solo-celular {
+    display: block;
+  }
+}
+
 .draggable-img.fade-in-entrance {
   animation: poster-fade-in 300ms var(--ease-out) both;
 }

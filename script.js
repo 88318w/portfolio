@@ -33,6 +33,7 @@ const TRANSLATIONS = {
     'hub.hint': 'Elegí una categoría',
     'contact.button': 'CONTACTO',
     'estampa.hint': 'Click para ver en detalle',
+    'piezas.reacomodar': '↺ Reacomodar',
     'pieza.para': 'Para',
     'pieza.personal': 'Proyecto personal',
     'pieza.personales': 'Proyectos personales',
@@ -91,6 +92,7 @@ const TRANSLATIONS = {
     'hub.hint': 'Pick a category',
     'contact.button': 'CONTACT',
     'estampa.hint': 'Click to see in detail',
+    'piezas.reacomodar': '↺ Reset',
     'pieza.para': 'For',
     'pieza.personal': 'Personal project',
     'pieza.personales': 'Personal projects',
@@ -380,6 +382,39 @@ function conBordeElastico(valor, min, max, dimension) {
 //   habilitado : () => false para no arrastrar (ej: en el teléfono), pero seguir detectando toques
 //   ignorar    : (evento) => true para no agarrar (ej: tocaste un botón adentro)
 //   alAgarrar / alInclinar(grados) / alSoltar({ movio }) : lo propio de cada tablero
+// ---- Botón "reacomodar": devuelve las piezas arrastradas a su lugar original, deslizándose.
+//      Aparece recién cuando moviste alguna. `restaurar` vuelve a poner sus left/top originales.
+//      Devuelve una función para avisar "se movió una pieza" (la llama cada tablero al soltar) ----
+function crearBotonReacomodar(piezas, restaurar) {
+  const boton = document.createElement('button');
+  boton.type = 'button';
+  boton.className = 'reacomodar';
+  boton.dataset.i18n = 'piezas.reacomodar';
+  boton.textContent = TRANSLATIONS[currentLang]['piezas.reacomodar'];
+  document.body.appendChild(boton);
+
+  boton.addEventListener('click', () => {
+    const antes = piezas.map((p) => p.getBoundingClientRect());
+    restaurar();
+    if (!prefiereMenosMovimiento()) {
+      // cada pieza sale de donde estaba y viaja a su lugar (el cambio real ya está hecho)
+      piezas.forEach((p, i) => {
+        const r = p.getBoundingClientRect();
+        const dx = antes[i].left - r.left;
+        const dy = antes[i].top - r.top;
+        if (!dx && !dy) return;
+        p.animate([{ translate: `${dx}px ${dy}px` }, { translate: '0 0' }], {
+          duration: 500,
+          easing: 'cubic-bezier(0.77, 0, 0.175, 1)', // --ease-in-out: movimiento en pantalla
+        });
+      });
+    }
+    boton.classList.remove('is-visible');
+  });
+
+  return () => boton.classList.add('is-visible');
+}
+
 function seguirYSoltar(el, { contenedor, habilitado = () => true, ignorar = () => false, alAgarrar, alInclinar, alSoltar }) {
   const rastreador = crearRastreador();
   let activo = false;
@@ -786,6 +821,26 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // ---- Compu: el submenu se abre y se cierra con la misma animación que en el celular,
+    //      en vez de aparecer/desaparecer de golpe al cambiar de página ----
+    // llegaste a Diseño desde otra sección: el espacio crece (los ítems aparecen con su fundido)
+    if (isDisenoPage && !isMobile() && !prefiereMenosMovimiento()
+        && !document.documentElement.classList.contains('submenu-sin-animacion')) {
+      animarAltura(0, submenu.scrollHeight, ABRIR_MS, CURVA_ABRIR);
+    }
+    // salís de Diseño hacia otra sección: primero se cierra, después cambia la página
+    if (isDisenoPage) {
+      document.querySelectorAll('.menu-list > li > .menu-item, .logo-wrap a').forEach((link) => {
+        if (link === disenoLink) return;
+        link.addEventListener('click', (e) => {
+          if (isMobile() || prefiereMenosMovimiento() || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+          e.preventDefault();
+          cerrarSubmenu();
+          setTimeout(() => { location.href = link.href; }, CERRAR_MS);
+        });
+      });
+    }
+
     disenoLink.addEventListener('click', (e) => {
       if (!isMobile()) return; // en desktop sigue siendo un link
       e.preventDefault();
@@ -1007,6 +1062,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Arrastre: sigue al dedo, se inclina hacia donde la llevás, y al soltarla
     //      sigue de largo con el envión (ver seguirYSoltar, arriba de todo) ----
+    const avisarMovido = crearBotonReacomodar([...items], placeItems);
     items.forEach((img) => {
       const baseRotation = () => parseFloat(img.dataset.rotation) || 0;
       seguirYSoltar(img, {
@@ -1018,7 +1074,10 @@ document.addEventListener('DOMContentLoaded', () => {
         alSoltar: ({ movio }) => {
           img.classList.remove('is-dragging');
           img.style.transform = `rotate(${baseRotation()}deg)`; // vuelve a su inclinación base, con el transition suave del CSS
-          if (movio) return;
+          if (movio) {
+            avisarMovido();
+            return;
+          }
           // no se arrastró: fue un toque/click
           if (img.classList.contains('flip-postcard')) {
             // el faro: da vuelta como una postal (eje Y), en vez de girar 360
@@ -1816,7 +1875,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const hubEscena = document.querySelector('.hub-escena');
   if (hubEscena) {
     let arriba = 10;
-    hubEscena.querySelectorAll('.hub-aparato').forEach((aparato) => {
+    const aparatos = [...hubEscena.querySelectorAll('.hub-aparato')];
+    const originales = aparatos.map((a) => [a.style.left, a.style.top, a.style.zIndex]);
+    const avisarMovido = crearBotonReacomodar(aparatos, () => {
+      aparatos.forEach((a, i) => { [a.style.left, a.style.top, a.style.zIndex] = originales[i]; });
+    });
+    aparatos.forEach((aparato) => {
       let arrastrado = false;
       seguirYSoltar(aparato, {
         contenedor: hubEscena,
@@ -1831,6 +1895,7 @@ document.addEventListener('DOMContentLoaded', () => {
           aparato.classList.remove('is-dragging');
           aparato.style.transform = '';
           arrastrado = movio;
+          if (movio) avisarMovido();
         },
       });
       aparato.addEventListener('click', (e) => {
@@ -1902,6 +1967,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (brandingBoard) {
     const cards = brandingBoard.querySelectorAll('.brand-card');
+    const avisarMovido = crearBotonReacomodar([...cards], () => {
+      cards.forEach((c) => {
+        c.style.left = c.dataset.x + '%';
+        c.style.top = c.dataset.y + '%';
+        c.style.zIndex = '';
+      });
+    });
     let topZ = 10;
 
     cards.forEach((card) => {
@@ -1984,6 +2056,7 @@ document.addEventListener('DOMContentLoaded', () => {
           card.classList.remove('is-dragging');
           card.style.transform = `rotate(${rot()}deg)`;
           if (!movio) flip(card); // fue un click, no un arrastre
+          else avisarMovido();
         },
       });
 

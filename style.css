@@ -320,6 +320,12 @@ textarea:focus-visible,
   text-decoration: underline;
 }
 
+/* al salir de Diseño (compu): los ítems se desvanecen mientras el espacio se cierra (script.js) */
+.menu-list > li.submenu-closing > .submenu .submenu-item {
+  opacity: 0;
+  transition: opacity 120ms var(--ease-out);
+}
+
 /* venías de otra página de Diseño: el submenu ya estaba abierto, no se vuelve a animar
    (la clase la pone script.js; le gana también a la cascada del teléfono) */
 .submenu-sin-animacion .menu .submenu-item {
@@ -544,6 +550,55 @@ textarea:focus-visible,
   letter-spacing: 0.03em;
   padding: 0.45rem 0; /* área de toque sin caja visible */
   cursor: url('assets/pointer.png') 14 2, pointer;
+}
+
+/* ---- "↺ Reacomodar": devuelve las piezas arrastradas a su lugar (script.js).
+        Abajo a la derecha, con la misma letra que el botón de idioma; aparece al mover una pieza ---- */
+.reacomodar {
+  position: fixed;
+  right: var(--padding-lateral);
+  bottom: var(--padding-vertical);
+  z-index: 120; /* debajo del menú del celular (180): con el menú abierto queda tapado */
+  background: none;
+  border: none;
+  padding: 0.45rem 0;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  cursor: url('assets/pointer.png') 14 2, pointer;
+  opacity: 0;
+  visibility: hidden;
+  translate: 0 0.4rem;
+  transition: opacity 200ms var(--ease-out), translate 200ms var(--ease-out), color var(--transition-suave), visibility 0s linear 200ms;
+}
+
+.reacomodar.is-visible {
+  opacity: 1;
+  visibility: visible;
+  translate: none;
+  transition: opacity 200ms var(--ease-out), translate 200ms var(--ease-out), color var(--transition-suave), visibility 0s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .reacomodar:hover {
+    color: var(--gris-menu);
+  }
+}
+
+@media (max-width: 768px) {
+  .reacomodar {
+    right: 1.2rem;
+    bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reacomodar,
+  .reacomodar.is-visible {
+    translate: none;
+  }
 }
 
 /* "ES / EN" como el menú: el idioma actual en negro, el otro en gris */

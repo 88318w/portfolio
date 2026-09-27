@@ -1921,6 +1921,20 @@ textarea:focus-visible,
   overscroll-behavior: contain;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  /* la columna de imágenes entra subiendo junto con el fundido del fondo, y sale por el mismo camino */
+  translate: 0 3rem;
+  transition: translate 300ms var(--ease-out);
+}
+
+.brand-viewer.is-open .brand-viewer-scroll {
+  translate: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-viewer-scroll {
+    translate: none;
+    transition: none;
+  }
 }
 
 .brand-viewer-scroll img {

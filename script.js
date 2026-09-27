@@ -220,6 +220,12 @@ const CONTEXTO_PIEZAS = {
 
 // Escribe en `el` la línea de contexto de una pieza (o la deja vacía si no tiene datos)
 //   plural: true → para el encabezado que resume a toda una galería ("Proyectos personales")
+// En los visores, la leyenda aparece con un fundido corto al cambiar de pieza, a la par de la imagen
+// (solo opacidad: el texto se lee enseguida, y sirve igual con "reducir movimiento")
+function aparecerLeyenda(el) {
+  el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' });
+}
+
 function pintarContexto(el, pieza, plural = el._plural) {
   el._pieza = pieza; // se guarda para volver a pintarla si cambia el idioma
   el._plural = plural;
@@ -1203,7 +1209,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const prevBtn = el.querySelector('.estampa-detail-prev');
       const nextBtn = el.querySelector('.estampa-detail-next');
       const contexto = el.querySelector('.pieza-contexto');
-      const mostrarContexto = () => pintarContexto(contexto, CONTEXTO_PIEZAS.estampas[detailIndex]);
+      const mostrarContexto = () => {
+        pintarContexto(contexto, CONTEXTO_PIEZAS.estampas[detailIndex]);
+        aparecerLeyenda(contexto);
+      };
 
       // ---- Cambio de mockup con dirección: el actual se corre un poco hacia el lado
       //      contrario y se apaga, el nuevo entra desde el lado hacia el que vas.
@@ -1677,6 +1686,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setLightboxSrc(i) {
       setCarouselSrc(lightboxImg, i);
       pintarContexto(lightboxContexto, (CONTEXTO_PIEZAS[folder] || [])[i - 1]);
+      aparecerLeyenda(lightboxContexto);
       const full = new Image();
       full.onload = () => {
         if (index === i) {

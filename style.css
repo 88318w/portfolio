@@ -320,8 +320,16 @@ textarea:focus-visible,
   text-decoration: underline;
 }
 
-/* al salir de Diseño (compu): los ítems se desvanecen mientras el espacio se cierra (script.js) */
+/* al salir de Diseño (compu): los ítems se desvanecen mientras el espacio se cierra (script.js).
+   animation: none porque el fundido de entrada (submenu-fade-in, con fill "both") dejaba la
+   opacidad clavada en 1 y los ítems no se iban; overflow: hidden recorta lo que quede mientras
+   el alto se achica, así los textos de abajo no se pisan con el submenú */
+.menu-list > li.submenu-closing > .submenu {
+  overflow: hidden;
+}
+
 .menu-list > li.submenu-closing > .submenu .submenu-item {
+  animation: none;
   opacity: 0;
   transition: opacity 120ms var(--ease-out);
 }

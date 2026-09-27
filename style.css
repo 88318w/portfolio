@@ -1525,28 +1525,8 @@ textarea:focus-visible,
   height: auto;
 }
 
-.sobremi-cv-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--accent-bg);
-  color: var(--accent-text);
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
-  padding: 0.7rem 1.4rem;
-  transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
-  cursor: url('assets/pointer-white.png') 14 2, pointer;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .sobremi-cv-button:hover {
-    opacity: 0.85;
-  }
-}
-
 /* ---- Entrada del texto de Sobre mí: título (con scramble, ver script.js),
-   párrafos y fila de apps/CV entran en cascada con un fundido + subida corta.
+   párrafos y fila de apps entran en cascada con un fundido + subida corta.
    Una sola vez al cargar; con "reducir movimiento" aparece directo ---- */
 @media (prefers-reduced-motion: no-preference) {
   .sobremi-text > * {
@@ -2410,7 +2390,6 @@ body.viewer-open {
    Usa `scale` y no `transform`, para no chocar con las animaciones de entrada
 ============================ */
 .contact-submit:active,
-.sobremi-cv-button:active,
 .brand-card-view:active,
 .poster-arrow:active,
 .poster-lightbox-arrow:active {

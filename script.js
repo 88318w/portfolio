@@ -51,7 +51,6 @@ const TRANSLATIONS = {
     'sobremi.title': 'SobreMi',
     'sobremi.p1': 'Soy Lautaro Saez, diseñador gráfico, animador y artista 3D. Formé mi mirada a través del estudio formal del diseño, pero encontré mi voz en el cruce entre lo prolijo y lo experimental: un balance entre composiciones limpias y texturas crudas que rompen la perfección. Cada proyecto es una excusa para probar algo nuevo, ya sea en una pieza gráfica, una animación o una escena 3D.',
     'sobremi.p2': 'Trabajo principalmente con Illustrator, Blender y After Effects, moviéndome libremente entre el diseño 2D y el 3D según lo que pida cada idea.',
-    'sobremi.cv': 'CV',
     'modal.title': 'Contacto',
     'modal.name': 'Nombre',
     'modal.email': 'Email',
@@ -110,7 +109,6 @@ const TRANSLATIONS = {
     'sobremi.title': 'About Me',
     'sobremi.p1': "I'm Lautaro Saez, a graphic designer, animator and 3D artist. I built my eye through formal design training, but found my voice at the crossroads between polished and experimental: a balance between clean compositions and raw textures that break the perfection. Every project is a chance to try something new, whether it's a graphic piece, an animation, or a 3D scene.",
     'sobremi.p2': 'I mainly work with Illustrator, Blender and After Effects, moving freely between 2D and 3D design depending on what each idea calls for.',
-    'sobremi.cv': 'CV',
     'modal.title': 'Contact',
     'modal.name': 'Name',
     'modal.email': 'Email',
@@ -1865,7 +1863,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // assets/branding/<proyecto>/<proyecto>-1.jpg, -2.jpg, etc.
   // Para agregar una imagen: subila con el número siguiente y sumá 1 acá.
   const BRANDING_PROJECTS = {
-    obsolet: 4,
+    obsolet: 5,
     benzaiten: 3,
     karamelo: 3,
   };

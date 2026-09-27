@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lautaro Saez — Estampas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="logo-wrap">
+    <a href="index.html">
+      <img src="assets/logo.png" alt="Lautaro Saez" class="logo">
+    </a>
+  </header>
+
+  <nav class="menu">
+    <ul class="menu-list">
+      <li><a href="index.html" class="menu-item" data-i18n="nav.menu">Menu</a></li>
+      <li>
+        <a href="diseno-branding.html" class="menu-item" data-i18n="nav.diseno">Diseño</a>
+        <ul class="submenu">
+          <li><a href="diseno-branding.html" class="submenu-item submenu-branding" data-i18n="nav.branding">- Branding</a></li>
+          <li><a href="diseno-estampas.html" class="submenu-item submenu-estampas active" data-i18n="nav.estampas">- Estampas</a></li>
+          <li><a href="diseno-posters.html" class="submenu-item submenu-posters" data-i18n="nav.posters">- Posters</a></li>
+        </ul>
+      </li>
+      <li><a href="animacion.html" class="menu-item" data-i18n="nav.animacion">Animación</a></li>
+      <li><a href="modelado-render.html" class="menu-item" data-i18n="nav.modelado">Modelado y Render 3D</a></li>
+      <li><a href="sobre-mi.html" class="menu-item" data-i18n="nav.sobremi">SobreMi</a></li>
+    </ul>
+  </nav>
+
+  <div class="moodboard-wrap">
+    <div class="moodboard" id="moodboard">
+      <img src="assets/estampas/grupo.webp" alt="Estampa — hoodie KRML" class="draggable-img no-spin idle-wiggle opens-carousel" data-mx="2" data-my="4" data-mw="80" data-x="0.9" data-y="5.1" style="width:46%; z-index:1;">
+      <img src="assets/estampas/grupo2.webp" alt="Estampa — Always Lucky" class="draggable-img no-spin idle-wiggle opens-carousel" data-mx="18" data-my="46" data-mw="80" data-x="47.1" data-y="32.5" style="width:46%; z-index:2;">
+    </div>
+  </div>
+
+  <p class="estampa-hint-text" data-i18n="estampa.hint">Click para ver en detalle</p>
+
+  <div class="social-icons">
+    <a href="https://instagram.com/88318w" target="_blank" rel="noopener" aria-label="Instagram">
+      <img src="assets/instagram.png" alt="Instagram">
+    </a>
+    <a href="https://www.tiktok.com/@88318w" target="_blank" rel="noopener" aria-label="TikTok">
+      <img src="assets/tiktok.png" alt="TikTok">
+    </a>
+  </div>
+
+  <button type="button" class="contact-button" id="contact-trigger">
+    <span data-i18n="contact.button">CONTACTO</span>
+    <img src="assets/arrow.png" alt="" class="arrow">
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lautaro Saez — Sobre Mi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="logo-wrap">
+    <a href="index.html">
+      <img src="assets/logo.png" alt="Lautaro Saez" class="logo">
+    </a>
+  </header>
+
+  <nav class="menu">
+    <ul class="menu-list">
+      <li><a href="index.html" class="menu-item" data-i18n="nav.menu">Menu</a></li>
+      <li><a href="diseno-branding.html" class="menu-item" data-i18n="nav.diseno">Diseño</a></li>
+      <li><a href="animacion.html" class="menu-item" data-i18n="nav.animacion">Animación</a></li>
+      <li><a href="modelado-render.html" class="menu-item" data-i18n="nav.modelado">Modelado y Render 3D</a></li>
+      <li><a href="sobre-mi.html" class="menu-item active" data-i18n="nav.sobremi">SobreMi</a></li>
+    </ul>
+  </nav>
+
+  <main class="sobremi">
+    <div class="sobremi-photo">
+      <video src="assets/sobre-mi.mp4" poster="assets/sobre-mi-poster.jpg" autoplay loop muted playsinline></video>
+    </div>
+
+    <div class="sobremi-text">
+      <h1 data-i18n="sobremi.title">SobreMi</h1>
+      <p class="sobremi-parrafo-principal" data-i18n="sobremi.p1">
+        Soy Lautaro Saez, diseñador gráfico, animador y artista 3D. Formé mi mirada a través del
+        estudio formal del diseño, pero encontré mi voz en el cruce entre lo prolijo y lo experimental:
+        un balance entre composiciones limpias y texturas crudas que rompen la perfección. Cada
+        proyecto es una excusa para probar algo nuevo, ya sea en una pieza gráfica, una animación
+        o una escena 3D.
+      </p>
+      <p class="sobremi-parrafo-secundario" data-i18n="sobremi.p2">
+        Trabajo principalmente con Illustrator, Blender y After Effects, moviéndome libremente
+        entre el diseño 2D y el 3D según lo que pida cada idea.
+      </p>
+
+      <div class="sobremi-apps-row">
+        <img src="assets/apps.png" alt="Photoshop, Illustrator, After Effects, InDesign, Blender" class="sobremi-apps">
+        <a href="assets/cv.pdf" download class="sobremi-cv-button" data-i18n="sobremi.cv">CV</a>
+      </div>
+    </div>
+  </main>
+
+  <div class="social-icons">
+    <a href="https://instagram.com/88318w" target="_blank" rel="noopener" aria-label="Instagram">
+      <img src="assets/instagram.png" alt="Instagram">
+    </a>
+    <a href="https://www.tiktok.com/@88318w" target="_blank" rel="noopener" aria-label="TikTok">
+      <img src="assets/tiktok.png" alt="TikTok">
+    </a>
+  </div>
+
+  <button type="button" class="contact-button" id="contact-trigger">
+    <span data-i18n="contact.button">CONTACTO</span>
+    <img src="assets/arrow.png" alt="" class="arrow">
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+# Subir todos los archivos exactamente como están (sin convertir finales de línea).
+# Evita que Git "arregle" PDFs, modelos 3D u otros binarios y los corrompa.
+* -text

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lautaro Saez — Branding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="logo-wrap">
+    <a href="index.html">
+      <img src="assets/logo.png" alt="Lautaro Saez" class="logo">
+    </a>
+  </header>
+
+  <nav class="menu">
+    <ul class="menu-list">
+      <li><a href="index.html" class="menu-item" data-i18n="nav.menu">Menu</a></li>
+      <li>
+        <a href="diseno-branding.html" class="menu-item" data-i18n="nav.diseno">Diseño</a>
+        <ul class="submenu">
+          <li><a href="diseno-branding.html" class="submenu-item submenu-branding active" data-i18n="nav.branding">- Branding</a></li>
+          <li><a href="diseno-estampas.html" class="submenu-item submenu-estampas" data-i18n="nav.estampas">- Estampas</a></li>
+          <li><a href="diseno-posters.html" class="submenu-item submenu-posters" data-i18n="nav.posters">- Posters</a></li>
+        </ul>
+      </li>
+      <li><a href="animacion.html" class="menu-item" data-i18n="nav.animacion">Animación</a></li>
+      <li><a href="modelado-render.html" class="menu-item" data-i18n="nav.modelado">Modelado y Render 3D</a></li>
+      <li><a href="sobre-mi.html" class="menu-item" data-i18n="nav.sobremi">SobreMi</a></li>
+    </ul>
+  </nav>
+
+
+  <main class="branding-wrap">
+    <p class="brand-mobile-hint" data-i18n="branding.hint.mobile">Tocá una tarjeta para darla vuelta</p>
+    <div class="branding-board" id="branding-board">
+
+      <article class="brand-card" data-project="obsolet" data-x="5" data-y="33" data-rotation="-4"
+               style="--card-color: #ffff00; --card-w: 35%; --card-ratio: 0.87;"
+               tabindex="0" aria-label="Obsolet: tocá para ver la descripción">
+        <div class="brand-card-inner">
+          <div class="brand-card-face brand-card-front brand-card-front--cover">
+            <img src="assets/branding/obsolet/portada.webp" alt="" class="brand-card-cover" draggable="false">
+            <h2 class="brand-card-title">OBSOLET</h2>
+            <p class="brand-card-meta">Clothing Brand // 2024</p>
+            <button type="button" class="brand-card-view" data-project="obsolet" data-i18n="branding.view">VER</button>
+          </div>
+          <div class="brand-card-face brand-card-back">
+            <p class="brand-card-desc" data-i18n="branding.obsolet.desc"></p>
+            <button type="button" class="brand-card-view" data-project="obsolet" tabindex="-1" data-i18n="branding.view">VER</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="brand-card" data-project="benzaiten" data-x="41" data-y="5" data-rotation="-8"
+               style="--card-color: #3bb54a; --card-w: 50%; --card-ratio: 1.63;"
+               tabindex="0" aria-label="Benzaiten: tocá para ver la descripción">
+        <div class="brand-card-inner">
+          <div class="brand-card-face brand-card-front">
+            <h2 class="brand-card-title">BENZAITEN</h2>
+            <p class="brand-card-meta">Spa &amp; Wellness // 2026</p>
+            <button type="button" class="brand-card-view" data-project="benzaiten" data-i18n="branding.view">VER</button>
+          </div>
+          <div class="brand-card-face brand-card-back">
+            <p class="brand-card-desc" data-i18n="branding.benzaiten.desc"></p>
+            <button type="button" class="brand-card-view" data-project="benzaiten" tabindex="-1" data-i18n="branding.view">VER</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="brand-card" data-project="karamelo" data-x="44" data-y="55" data-rotation="5"
+               style="--card-color: #f05266; --card-w: 35%; --card-ratio: 1.1;"
+               tabindex="0" aria-label="Karamelo: tocá para ver la descripción">
+        <div class="brand-card-inner">
+          <div class="brand-card-face brand-card-front">
+            <h2 class="brand-card-title">KARAMELO</h2>
+            <p class="brand-card-meta">Clothing Brand // 2025</p>
+            <button type="button" class="brand-card-view" data-project="karamelo" data-i18n="branding.view">VER</button>
+          </div>
+          <div class="brand-card-face brand-card-back">
+            <p class="brand-card-desc" data-i18n="branding.karamelo.desc"></p>
+            <button type="button" class="brand-card-view" data-project="karamelo" tabindex="-1" data-i18n="branding.view">VER</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <p class="estampa-hint-text" data-i18n="branding.hint">Arrastrá las tarjetas y hacé click para darlas vuelta</p>
+
+  <div class="social-icons">
+    <a href="https://instagram.com/88318w" target="_blank" rel="noopener" aria-label="Instagram">
+      <img src="assets/instagram.png" alt="Instagram">
+    </a>
+    <a href="https://www.tiktok.com/@88318w" target="_blank" rel="noopener" aria-label="TikTok">
+      <img src="assets/tiktok.png" alt="TikTok">
+    </a>
+  </div>
+
+  <button type="button" class="contact-button" id="contact-trigger">
+    <span data-i18n="contact.button">CONTACTO</span>
+    <img src="assets/arrow.png" alt="" class="arrow">
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

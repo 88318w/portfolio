@@ -1,0 +1,1934 @@
+/* ============================
+   RESET BÁSICO
+============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: background var(--transition-suave), color var(--transition-suave);
+  cursor: url('assets/cursor.png') 4 4, auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: url('assets/pointer.png') 14 2, pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ============================
+   FOCO VISIBLE (accesibilidad — navegación por teclado)
+============================ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--negro);
+  outline-offset: 3px;
+}
+
+/* ============================
+   VARIABLES
+============================ */
+:root {
+  --gris-menu: #757575;
+  --negro: #111111;
+  --padding-lateral: 3vw;
+  --padding-vertical: 3vh;
+  --ancho-bloque: min(30vw, 540px);
+  --transition-suave: 0.25s ease;
+
+  /* tema claro (default) */
+  --bg: #ffffff;
+  --text: #111111;
+  --accent-bg: #111111;
+  --accent-text: #ffffff;
+  --surface: #ffffff;
+  --border-subtle: #d9d9d9;
+  --placeholder-color: #cfcfcf;
+}
+
+/* ============================
+   TRANSICIÓN ENTRE PÁGINAS (View Transitions)
+   La página vieja se va rápido y la nueva entra con un fundido + subida corta.
+   El logo y la hamburguesa tienen nombre propio: quedan quietos, no parpadean.
+   Navegadores sin soporte (ej: Firefox) simplemente cambian de página como antes.
+============================ */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: pagina-sale 0.15s ease-out both;
+}
+
+::view-transition-new(root) {
+  animation: pagina-entra 0.28s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+}
+
+@keyframes pagina-sale {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes pagina-entra {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.logo-wrap {
+  view-transition-name: logo;
+}
+
+.menu-toggle {
+  view-transition-name: menu-toggle;
+}
+
+/* Desktop: menú, redes, contacto e idioma son fijos en todas las páginas,
+   así que no se animan — solo se mueve el contenido de la derecha.
+   (En el teléfono viven dentro del menú desplegable, por eso solo desktop.) */
+@media (min-width: 769px) {
+  .menu {
+    view-transition-name: menu;
+  }
+
+  .social-icons {
+    view-transition-name: redes;
+  }
+
+  .contact-button {
+    view-transition-name: contacto;
+  }
+
+  .lang-toggle {
+    view-transition-name: idioma;
+  }
+}
+
+/* los elementos fijos cambian al instante, sin fundido ni movimiento */
+::view-transition-group(logo),
+::view-transition-group(menu-toggle),
+::view-transition-group(menu),
+::view-transition-group(redes),
+::view-transition-group(contacto),
+::view-transition-group(idioma) {
+  animation: none;
+}
+
+::view-transition-old(logo),
+::view-transition-old(menu-toggle),
+::view-transition-old(menu),
+::view-transition-old(redes),
+::view-transition-old(contacto),
+::view-transition-old(idioma) {
+  display: none;
+}
+
+::view-transition-new(logo),
+::view-transition-new(menu-toggle),
+::view-transition-new(menu),
+::view-transition-new(redes),
+::view-transition-new(contacto),
+::view-transition-new(idioma) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* ============================
+   LOGO (fixed, arriba a la izquierda)
+============================ */
+.logo-wrap {
+  position: fixed;
+  top: 5vh;
+  left: var(--padding-lateral);
+  z-index: 100;
+}
+
+.logo {
+  width: var(--ancho-bloque);
+  height: auto;
+}
+
+/* ============================
+   MENU (fixed, debajo del logo)
+============================ */
+.menu {
+  position: fixed;
+  top: 18vh;
+  left: var(--padding-lateral);
+  z-index: 100;
+}
+
+.menu-list {
+  list-style: none;
+  display: block;
+}
+
+.menu-item {
+  display: block;
+  font-size: clamp(1.1rem, 1.7vw, 1.7rem);
+  font-weight: 700;
+  color: var(--gris-menu);
+  letter-spacing: -0.025em; /* tracking -25 (unidades Illustrator, /1000 em) */
+  line-height: 35px; /* espacio entre renglones */
+  transition: color var(--transition-suave);
+}
+
+/* hover: se pone negro */
+.menu-item:hover {
+  color: var(--text);
+}
+
+/* estado activo (la sección en la que estás): se queda negro */
+.menu-item.active {
+  color: var(--text);
+}
+
+/* ============================
+   SUBMENU DE DISEÑO (Branding / Estampas / Posters)
+============================ */
+.submenu {
+  list-style: none;
+  display: block;
+}
+
+.submenu-item {
+  display: block;
+  font-size: clamp(1.1rem, 1.7vw, 1.7rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 27px;
+  transition: opacity var(--transition-suave);
+  animation: submenu-fade-in 0.4s ease both;
+}
+
+/* el escalonado se cuenta por <li> (cada link es hijo único de su <li>) */
+.submenu li:nth-child(1) .submenu-item {
+  animation-delay: 0.05s;
+}
+
+.submenu li:nth-child(2) .submenu-item {
+  animation-delay: 0.12s;
+}
+
+.submenu li:nth-child(3) .submenu-item {
+  animation-delay: 0.19s;
+}
+
+@keyframes submenu-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submenu-item {
+    animation: none;
+  }
+}
+
+.submenu-item:hover {
+  opacity: 0.7;
+}
+
+.submenu-branding {
+  color: #d4145a;
+  padding-left: 1.4rem;
+}
+
+.submenu-estampas {
+  color: #198655;
+  padding-left: 1.9rem;
+}
+
+.submenu-posters {
+  color: #1b1464;
+  padding-left: 2.4rem;
+}
+
+.submenu-item.active {
+  text-decoration: underline;
+}
+
+/* venías de otra página de Diseño: el submenu ya estaba abierto, no se vuelve a animar
+   (la clase la pone script.js; le gana también a la cascada del teléfono) */
+.submenu-sin-animacion .menu .submenu-item {
+  animation: none;
+}
+
+/* submenu que agrega el JS en páginas fuera de Diseño: solo se usa en el teléfono */
+.submenu--mobile-only {
+  display: none;
+}
+.decor-image {
+  position: fixed;
+  bottom: 3vh;
+  right: 4vw;
+  width: clamp(180px, 17vw, 340px);
+  z-index: 10;
+  transform: rotate(-2deg);
+}
+
+/* ============================
+   REDES SOCIALES
+============================ */
+.social-icons {
+  position: fixed;
+  left: var(--padding-lateral);
+  bottom: calc(var(--padding-vertical) + 4.5rem + 1.2rem);
+  display: flex;
+  gap: 0.6rem;
+  z-index: 100;
+}
+
+.social-icons a {
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+  transition: opacity var(--transition-suave);
+}
+
+.social-icons a:hover {
+  opacity: 0.7;
+}
+
+.social-icons img {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .social-icons {
+    left: 1.2rem;
+    bottom: calc(1.2rem + 3.8rem + 1rem);
+  }
+}
+.contact-button {
+  position: fixed;
+  bottom: var(--padding-vertical);
+  left: var(--padding-lateral);
+  width: var(--ancho-bloque);
+  height: 4.5rem;
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.8rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  font-family: inherit;
+  border: none;
+  cursor: url('assets/pointer-white.png') 14 2, pointer;
+  z-index: 100;
+}
+
+.contact-button .arrow {
+  width: 1.6rem;
+  height: auto;
+}
+
+/* ============================
+   POPUP DE CONTACTO
+============================ */
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-suave);
+}
+
+.contact-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.contact-modal {
+  background: var(--surface);
+  width: min(90vw, 480px);
+  padding: 2.4rem;
+  position: relative;
+  transform: translateY(12px);
+  transition: transform var(--transition-suave);
+}
+
+.contact-overlay.is-open .contact-modal {
+  transform: translateY(0);
+}
+
+.contact-modal h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.6rem;
+}
+
+.contact-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: url('assets/pointer.png') 14 2, pointer;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  opacity: 0.65;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg);
+  color: var(--text);
+  padding: 0.7rem 0.8rem;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--text);
+}
+
+.contact-submit {
+  margin-top: 0.4rem;
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  border: none;
+  padding: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: url('assets/pointer.png') 14 2, pointer;
+  font-family: inherit;
+  transition: opacity var(--transition-suave);
+}
+
+.contact-submit:hover {
+  opacity: 0.85;
+}
+
+.contact-success {
+  font-size: 0.95rem;
+  color: #1a7a1a;
+  margin-top: 0.6rem;
+  display: none;
+}
+
+.contact-success.is-visible {
+  display: block;
+}
+
+/* ============================
+   BOTÓN DE IDIOMA
+============================ */
+.lang-toggle {
+  position: fixed;
+  top: 5vh;
+  right: var(--padding-lateral);
+  z-index: 110;
+  background: none;
+  border: 1px solid var(--gris-menu);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.45rem 0.9rem;
+  cursor: url('assets/pointer.png') 14 2, pointer;
+  transition: border-color var(--transition-suave), color var(--transition-suave);
+}
+
+.lang-toggle:hover {
+  border-color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .lang-toggle {
+    top: 1.2rem;
+    right: 1.2rem;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.7rem;
+  }
+}
+.moodboard-wrap {
+  margin-left: calc(var(--padding-lateral) + var(--ancho-bloque) + 2vw);
+  padding-top: 0vh;
+  padding-bottom: 0vh;
+  width: calc(100vw - var(--padding-lateral) - var(--ancho-bloque) - 2vw);
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.moodboard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.draggable-img {
+  position: absolute;
+  max-width: none;
+  cursor: url('assets/palm-of-hand.png') 16 16, grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.draggable-img.is-dragging {
+  transition: none; /* mientras arrastrás, respuesta instantánea, sin demora */
+}
+
+.draggable-img:active {
+  cursor: url('assets/palm-of-hand.png') 16 16, grabbing;
+}
+
+.draggable-img.is-dragging {
+  z-index: 50;
+}
+
+/* modelo 3D del collage de la home (el <model-viewer> lo agrega script.js):
+   caja cuadrada, fondo transparente; el viewer no recibe el puntero, así
+   arrastrar mueve la pieza como a las demás */
+.modelo-3d {
+  aspect-ratio: 1;
+}
+
+.modelo-3d model-viewer {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  --poster-color: transparent;
+}
+
+.draggable-img.fade-in-entrance {
+  animation: poster-fade-in 0.6s ease both;
+}
+
+.draggable-img.opens-carousel {
+  cursor: url('assets/zoom-in.png') 16 16, zoom-in;
+}
+
+.estampa-visual {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+}
+
+.estampa-hint-text {
+  position: fixed;
+  bottom: 2.2rem;
+  right: 2vw;
+  color: var(--gris-menu);
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  z-index: 90;
+  pointer-events: none;
+}
+
+/* Desktop: abajo a la izquierda del tablero, alineada con la base del botón
+   CONTACTO, y detrás de las tarjetas (si arrastrás una encima, la tapa) */
+@media (min-width: 769px) {
+  .estampa-hint-text {
+    left: calc(var(--padding-lateral) + var(--ancho-bloque) + 2vw);
+    right: auto;
+    bottom: var(--padding-vertical);
+    z-index: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .estampa-hint-text {
+    bottom: 1rem;
+    right: 1.2rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* ============================
+   FLIP POSTAL (faro): 3D en eje Y, se ve el dorso al hacer click
+============================ */
+.flip-postcard {
+  perspective: 1400px;
+  background: none;
+  cursor: url('assets/refresh.png') 16 16, pointer;
+}
+
+.flip-postcard img {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.flip-postcard.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-face {
+  backface-visibility: hidden;
+}
+
+.flip-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+
+.flip-back img,
+.flip-back svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+@keyframes girar-360 {
+  from {
+    transform: rotate(var(--base-rot, 0deg));
+  }
+  to {
+    transform: rotate(calc(var(--base-rot, 0deg) + 360deg));
+  }
+}
+
+.draggable-img.is-spinning {
+  animation: girar-360 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draggable-img.is-spinning {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .moodboard-wrap {
+    margin-left: 0;
+    padding: 1.2rem;
+    width: 100%;
+    height: auto;
+  }
+
+  .moodboard {
+    aspect-ratio: 1 / 1.3;
+    height: auto;
+  }
+}
+
+/* ============================
+   GALERÍA DE POSTERS
+============================ */
+.poster-gallery {
+  margin-left: calc(var(--padding-lateral) + var(--ancho-bloque) + 2vw);
+  width: calc(100vw - var(--padding-lateral) - var(--ancho-bloque) - 2vw);
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.poster-frame {
+  height: min(89vh, 962px);
+  width: auto;
+  aspect-ratio: 210 / 297;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #f2f2f2;
+  position: relative;
+  animation: poster-fade-in 0.6s ease both;
+}
+
+@keyframes poster-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster-frame,
+  .poster-arrow {
+    animation: none;
+  }
+}
+
+.poster-zoom-hint {
+  position: absolute;
+  bottom: 0.9rem;
+  right: 0.9rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, 0.35);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* que no le robe el click a la imagen de abajo */
+  z-index: 5;
+  opacity: 0.75;
+  transition: opacity var(--transition-suave);
+}
+
+.poster-zoom-hint svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.poster-frame:hover .poster-zoom-hint {
+  opacity: 1;
+}
+
+.poster-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: url('assets/zoom-in.png') 16 16, auto;
+  transform: translateX(0);
+}
+
+.poster-img-b {
+  transform: translateX(100%);
+}
+
+.poster-arrow {
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: url('assets/pointer.png') 14 2, pointer;
+  padding: 0.5rem;
+  flex-shrink: 0;
+  transition: opacity var(--transition-suave);
+  animation: poster-fade-in 0.6s ease both;
+  animation-delay: 0.15s;
+}
+
+.poster-arrow:hover {
+  opacity: 0.6;
+}
+
+/* galería vertical de pósters: solo existe en el teléfono (ver media query de mobile) */
+.poster-mobile-gallery {
+  display: none;
+}
+
+/* flechita "volver arriba" (solo teléfono, en Posters): mismo estilo que la lupa del póster.
+   Queda debajo del menú (180) y del visor de pósters (1000) */
+.to-top-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .to-top-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 1.2rem;
+    bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px));
+    width: 2.75rem; /* área de toque cómoda para el dedo */
+    height: 2.75rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(17, 17, 17, 0.55);
+    color: #ffffff;
+    z-index: 150;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.4rem);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+  }
+
+  .to-top-button.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+  }
+
+  .to-top-button svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top-button,
+  .to-top-button.is-visible {
+    transition: none;
+    transform: none;
+  }
+}
+
+.poster-arrow svg {
+  width: clamp(1.6rem, 2.5vw, 2.4rem);
+  height: clamp(1.6rem, 2.5vw, 2.4rem);
+}
+
+@media (max-width: 768px) {
+  .poster-gallery {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding: 15rem 1rem 8rem;
+    gap: 0.8rem;
+  }
+
+  .poster-frame {
+    height: auto;
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+/* ============================
+   CARRUSEL DE DETALLE — ESTAMPAS (sin zoom)
+============================ */
+.estampa-detail-frame {
+  height: min(96vh, 1100px);
+  width: min(86vw, 1050px);
+  position: relative;
+  overflow: hidden;
+}
+
+.estampa-detail-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.poster-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(224, 225, 226, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-suave);
+}
+
+.poster-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.poster-lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #111111;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: url('assets/pointer.png') 14 2, pointer;
+  z-index: 2;
+}
+
+.poster-lightbox-body {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  max-width: 96vw;
+}
+
+.poster-lightbox-arrow {
+  background: none;
+  border: none;
+  color: #111111;
+  cursor: url('assets/pointer.png') 14 2, pointer;
+  padding: 0.6rem;
+  flex-shrink: 0;
+  transition: opacity var(--transition-suave);
+}
+
+.poster-lightbox-arrow:hover {
+  opacity: 0.6;
+}
+
+.poster-lightbox-arrow svg {
+  width: clamp(1.6rem, 2.5vw, 2.4rem);
+  height: clamp(1.6rem, 2.5vw, 2.4rem);
+}
+
+.poster-lightbox-scroll {
+  max-width: 80vw;
+  max-height: 92vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-lightbox-img {
+  max-width: 80vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  display: block;
+  cursor: url('assets/zoom-in.png') 16 16, auto;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+.poster-lightbox-img.is-zoomed {
+  cursor: url('assets/zoom-out.png') 16 16, auto;
+}
+
+.poster-zoom-indicator {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(17, 17, 17, 0.85);
+  color: #ffffff;
+  padding: 0.4rem 0.4rem 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-suave);
+  z-index: 3;
+}
+
+.poster-zoom-indicator.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.poster-zoom-level {
+  min-width: 3.2em;
+  text-align: center;
+}
+
+.poster-zoom-reset {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: url('assets/pointer.png') 14 2, pointer;
+  transition: background var(--transition-suave);
+}
+
+.poster-zoom-reset:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.poster-zoom-reset svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.sobremi {
+  margin-left: min(32vw, 614px);
+  padding: 3vh 4vw 11.5vh 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: 5vw;
+  height: 100vh;
+}
+
+.sobremi-photo {
+  width: min(39.84vw, 765px);
+  height: min(85.56vh, 924px);
+  flex-shrink: 0;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.sobremi-photo img,
+.sobremi-photo video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sobremi-text {
+  max-width: min(26vw, 460px);
+  padding-top: 4vh;
+}
+
+.sobremi-text h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.4rem;
+}
+
+.sobremi-parrafo-principal {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  margin-bottom: 1.4rem;
+  color: #111111;
+}
+
+.sobremi-parrafo-secundario {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.sobremi-apps-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.sobremi-apps {
+  display: block;
+  width: 200px;
+  height: auto;
+}
+
+.sobremi-cv-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  padding: 0.7rem 1.4rem;
+  transition: opacity var(--transition-suave);
+  cursor: url('assets/pointer-white.png') 14 2, pointer;
+}
+
+.sobremi-cv-button:hover {
+  opacity: 0.85;
+}
+
+/* ---- Entrada del texto de Sobre mí: título (con scramble, ver script.js),
+   párrafos y fila de apps/CV entran en cascada con un fundido + subida corta.
+   Una sola vez al cargar; con "reducir movimiento" aparece directo ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .sobremi-text > * {
+    animation: sobremi-sube 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .sobremi-text > h1 {
+    animation-duration: 0.3s;
+    animation-delay: 0.1s;
+  }
+
+  .sobremi-parrafo-principal {
+    animation-delay: 0.28s;
+  }
+
+  .sobremi-parrafo-secundario {
+    animation-delay: 0.36s;
+  }
+
+  .sobremi-apps-row {
+    animation-delay: 0.44s;
+  }
+}
+
+@keyframes sobremi-sube {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .sobremi {
+    margin-left: 0;
+    padding: 15rem 1.2rem 8rem;
+    flex-direction: column;
+    gap: 2.5rem;
+    height: auto;
+  }
+
+  .sobremi-photo {
+    height: auto;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .sobremi-text {
+    max-width: 100%;
+    padding-top: 0;
+  }
+}
+
+.content {
+  margin-left: min(38vw, 640px);
+  padding: 20vh 4vw 12vh 0;
+  min-height: 100vh;
+}
+
+.content-placeholder {
+  color: var(--placeholder-color);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
+    padding: 15rem 1.2rem 8rem;
+  }
+}
+@media (max-width: 768px) {
+  .logo-wrap {
+    top: 1.5rem;
+    left: 1.2rem;
+  }
+
+  .logo {
+    width: calc(100% - 2.4rem);
+  }
+
+  .menu {
+    top: 9rem;
+    left: 1.2rem;
+  }
+
+  .menu-item {
+    font-size: 1.3rem;
+  }
+
+  .decor-image {
+    width: 34vw;
+    bottom: 6rem;
+    right: 1rem;
+  }
+
+  .contact-button {
+    width: calc(100% - 2.4rem);
+    left: 1.2rem;
+    bottom: 1.2rem;
+    height: 3.8rem;
+  }
+}
+
+/* ============================
+   BRANDING: tarjetas drageables que se dan vuelta
+============================ */
+.branding-wrap {
+  margin-left: calc(var(--padding-lateral) + var(--ancho-bloque) + 2vw);
+  width: calc(100vw - var(--padding-lateral) - var(--ancho-bloque) - 2vw - var(--padding-lateral));
+  height: 100vh;
+  padding: var(--padding-vertical) 0;
+  box-sizing: border-box;
+}
+
+.branding-board {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size; /* las tipografías de las tarjetas escalan con el tablero (cqw) */
+}
+
+.brand-card {
+  position: absolute;
+  width: var(--card-w);
+  aspect-ratio: var(--card-ratio);
+  perspective: 1400px;
+  cursor: url('assets/refresh.png') 16 16, pointer; /* mismo cursor que la postal del faro: se dan vuelta */
+  touch-action: none;
+  user-select: none;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.brand-card.is-dragging {
+  transition: none;
+  cursor: url('assets/palm-of-hand.png') 16 16, grabbing;
+}
+
+.brand-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.brand-card.is-flipped .brand-card-inner {
+  transform: rotateY(180deg);
+}
+
+.brand-card-face {
+  position: absolute;
+  inset: 0;
+  background: var(--card-color);
+  color: #000000;
+  padding: 7% 8%;
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.brand-card-back {
+  transform: rotateY(180deg);
+}
+
+.brand-card-title {
+  font-size: max(1.2rem, 3.4cqw);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.brand-card-meta {
+  font-size: max(0.75rem, 1.7cqw);
+  font-weight: 500;
+  margin-top: 0.35em;
+  letter-spacing: -0.04em;
+}
+
+.brand-card-desc {
+  font-size: max(0.8rem, 1.55cqw);
+  font-weight: 500;
+  line-height: 1.4;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* cursor de la máquina de escribir mientras se escribe la descripción (ver script.js) */
+.brand-card-desc.is-typing::after {
+  content: '';
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.06em;
+  vertical-align: -0.12em;
+  background: currentColor;
+  animation: cursor-parpadeo 0.8s steps(1) infinite;
+}
+
+@keyframes cursor-parpadeo {
+  50% {
+    opacity: 0;
+  }
+}
+
+.brand-card-view {
+  margin-top: auto;
+  align-self: flex-end;
+  flex-shrink: 0;
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: max(0.85rem, 2.1cqw);
+  padding: 0.55em 1.2em;
+  cursor: url('assets/pointer-white.png') 14 2, pointer;
+  transition: color 0.3s ease;
+}
+
+/* Hover: el texto pasa de blanco al color de su tarjeta (amarillo, verde o rojo) */
+.brand-card-view:hover,
+.brand-card-view:focus-visible {
+  color: var(--card-color);
+}
+
+/* Portada con imagen o GIF: llena todo el frente.
+   object-position elige qué parte se ve si la imagen no tiene la misma proporción que la tarjeta */
+.brand-card-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+  pointer-events: none;
+}
+
+.brand-card-front--cover > *:not(.brand-card-cover) {
+  position: relative; /* título, año y botón quedan arriba de la imagen */
+}
+
+/* Sobre la foto, el nombre y el año van como etiquetas del color de la tarjeta */
+.brand-card-front--cover .brand-card-title,
+.brand-card-front--cover .brand-card-meta {
+  align-self: flex-start;
+  background: var(--card-color);
+  padding: 0.15em 0.35em;
+}
+
+.brand-card-front--cover .brand-card-meta {
+  margin-top: 0;
+}
+
+/* En el dorso el botón va abajo a la izquierda: es el mismo lugar que en el frente,
+   visto desde atrás (como una tarjeta física dada vuelta) */
+.brand-card-back .brand-card-view {
+  align-self: flex-start;
+}
+
+.brand-card-view:focus-visible {
+  outline-color: #ffffff;
+  outline-offset: -4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-card-inner {
+    transition: none;
+  }
+}
+
+/* Mobile: tarjetas apiladas, sin arrastre (así no pelea con el scroll) */
+@media (max-width: 768px) {
+  .branding-wrap {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding: 25rem 1.2rem 12rem;
+  }
+
+  .branding-board {
+    height: auto;
+    container-type: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .brand-card {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 100%;
+    aspect-ratio: 1.15;
+    touch-action: auto;
+  }
+
+  .brand-card-title { font-size: 1.6rem; }
+  .brand-card-meta { font-size: 0.85rem; }
+  .brand-card-desc { font-size: 0.9rem; }
+  .brand-card-view { font-size: 1rem; }
+}
+
+/* ============================
+   VISOR DE PROYECTO (branding): scroll vertical a pantalla completa
+============================ */
+.brand-viewer {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.85);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-suave);
+}
+
+.brand-viewer.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.brand-viewer-scroll {
+  width: min(68vw, 1200px);
+  height: 100vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+
+.brand-viewer-scroll img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.brand-viewer-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: url('assets/pointer-white.png') 14 2, pointer;
+  z-index: 2;
+}
+
+.brand-viewer-close:focus-visible {
+  outline-color: #ffffff;
+}
+
+body.viewer-open {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .brand-viewer-scroll {
+    width: 100%;
+  }
+
+  .brand-viewer-close {
+    top: 0.8rem;
+    right: 1rem;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ======================================================
+   VERSIÓN TELÉFONO (≤ 768px)
+   Barra fija arriba (logo + idioma + Menú) y el menú se abre
+   a pantalla completa. El desktop no se toca.
+====================================================== */
+.menu-toggle,
+.mobile-bar,
+.brand-mobile-hint {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --m-bar: 4.5rem;
+  }
+
+  /* ---- Barra superior ---- */
+  .mobile-bar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--m-bar);
+    background: transparent;
+    z-index: 190;
+  }
+
+  /* la barra no tiene franja sólida: es un degradé de blanco (arriba de todo)
+     a transparente, que cubre la barra y sigue un poco más abajo. El contenido
+     se ve detrás y se desvanece al subir. Solo aparece cuando ya scrolleaste
+     (arriba de todo la página ya es blanca y así no tapa el primer elemento) */
+  .mobile-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: calc(var(--m-bar) + 3.2rem);
+    /* degradé "suavizado": varios puntos siguiendo una curva, así no se nota
+       dónde empieza ni dónde termina (uno lineal deja una línea visible) */
+    background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 1) 0%,
+      rgb(255 255 255 / 0.95) 12%,
+      rgb(255 255 255 / 0.8) 26%,
+      rgb(255 255 255 / 0.6) 40%,
+      rgb(255 255 255 / 0.4) 54%,
+      rgb(255 255 255 / 0.23) 67%,
+      rgb(255 255 255 / 0.1) 80%,
+      rgb(255 255 255 / 0.03) 91%,
+      rgb(255 255 255 / 0) 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .mobile-bar.is-scrolled::after {
+    opacity: 1;
+  }
+
+  .logo-wrap {
+    top: 1.3rem;
+    left: 1.2rem;
+    z-index: 200;
+  }
+
+  .logo {
+    width: min(52vw, 220px);
+  }
+
+  /* Botón de idioma: vive dentro del menú, a la derecha, en el renglón de las redes */
+  .lang-toggle {
+    top: auto;
+    right: 1.2rem;
+    bottom: calc(1.2rem + 3.8rem + 1rem);
+    height: 2.4rem; /* mismo alto que los íconos de redes, así quedan alineados */
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    padding: 0 0.9rem;
+    z-index: 185;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+  }
+
+  body.menu-open .lang-toggle {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease, visibility 0s;
+  }
+
+  /* Hamburguesa: 3 rayitas que se convierten en X al abrir */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    position: fixed;
+    top: calc((var(--m-bar) - 2.75rem) / 2);
+    right: 0.7rem;
+    width: 2.75rem;  /* área de toque cómoda para el dedo */
+    height: 2.75rem;
+    padding: 0 0.5rem;
+    z-index: 200;
+    background: none;
+    border: none;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--text);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+
+  body.menu-open .menu-toggle span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  body.menu-open .menu-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  body.menu-open .menu-toggle span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu-toggle span {
+      transition: none;
+    }
+  }
+
+  /* ---- Menú a pantalla completa ---- */
+  .menu {
+    position: fixed;
+    inset: 0;
+    top: 0;
+    left: 0;
+    background: var(--bg);
+    padding: calc(var(--m-bar) + 2rem) 1.2rem 12rem;
+    z-index: 180;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.6rem);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+  }
+
+  .menu .menu-item {
+    font-size: 2.1rem;
+    line-height: 1.2;
+  }
+
+  .menu .submenu-item {
+    font-size: 1.5rem;
+    line-height: 1.12;
+  }
+
+  /* "Diseño" despliega sus subcategorías al tocarlo */
+  .menu-list > li > .submenu {
+    display: none;
+  }
+
+  .menu-list > li.submenu-open > .submenu {
+    display: block;
+  }
+
+  /* cascada: Branding baja primero, después Estampas, después Posters,
+     cada uno como saliendo del de arriba */
+  .menu .submenu-item {
+    animation: submenu-drop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .menu .submenu li:nth-child(1) .submenu-item {
+    animation-delay: 0s;
+  }
+
+  .menu .submenu li:nth-child(2) .submenu-item {
+    animation-delay: 0.14s;
+  }
+
+  .menu .submenu li:nth-child(3) .submenu-item {
+    animation-delay: 0.28s;
+  }
+
+  @keyframes submenu-drop {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* al cerrar: la cascada al revés. Sube Posters primero, después Estampas,
+     después Branding, cada uno metiéndose en el de arriba (script.js oculta
+     el submenu cuando termina) */
+  .menu-list > li.submenu-closing > .submenu .submenu-item {
+    animation: submenu-lift 0.4s cubic-bezier(0.64, 0, 0.78, 0) both;
+  }
+
+  .menu-list > li.submenu-closing > .submenu li:nth-child(3) .submenu-item {
+    animation-delay: 0s;
+  }
+
+  .menu-list > li.submenu-closing > .submenu li:nth-child(2) .submenu-item {
+    animation-delay: 0.14s;
+  }
+
+  .menu-list > li.submenu-closing > .submenu li:nth-child(1) .submenu-item {
+    animation-delay: 0.28s;
+  }
+
+  @keyframes submenu-lift {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu .submenu-item {
+      animation: none;
+    }
+  }
+
+  /* redes y contacto viven dentro del menú en el teléfono */
+  .social-icons,
+  .contact-button {
+    opacity: 0;
+    visibility: hidden;
+    z-index: 185;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+  }
+
+  .social-icons {
+    left: 1.2rem;
+    bottom: calc(1.2rem + 3.8rem + 1rem);
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  body.menu-open .menu,
+  body.menu-open .social-icons,
+  body.menu-open .contact-button {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+  }
+
+  /* al abrir el menú, los textos bajan en cascada (mismo estilo que el submenu de
+     Diseño). Se anima cada <li> entero: si el submenu está abierto, baja junto con
+     "Diseño". Se reinicia cada vez que abrís el menú */
+  body.menu-open .menu-list > li {
+    animation: menu-texto-baja 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  body.menu-open .menu-list > li:nth-child(1) { animation-delay: 0.06s; }
+  body.menu-open .menu-list > li:nth-child(2) { animation-delay: 0.12s; }
+  body.menu-open .menu-list > li:nth-child(3) { animation-delay: 0.18s; }
+  body.menu-open .menu-list > li:nth-child(4) { animation-delay: 0.24s; }
+  body.menu-open .menu-list > li:nth-child(5) { animation-delay: 0.30s; }
+
+  @keyframes menu-texto-baja {
+    from {
+      opacity: 0;
+      transform: translateY(-0.8rem);
+    }
+  }
+
+  /* los botones de abajo hacen lo contrario: suben desde el borde de abajo
+     (Instagram → TikTok → EN → CONTACTO), así el menú se arma desde los dos
+     bordes hacia el centro. Después, la flecha de CONTACTO entra deslizándose */
+  body.menu-open .social-icons a,
+  body.menu-open .lang-toggle,
+  body.menu-open .contact-button {
+    animation: menu-boton-sube 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  body.menu-open .social-icons a:nth-child(1) { animation-delay: 0.18s; }
+  body.menu-open .social-icons a:nth-child(2) { animation-delay: 0.24s; }
+  body.menu-open .lang-toggle { animation-delay: 0.30s; }
+  body.menu-open .contact-button { animation-delay: 0.36s; }
+
+  body.menu-open .contact-button .arrow {
+    animation: menu-flecha-entra 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+  }
+
+  @keyframes menu-boton-sube {
+    from {
+      opacity: 0;
+      transform: translateY(0.8rem);
+    }
+  }
+
+  @keyframes menu-flecha-entra {
+    from {
+      opacity: 0;
+      transform: translateX(-0.9rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body.menu-open .menu-list > li,
+    body.menu-open .social-icons a,
+    body.menu-open .lang-toggle,
+    body.menu-open .contact-button,
+    body.menu-open .contact-button .arrow {
+      animation: none;
+    }
+  }
+
+  .decor-image {
+    display: none;
+  }
+
+  /* ---- Home y Estampas: el tablero ocupa la pantalla debajo de la barra ---- */
+  .moodboard-wrap {
+    margin-left: 0;
+    width: 100%;
+    height: 100svh;
+    padding: calc(var(--m-bar) + 0.5rem) 1.2rem 1.2rem;
+  }
+
+  .moodboard {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .estampa-hint-text {
+    bottom: 1.2rem;
+    right: 1.2rem;
+  }
+
+  /* ---- Posters: galería de scroll vertical, todos uno abajo del otro (sin carrusel) ---- */
+  .poster-gallery {
+    display: block;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding: calc(var(--m-bar) + 0.5rem) 1.2rem 2rem;
+  }
+
+  .poster-gallery > .poster-frame,
+  .poster-gallery > .poster-arrow {
+    display: none;
+  }
+
+  .poster-mobile-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .poster-mobile-item {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 210 / 297; /* reserva el lugar antes de que cargue: el scroll no salta */
+    object-fit: cover;
+    background: #f2f2f2;
+  }
+
+  /* ---- Sobre mí ---- */
+  .sobremi {
+    padding: calc(var(--m-bar) + 1rem) 1.2rem 3rem;
+    gap: 2rem;
+  }
+
+  .sobremi-photo {
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 4 / 5;
+  }
+
+  /* el video trae más blanco a la izquierda (144px) que a la derecha (65px):
+     lo corremos ~5% para que la imagen quede centrada en pantalla */
+  .sobremi-photo video {
+    transform: translateX(-5%);
+  }
+
+  .sobremi-apps {
+    width: min(55vw, 200px);
+  }
+
+  /* ---- Páginas con contenido simple (Animación, 3D) ---- */
+  .content {
+    padding: calc(var(--m-bar) + 2rem) 1.2rem 3rem;
+    min-height: auto;
+  }
+
+  /* ---- Branding ---- */
+  .branding-wrap {
+    padding: calc(var(--m-bar) + 1rem) 1.4rem 3rem;
+  }
+
+  .branding .estampa-hint-text,
+  .branding-wrap + .estampa-hint-text {
+    display: none;
+  }
+
+  .brand-mobile-hint {
+    display: block;
+    color: var(--gris-menu);
+    font-size: 0.85rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .branding-board {
+    gap: 1.6rem;
+  }
+
+  /* inclinación suave y alternada: tiene la onda del desktop sin salirse de la pantalla */
+  .brand-card:nth-child(3n+1) { transform: rotate(-2deg) !important; }
+  .brand-card:nth-child(3n+2) { transform: rotate(1.8deg) !important; }
+  .brand-card:nth-child(3n)   { transform: rotate(-1deg) !important; }
+
+  .brand-viewer-close {
+    top: 0.8rem;
+    right: 0.8rem;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: rgba(17, 17, 17, 0.6);
+    font-size: 1.6rem;
+    text-shadow: none;
+  }
+}
+
+/* ============================
+   FUNDIDO SUAVE AL CARGAR IMÁGENES
+   (solo las que todavía no cargaron; las que ya están en caché aparecen directo)
+============================ */
+.img-pending {
+  opacity: 0;
+}
+
+.img-appear {
+  animation: img-aparece 0.5s ease;
+}
+
+@keyframes img-aparece {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-appear {
+    animation: none;
+  }
+}

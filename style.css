@@ -976,8 +976,19 @@ textarea:focus-visible,
   position: absolute;
   display: block;
   rotate: var(--rot);
-  transition: scale 250ms var(--ease-out);
-  animation: hub-entra 0.6s var(--ease-out) both;
+  cursor: url('assets/palm-of-hand.png') 16 16, grab; /* se arrastran como las piezas de la home */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: scale 250ms var(--ease-out), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: hub-entra 0.6s var(--ease-out) backwards; /* backwards: al terminar no pisa el translate del arrastre */
+}
+
+/* mientras lo arrastrás: se levanta apenas y la inclinación responde sin demora */
+.hub-aparato.is-dragging {
+  transition: scale 150ms var(--ease-out);
+  scale: 1.03;
+  cursor: url('assets/palm-of-hand.png') 16 16, grabbing;
 }
 
 .hub-aparato--iphone { animation-delay: 0.05s; }

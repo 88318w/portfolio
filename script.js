@@ -1811,6 +1811,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ---- Hub de Diseño: los aparatos se arrastran como las piezas del tablero (seguirYSoltar).
+  //      Un toque sin arrastrar sigue entrando a la sección; si lo arrastraste, no navega ----
+  const hubEscena = document.querySelector('.hub-escena');
+  if (hubEscena) {
+    let arriba = 10;
+    hubEscena.querySelectorAll('.hub-aparato').forEach((aparato) => {
+      let arrastrado = false;
+      seguirYSoltar(aparato, {
+        contenedor: hubEscena,
+        alAgarrar: () => {
+          aparato.classList.add('is-dragging');
+          aparato.style.zIndex = ++arriba; // el que agarrás queda arriba de los demás
+        },
+        alInclinar: (grados) => {
+          aparato.style.transform = `rotate(${grados}deg)`; // se suma a su inclinación (--rot)
+        },
+        alSoltar: ({ movio }) => {
+          aparato.classList.remove('is-dragging');
+          aparato.style.transform = '';
+          arrastrado = movio;
+        },
+      });
+      aparato.addEventListener('click', (e) => {
+        if (!arrastrado) return;
+        e.preventDefault();
+        arrastrado = false;
+      });
+    });
+  }
+
   initCarouselGallery('poster', 9, 'posters', 4000);
 
   // ---- 3D + Motion Graphics (compu): carrusel de reels e imágenes, de a uno. Mismo cambio con dirección que

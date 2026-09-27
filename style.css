@@ -2601,4 +2601,9 @@ body.viewer-open {
     opacity: 0;
     translate: 0 24px;
   }
+
+  /* Sobre mí: en el celular reemplaza a la cascada de la compu (sobremi-sube) */
+  .sobremi-text > .entra-al-scroll {
+    animation: none;
+  }
 }

@@ -2151,11 +2151,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- Celular: las piezas de las páginas de scroll (Branding, Posters, Estampas, 3D) entran
+  // ---- Celular: las piezas de las páginas de scroll (Branding, Posters, Estampas, 3D, Sobre mí) entran
   //      subiendo con un fundido cuando llegan a la pantalla; las que entran juntas, escalonadas ----
   if (isMobile() && !prefiereMenosMovimiento() && 'IntersectionObserver' in window) {
     const piezas = document.querySelectorAll(
-      '.brand-mobile-hint, .brand-card, .reel, .poster-mobile-gallery > *, .estampa-mobile-gallery > *'
+      '.brand-mobile-hint, .brand-card, .reel, .poster-mobile-gallery > *, .estampa-mobile-gallery > *, .sobremi-photo, .sobremi-text > *'
     );
     const obs = new IntersectionObserver((entradas) => {
       entradas.filter((e) => e.isIntersecting).forEach((e, i) => {

@@ -744,6 +744,17 @@ document.addEventListener('DOMContentLoaded', () => {
     menuToggle.setAttribute('aria-label', TRANSLATIONS[currentLang][menuToggle.dataset.i18nAria]);
   }
 
+  // "← Volver" (Branding, Estampas, Posters): en la compu lleva al hub de Diseño;
+  // en el celular abre el menú (con Diseño ya desplegado) para elegir a dónde ir
+  const volverHub = document.querySelector('.volver-hub');
+  if (volverHub) {
+    volverHub.addEventListener('click', (e) => {
+      if (!isMobile()) return;
+      e.preventDefault();
+      setMenu(true);
+    });
+  }
+
   menuToggle.addEventListener('click', () => {
     setMenu(!document.body.classList.contains('menu-open'));
   });

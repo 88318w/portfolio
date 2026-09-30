@@ -207,17 +207,7 @@ const CONTEXTO_PIEZAS = {
     /* detalle-18 */ FICTICIA,
     /* detalle-19 */ OBSOLET,
   ],
-  posters: [
-    /* poster-1 */ PERSONAL,
-    /* poster-2 */ PERSONAL,
-    /* poster-3 */ PERSONAL,
-    /* poster-4 */ PERSONAL,
-    /* poster-5 */ PERSONAL,
-    /* poster-6 */ PERSONAL,
-    /* poster-7 */ PERSONAL,
-    /* poster-8 */ PERSONAL,
-    /* poster-9 */ PERSONAL,
-  ],
+  posters: Array(9).fill(PERSONAL),
 };
 
 // Escribe en `el` la línea de contexto de una pieza (o la deja vacía si no tiene datos)
@@ -226,6 +216,19 @@ const CONTEXTO_PIEZAS = {
 // (solo opacidad: el texto se lee enseguida, y sirve igual con "reducir movimiento")
 function aparecerLeyenda(el) {
   el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' });
+}
+
+// Cambio de pieza con dirección (visor de Posters, reels de 3D): el que se va se corre 6% hacia el
+// lado contrario y se apaga (200ms, más rápido para dejar lugar); el que entra viene desde el lado
+// hacia el que vas (300ms). Un desenfoque mínimo une el cruce. Con "reducir movimiento", solo fundido
+function cruzar(el, sign, entra) {
+  const mover = !prefiereMenosMovimiento();
+  const fuera = { opacity: 0, transform: mover ? `translateX(${(entra ? sign : -sign) * 6}%)` : 'none', filter: mover ? 'blur(2px)' : 'blur(0)' };
+  const dentro = { opacity: 1, transform: 'none', filter: 'blur(0)' };
+  return el.animate(entra ? [fuera, dentro] : [dentro, fuera], {
+    duration: entra ? 300 : 200,
+    easing: 'cubic-bezier(0.23, 1, 0.32, 1)', // --ease-out
+  });
 }
 
 function pintarContexto(el, pieza, plural = el._plural) {
@@ -237,29 +240,19 @@ function pintarContexto(el, pieza, plural = el._plural) {
 
   if (pieza.tipo === 'marca') {
     el.append(t['pieza.para'] + ' ');
-    if (pieza.url) {
-      const link = document.createElement('a');
-      link.href = pieza.url;
-      link.target = '_blank';
-      link.rel = 'noopener';
-      link.title = t['pieza.verMarca'];
-      link.setAttribute('translate', 'no'); // el traductor del navegador no cambia el nombre de la marca
-      link.textContent = pieza.nombre + ' ↗';
-      el.append(link);
-    } else {
-      const nombre = document.createElement('strong');
-      nombre.setAttribute('translate', 'no');
-      nombre.textContent = pieza.nombre;
-      el.append(nombre);
-    }
+    const link = document.createElement('a');
+    link.href = pieza.url;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.title = t['pieza.verMarca'];
+    link.setAttribute('translate', 'no'); // el traductor del navegador no cambia el nombre de la marca
+    link.textContent = pieza.nombre + ' ↗';
+    el.append(link);
   } else {
     el.append(t[plural ? 'pieza.personales' : 'pieza.personal']);
   }
 
-  if (pieza.nota) {
-    const nota = typeof pieza.nota === 'string' ? pieza.nota : pieza.nota[currentLang] || pieza.nota.es;
-    el.append(' · ' + nota);
-  }
+  if (pieza.nota) el.append(' · ' + (pieza.nota[currentLang] || pieza.nota.es));
 }
 
 // ---- Submenu de Diseño: si venís de otra página de Diseño (ej: Branding → Estampas),
@@ -871,8 +864,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  applyLanguage(currentLang);
-
   // ---- Armamos el popup una sola vez y lo insertamos en el body ----
   const overlay = document.createElement('div');
   overlay.className = 'contact-overlay';
@@ -1164,27 +1155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Carrusel de detalle de Estampas: se abre al tocar cualquiera de las remeras ----
     // Un solo set de imágenes compartido entre todos los diseños (no uno por remera).
-    const ESTAMPA_DETAIL_IMAGES = [
-      'assets/estampas/detalle/detalle-1.webp',
-      'assets/estampas/detalle/detalle-2.webp',
-      'assets/estampas/detalle/detalle-3.webp',
-      'assets/estampas/detalle/detalle-4.webp',
-      'assets/estampas/detalle/detalle-5.webp',
-      'assets/estampas/detalle/detalle-6.webp',
-      'assets/estampas/detalle/detalle-7.webp',
-      'assets/estampas/detalle/detalle-8.webp',
-      'assets/estampas/detalle/detalle-9.webp',
-      'assets/estampas/detalle/detalle-10.webp',
-      'assets/estampas/detalle/detalle-11.webp',
-      'assets/estampas/detalle/detalle-12.webp',
-      'assets/estampas/detalle/detalle-13.webp',
-      'assets/estampas/detalle/detalle-14.webp',
-      'assets/estampas/detalle/detalle-15.webp',
-      'assets/estampas/detalle/detalle-16.webp',
-      'assets/estampas/detalle/detalle-17.webp',
-      'assets/estampas/detalle/detalle-18.webp',
-      'assets/estampas/detalle/detalle-19.webp'
-    ];
+    const ESTAMPA_DETAIL_IMAGES = Array.from({ length: 19 }, (_, i) => `assets/estampas/detalle/detalle-${i + 1}.webp`);
 
     let estampaCarousel = null;
 
@@ -1410,34 +1381,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- Galerías del celular: el contexto de cada pieza ----
-  // Si todas las piezas comparten el mismo (ej: todos los pósters son personales), se muestra
-  // una sola vez arriba, como encabezado, en vez de repetirlo debajo de cada una.
-  // Devuelve true si puso el encabezado (entonces las piezas van sin leyenda propia).
-  function encabezadoDeGaleria(galeria, piezas) {
-    const compartido = piezas.length > 0 && piezas[0] && piezas.every((p) => p === piezas[0]);
-    if (!compartido) return false;
+  // ---- Galería de pósters del celular: todos comparten contexto (personales), así que va
+  //      una sola vez arriba, como encabezado, en vez de repetirlo debajo de cada uno.
+  //      ponytail: si algún póster deja de ser personal, hace falta leyenda por pieza (ver git history) ----
+  function encabezadoDeGaleria(galeria, pieza) {
     const p = document.createElement('p');
     p.className = 'pieza-contexto pieza-contexto--encabezado';
-    pintarContexto(p, piezas[0], true);
+    pintarContexto(p, pieza, true);
     galeria.prepend(p);
-    return true;
-  }
-
-  // Agrega una pieza a la galería: si tiene contexto propio, la imagen y su leyenda van
-  // juntas en un <figure>, así queda claro a qué pieza pertenece cada texto
-  function agregarPiezaAGaleria(galeria, img, pieza) {
-    if (!pieza) {
-      galeria.appendChild(img);
-      return;
-    }
-    const figura = document.createElement('figure');
-    figura.className = 'pieza-figura';
-    const leyenda = document.createElement('figcaption');
-    leyenda.className = 'pieza-contexto pieza-contexto--galeria';
-    pintarContexto(leyenda, pieza);
-    figura.append(img, leyenda);
-    galeria.appendChild(figura);
   }
 
   // ---- Teléfono: flechita "volver arriba" para las galerías de scroll (Posters y Estampas),
@@ -1558,8 +1509,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //      Se arma igual en desktop pero ahí el CSS la oculta. Son solo para ver: tocarlos no abre nada. ----
     const mobileGallery = document.createElement('div');
     mobileGallery.className = 'poster-mobile-gallery';
-    const contextos = CONTEXTO_PIEZAS[folder] || [];
-    const compartido = encabezadoDeGaleria(mobileGallery, contextos);
+    encabezadoDeGaleria(mobileGallery, CONTEXTO_PIEZAS[folder][0]);
     for (let i = 1; i <= total; i++) {
       const item = document.createElement('img');
       item.className = 'poster-mobile-item';
@@ -1568,7 +1518,7 @@ document.addEventListener('DOMContentLoaded', () => {
       item.decoding = 'async';
       setCarouselSrc(item, i);
       fadeWhenLoaded(item);
-      agregarPiezaAGaleria(mobileGallery, item, compartido ? null : contextos[i - 1]);
+      mobileGallery.appendChild(item);
     }
     frame.parentElement.appendChild(mobileGallery);
 
@@ -1576,12 +1526,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     prevBtn.addEventListener('click', () => {
       goTo(index === 1 ? total : index - 1, 'prev');
-      restartAutoplay();
+      startAutoplay();
     });
 
     nextBtn.addEventListener('click', () => {
       goTo(index === total ? 1 : index + 1, 'next');
-      restartAutoplay();
+      startAutoplay();
     });
 
     // ---- Autoplay: avanza solo cada tantos ms, se pausa al pasar el mouse ----
@@ -1603,11 +1553,6 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(autoplayTimer);
         autoplayTimer = null;
       }
-    }
-
-    function restartAutoplay() {
-      if (!autoplayMs) return;
-      startAutoplay();
     }
 
     // botón de pausa: el carrusel avanza solo sin fin, así que tiene que poder frenarse
@@ -1710,15 +1655,9 @@ document.addEventListener('DOMContentLoaded', () => {
       full.src = srcOf(i);
     }
 
-    // ---- Cambio de póster en el visor, con dirección (igual que en Estampas): el actual se
-    //      corre un poco hacia el lado contrario y se apaga, el nuevo entra desde el lado hacia
-    //      el que vas. El visor tiene una sola imagen (por el zoom), así que el que se va es
-    //      una copia temporal que se borra al terminar. Con "reducir movimiento", solo fundido ----
-    const VISOR_DESPLAZAMIENTO = 6; // % del ancho del póster
-    const VISOR_CURVA = 'cubic-bezier(0.23, 1, 0.32, 1)'; // --ease-out
-
+    // ---- Cambio de póster en el visor, con dirección (ver cruzar). El visor tiene una sola
+    //      imagen (por el zoom), así que el que se va es una copia temporal que se borra al terminar ----
     function cambiarPosterEnVisor(i, sign) {
-      const moverse = !prefiereMenosMovimiento();
       lightboxImg.getAnimations().forEach((a) => a.cancel()); // si venía entrando otro, queda en su lugar
       resetZoom();
 
@@ -1736,17 +1675,7 @@ document.addEventListener('DOMContentLoaded', () => {
         height: r.height + 'px',
       });
       lightboxScroll.appendChild(fantasma);
-      fantasma.animate(
-        [
-          { opacity: 1, transform: 'none', filter: 'blur(0)' },
-          {
-            opacity: 0,
-            transform: moverse ? `translateX(${-sign * VISOR_DESPLAZAMIENTO}%)` : 'none',
-            filter: moverse ? 'blur(2px)' : 'blur(0)',
-          },
-        ],
-        { duration: 200, easing: VISOR_CURVA } // el que se va, más rápido: deja lugar al nuevo
-      ).finished.catch(() => {}).then(() => fantasma.remove());
+      cruzar(fantasma, sign, false).finished.catch(() => {}).then(() => fantasma.remove());
 
       // el nuevo: invisible hasta que la imagen esté lista (como mucho 150ms), después entra
       lightboxImg.style.opacity = '0';
@@ -1757,17 +1686,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ]).then(() => {
         if (index !== i) return; // ya se pidió otro póster: ese se encarga
         lightboxImg.style.opacity = '';
-        lightboxImg.animate(
-          [
-            {
-              opacity: 0,
-              transform: moverse ? `translateX(${sign * VISOR_DESPLAZAMIENTO}%)` : 'none',
-              filter: moverse ? 'blur(2px)' : 'blur(0)',
-            },
-            { opacity: 1, transform: 'none', filter: 'blur(0)' },
-          ],
-          { duration: 300, easing: VISOR_CURVA }
-        );
+        cruzar(lightboxImg, sign, true);
       });
     }
 
@@ -1790,8 +1709,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateOrigin(e) {
       const rect = lightboxImg.getBoundingClientRect();
-      const relX = Math.min(Math.max(((e.clientX - rect.left) / rect.width) * 100, 0), 100);
-      const relY = Math.min(Math.max(((e.clientY - rect.top) / rect.height) * 100, 0), 100);
+      const relX = limitar(((e.clientX - rect.left) / rect.width) * 100, 0, 100);
+      const relY = limitar(((e.clientY - rect.top) / rect.height) * 100, 0, 100);
       lightboxImg.style.transformOrigin = `${relX}% ${relY}%`;
     }
 
@@ -1820,7 +1739,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       updateOrigin(e);
       scale += e.deltaY < 0 ? SCALE_STEP : -SCALE_STEP;
-      scale = Math.max(SCALE_MIN, Math.min(SCALE_MAX, scale));
+      scale = limitar(scale, SCALE_MIN, SCALE_MAX);
       applyScale();
     }, { passive: false });
 
@@ -1879,7 +1798,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lightboxImg.style.transformOrigin = 'center center';
         if (e.key === '0') scale = SCALE_MIN;
         else scale += e.key === '-' ? -SCALE_STEP : SCALE_STEP;
-        scale = Math.max(SCALE_MIN, Math.min(SCALE_MAX, scale));
+        scale = limitar(scale, SCALE_MIN, SCALE_MAX);
         applyScale();
       }
     });
@@ -1938,7 +1857,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (reels) {
     const figuras = [...reels.querySelectorAll('.reel')];
     const videos = figuras.map((f) => f.querySelector('video')); // null en las piezas que son imagen
-    const CURVA = 'cubic-bezier(0.23, 1, 0.32, 1)'; // --ease-out
     let actual = 0;
 
     // en la compu, solo corre el que se ve
@@ -1958,15 +1876,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (prefiereMenosMovimiento()) return; // sin movimiento: cambia directo
 
-      const corrido = (x) => `translateX(${x}%)`;
-      sale.animate(
-        [{ opacity: 1, transform: 'none', filter: 'blur(0)' }, { opacity: 0, transform: corrido(-sign * 6), filter: 'blur(2px)' }],
-        { duration: 200, easing: CURVA } // el que se va, más rápido: deja lugar al nuevo
-      );
-      entra.animate(
-        [{ opacity: 0, transform: corrido(sign * 6), filter: 'blur(2px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }],
-        { duration: 300, easing: CURVA }
-      );
+      cruzar(sale, sign, false);
+      cruzar(entra, sign, true);
     }
 
     agregarBotonArriba(); // en el celular es una lista larga: flechita para volver arriba, como en Posters

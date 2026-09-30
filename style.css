@@ -776,10 +776,6 @@ textarea:focus-visible,
   }
 }
 
-.draggable-img.fade-in-entrance {
-  animation: poster-fade-in 300ms var(--ease-out) both;
-}
-
 /* balanceo en reposo (piezas con .idle-wiggle): usa la propiedad `rotate`, que se suma
    al transform inline (inclinación base + tilt del arrastre) sin pisarlo.
    Duración, amplitud y fase las pone script.js por pieza */
@@ -1481,37 +1477,21 @@ textarea:focus-visible,
 
 /* ---- en las galerías del celular ---- */
 
-/* pieza + su leyenda: un solo bloque, con el texto pegado a su imagen
-   (la galería separa más un bloque del siguiente, así no se confunde a quién pertenece) */
-.pieza-figura {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-/* leyenda discreta: chica y en gris, para que no compita con la pieza;
-   el nombre de la marca en negro, porque es el link */
-.pieza-contexto--galeria,
+/* todos los pósters comparten contexto (personales): va una sola vez arriba, como etiqueta de sección;
+   chica y en gris, para que no compita con las piezas */
 .pieza-contexto--encabezado {
   min-height: 0;
   max-width: none;
   font-size: 0.8rem;
   color: var(--gris-menu);
   text-align: left;
-}
-
-.pieza-contexto--galeria a,
-.pieza-contexto--encabezado a {
-  color: var(--text);
-}
-
-/* cuando toda la galería comparte el contexto (ej: todos los pósters son personales),
-   va una sola vez arriba, como etiqueta de sección */
-.pieza-contexto--encabezado {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 600;
+}
+
+.pieza-contexto--encabezado a {
+  color: var(--text);
 }
 
 .poster-lightbox-arrow {

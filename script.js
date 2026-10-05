@@ -46,7 +46,7 @@ const TRANSLATIONS = {
     'nav.close': 'Cerrar menú',
     'nav.top': 'Volver arriba',
     'branding.obsolet.desc': 'Mi marca de ropa independiente. Me encargo de todo: identidad, diseño de prendas y estampas, producción, logística y redes.',
-    'branding.benzaiten.desc': 'Identidad visual para un spa y centro de bienestar. [Reemplazá este texto con la descripción del proyecto.]',
+    'branding.benzaiten.desc': 'Rebranding de Benzaiten, centro de estética inspirado en la diosa japonesa de la belleza. Una identidad construida sobre la idea de elevación, con un isotipo ascendente y una tipografía de raíz japonesa. Con Camila Tiratel.',
     'branding.karamelo.desc': 'Trabajo freelance para una marca de ropa: diseño de estampas, packaging, redes sociales y branding.',
     'reels.anterior': 'Reel anterior',
     'reels.siguiente': 'Reel siguiente',
@@ -60,7 +60,7 @@ const TRANSLATIONS = {
     'modal.submit': 'Enviar',
     'modal.sending': 'Enviando…',
     'modal.success': '¡Gracias! Tu mensaje fue enviado.',
-    'modal.error': 'Hubo un error. Probá de nuevo o escribime directamente por email.'
+    'modal.error': 'Hubo un error. Probá de nuevo o escribime a'
   },
   en: {
     'nav.skip': 'Skip to content',
@@ -106,7 +106,7 @@ const TRANSLATIONS = {
     'nav.close': 'Close menu',
     'nav.top': 'Back to top',
     'branding.obsolet.desc': 'My independent clothing brand. I handle everything: identity, garment and print design, production, logistics and social media.',
-    'branding.benzaiten.desc': 'Visual identity for a spa and wellness center. [Replace this text with the project description.]',
+    'branding.benzaiten.desc': 'Rebranding for Benzaiten, a beauty center inspired by the Japanese goddess of beauty. An identity built on the idea of elevation, with an ascending symbol and Japanese-rooted typography. With Camila Tiratel.',
     'branding.karamelo.desc': 'Freelance work for a clothing brand: print design, packaging, social media and branding.',
     'reels.anterior': 'Previous reel',
     'reels.siguiente': 'Next reel',
@@ -120,7 +120,7 @@ const TRANSLATIONS = {
     'modal.submit': 'Send',
     'modal.sending': 'Sending…',
     'modal.success': 'Thanks! Your message was sent.',
-    'modal.error': 'Something went wrong. Try again or email me directly.'
+    'modal.error': 'Something went wrong. Try again or email me at'
   }
 };
 
@@ -700,36 +700,6 @@ document.addEventListener('DOMContentLoaded', () => {
   menuToggle.innerHTML = '<span></span><span></span><span></span>'; // las 3 rayitas
   document.body.appendChild(menuToggle);
 
-  // ---- Home: modelo 3D como una pieza más del collage (se arrastra como las demás y
-  //      gira solo). Usa <model-viewer> de Google; solo se descarga en la home.
-  //      Para cambiar el modelo: exportá un .glb desde Blender y cambiá esta ruta
-  //      (y también la del <link rel="preload"> en el <head> de index.html). ----
-  const MODELO_3D = 'assets/modelos/prueba.glb';
-  const MODEL_VIEWER_JS = 'https://cdn.jsdelivr.net/npm/@google/model-viewer@4.0.0/dist/model-viewer.min.js';
-  const piezaModelo = document.querySelector('.moodboard .modelo-3d');
-  if (piezaModelo) {
-    const lib = document.createElement('script');
-    lib.type = 'module';
-    lib.src = MODEL_VIEWER_JS;
-    document.head.appendChild(lib);
-
-    const viewer = document.createElement('model-viewer');
-    viewer.setAttribute('src', MODELO_3D);
-    viewer.setAttribute('alt', 'Modelo 3D');
-    viewer.setAttribute('loading', 'eager'); // no espera a "verlo en pantalla" para cargarlo
-    viewer.setAttribute('interaction-prompt', 'none');
-    viewer.setAttribute('rotation-per-second', '40deg');
-    viewer.setAttribute('shadow-intensity', '0');
-    // sin camera-controls: arrastrar mueve la pieza por el collage, como las demás
-    if (!prefiereMenosMovimiento()) {
-      viewer.setAttribute('auto-rotate', '');
-      viewer.setAttribute('auto-rotate-delay', '0');
-    }
-    // sin la barra de carga gris que trae por defecto (el modelo aparece con un fundido)
-    viewer.innerHTML = '<div slot="progress-bar"></div>';
-    piezaModelo.appendChild(viewer);
-  }
-
   function setMenu(open) {
     document.body.classList.toggle('menu-open', open);
     menuToggle.setAttribute('aria-expanded', String(open));
@@ -978,8 +948,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Envío del formulario
-  // Conectado a Formspree: reemplazá TU_ENDPOINT por el que te da formspree.io
-  // (Form → Settings → Endpoint), algo tipo "https://formspree.io/f/xxxxxxx"
+  // Conectado a Formspree (formspree.io → Form → Settings → Endpoint)
   const FORM_ENDPOINT = 'https://formspree.io/f/xwvgjbrw';
 
   form.addEventListener('submit', async (e) => {
@@ -1009,7 +978,12 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('Respuesta no OK');
       }
     } catch (err) {
-      successMsg.textContent = TRANSLATIONS[currentLang]['modal.error'];
+      const mail = document.createElement('a');
+      mail.href = 'mailto:88318w@gmail.com';
+      mail.textContent = '88318w@gmail.com';
+      mail.style.textDecoration = 'underline';
+      successMsg.textContent = TRANSLATIONS[currentLang]['modal.error'] + ' ';
+      successMsg.append(mail, '.');
       successMsg.style.color = '#c0392b';
       successMsg.classList.add('is-visible');
     } finally {

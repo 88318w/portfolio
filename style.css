@@ -744,20 +744,6 @@ textarea:focus-visible,
   z-index: 50;
 }
 
-/* modelo 3D del collage de la home (el <model-viewer> lo agrega script.js):
-   caja cuadrada, fondo transparente; el viewer no recibe el puntero, así
-   arrastrar mueve la pieza como a las demás */
-.modelo-3d {
-  aspect-ratio: 1;
-}
-
-.modelo-3d model-viewer {
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  --poster-color: transparent;
-}
-
 /* círculos naranjas del collage del celular: el ancho lo pone data-mw, el alto sale del aspect-ratio */
 .draggable-img.punto {
   aspect-ratio: 1;

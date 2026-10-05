@@ -840,19 +840,6 @@ document.addEventListener('DOMContentLoaded', () => {
         && !document.documentElement.classList.contains('submenu-sin-animacion')) {
       animarAltura(0, submenu.scrollHeight, ABRIR_MS, CURVA_ABRIR);
     }
-    // salís de Diseño hacia otra sección: primero se cierra, después cambia la página
-    if (isDisenoPage) {
-      document.querySelectorAll('.menu-list > li > .menu-item, .logo-wrap a').forEach((link) => {
-        if (link === disenoLink) return;
-        link.addEventListener('click', (e) => {
-          if (isMobile() || prefiereMenosMovimiento() || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
-          e.preventDefault();
-          cerrarSubmenu();
-          setTimeout(() => { location.href = link.href; }, CERRAR_MS);
-        });
-      });
-    }
-
     disenoLink.addEventListener('click', (e) => {
       if (!isMobile()) return; // en desktop sigue siendo un link
       e.preventDefault();

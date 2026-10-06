@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -1193,7 +1193,6 @@ textarea:focus-visible,
   background: #6b2d7a url("assets/iphone-fondo.webp") 0 0 / 100% 100%; /* el filtro "Rio de Janeiro" de Instagram entero, sin recortar. La imagen está girada porque el aparato va rotado: así en pantalla queda azul arriba, naranja abajo */
   box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.2);
   filter: none;
-  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .hub-aparato--iphone .hub-pantalla::before {
@@ -2626,5 +2625,128 @@ body.viewer-open {
   /* Sobre mí: en el celular reemplaza a la cascada de la compu (sobremi-sube) */
   .sobremi-text > .entra-al-scroll {
     animation: none;
+  }
+}
+
+/* ============================
+   3D + Motion Graphics: reproductor propio (script.js lo arma en los videos con data-controles)
+   Compu: aparece al pasar el mouse. Celular: al tocar el video, y se esconde solo
+============================ */
+:root {
+  --amarillo-reproductor: #ffe500; /* provisorio: va el hex que pase Lautaro */
+}
+
+.reproductor-caja {
+  position: relative;
+  max-width: 100%;
+}
+
+.reproductor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms var(--ease-out);
+}
+
+.reproductor-caja.controles-visibles .reproductor,
+.reproductor:focus-within {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .reproductor-caja:hover .reproductor {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.reproductor-btn {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.55); /* como la píldora de "← Volver" */
+  color: #fff;
+  display: grid;
+  place-items: center;
+  transition: scale 150ms var(--ease-out);
+}
+
+.reproductor-btn:active {
+  scale: 0.94;
+}
+
+.reproductor-btn svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  fill: currentColor;
+}
+
+/* barra: la parte reproducida en el amarillo; el alto extra es solo para que sea fácil de agarrar */
+.reproductor-barra {
+  flex: 1;
+  min-width: 0;
+  height: 1.25rem;
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  background:
+    linear-gradient(var(--amarillo-reproductor) 0 0) left center / var(--p, 0%) 3px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.4) 0 0) left center / 100% 3px no-repeat;
+}
+
+.reproductor-barra::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--amarillo-reproductor);
+}
+
+.reproductor-barra::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--amarillo-reproductor);
+}
+
+.reproductor-tiempo {
+  flex: none;
+  color: #fff;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums; /* los números no saltan mientras avanzan */
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 768px) {
+  .reproductor-caja {
+    width: 100%;
+  }
+
+  /* en el celular, botones del tamaño del dedo */
+  .reproductor-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .reproductor-barra::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+  }
+
+  .reproductor-barra::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
   }
 }

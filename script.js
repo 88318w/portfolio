@@ -1811,6 +1811,104 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCarouselGallery('poster', 9, 'posters', 4000);
 
+  // ---- 3D + Motion Graphics: reproductor propio para los videos largos (data-controles).
+  //      Compu: aparece al pasar el mouse; click en el video = pausa/play.
+  //      Celular: aparece al tocar el video y se esconde solo a los 3 s.
+  //      El parlante solo aparece si el video tiene audio (data-sonido); suena uno a la vez ----
+  const ICONO_PLAY = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>';
+  const ICONO_PAUSA = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z"/></svg>';
+  const ICONO_MUDO = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3.5v11L5 10H2z"/><path d="M11 5.5l4 5M15 5.5l-4 5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>';
+  const ICONO_SONIDO = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3.5v11L5 10H2z"/><path d="M11.5 5a4 4 0 0 1 0 6M13.5 3a7 7 0 0 1 0 10" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>';
+  const enIngles = () => currentLang === 'en';
+  const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  const conControles = [...document.querySelectorAll('video[data-controles]')];
+
+  conControles.forEach((v) => {
+    const caja = document.createElement('div');
+    caja.className = 'reproductor-caja';
+    v.replaceWith(caja);
+    caja.appendChild(v);
+
+    const barra = document.createElement('div');
+    barra.className = 'reproductor';
+    barra.innerHTML =
+      '<button type="button" class="reproductor-btn reproductor-play"></button>' +
+      '<input type="range" class="reproductor-barra" min="0" max="1000" step="1" value="0">' +
+      '<span class="reproductor-tiempo">0:00 / 0:00</span>' +
+      (v.hasAttribute('data-sonido') ? '<button type="button" class="reproductor-btn reproductor-sonido"></button>' : '');
+    caja.appendChild(barra);
+
+    const play = barra.querySelector('.reproductor-play');
+    const posicion = barra.querySelector('.reproductor-barra');
+    const tiempo = barra.querySelector('.reproductor-tiempo');
+    const sonido = barra.querySelector('.reproductor-sonido');
+    posicion.setAttribute('aria-label', enIngles() ? 'Video position' : 'Posición del video');
+
+    const pintarPlay = () => {
+      play.innerHTML = v.paused ? ICONO_PLAY : ICONO_PAUSA;
+      play.setAttribute('aria-label', v.paused ? (enIngles() ? 'Play' : 'Reproducir') : (enIngles() ? 'Pause' : 'Pausar'));
+    };
+    const pintarSonido = () => {
+      if (!sonido) return;
+      sonido.innerHTML = v.muted ? ICONO_MUDO : ICONO_SONIDO;
+      sonido.setAttribute('aria-label', v.muted ? (enIngles() ? 'Unmute' : 'Activar sonido') : (enIngles() ? 'Mute' : 'Silenciar'));
+    };
+    const pintarTiempo = () => {
+      const d = v.duration || 0;
+      const p = d ? v.currentTime / d : 0;
+      posicion.value = Math.round(p * 1000);
+      posicion.style.setProperty('--p', p * 100 + '%');
+      tiempo.textContent = `${mmss(v.currentTime)} / ${mmss(d)}`;
+    };
+    // mientras corre, la barra avanza en cada cuadro (timeupdate solo llega ~4 veces por segundo)
+    const seguir = () => { pintarTiempo(); if (!v.paused) requestAnimationFrame(seguir); };
+
+    v.addEventListener('play', () => { pintarPlay(); requestAnimationFrame(seguir); });
+    v.addEventListener('pause', pintarPlay);
+    v.addEventListener('loadedmetadata', pintarTiempo);
+    v.addEventListener('timeupdate', pintarTiempo);
+    v.addEventListener('volumechange', pintarSonido);
+    pintarPlay();
+    pintarSonido();
+    pintarTiempo();
+
+    const alternar = () => (v.paused ? v.play().catch(() => {}) : v.pause());
+    play.addEventListener('click', alternar);
+    posicion.addEventListener('input', () => {
+      if (v.duration) v.currentTime = (posicion.value / 1000) * v.duration;
+      pintarTiempo();
+    });
+    if (sonido) {
+      sonido.addEventListener('click', () => {
+        if (v.muted) conControles.forEach((otro) => { otro.muted = true; }); // suena uno a la vez
+        v.muted = !v.muted;
+      });
+    }
+
+    // celular: tocar el video muestra los controles; se esconden solos (cada toque en ellos reinicia la cuenta)
+    let esconder;
+    const mostrar = () => {
+      caja.classList.add('controles-visibles');
+      clearTimeout(esconder);
+      esconder = setTimeout(() => caja.classList.remove('controles-visibles'), 3000);
+    };
+    v.addEventListener('click', () => {
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) alternar();
+      else if (caja.classList.contains('controles-visibles')) { clearTimeout(esconder); caja.classList.remove('controles-visibles'); }
+      else mostrar();
+    });
+    barra.addEventListener('pointerdown', () => { if (caja.classList.contains('controles-visibles')) mostrar(); });
+    barra.addEventListener('input', () => { if (caja.classList.contains('controles-visibles')) mostrar(); });
+  });
+
+  // si se va de pantalla (celular) o se cambia de pieza en el carrusel, deja de sonar
+  if (conControles.length && 'IntersectionObserver' in window) {
+    const fuera = new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => { if (!e.isIntersecting) e.target.muted = true; });
+    });
+    conControles.forEach((v) => fuera.observe(v));
+  }
+
   // ---- 3D + Motion Graphics (compu): carrusel de reels e imágenes, de a uno. Mismo cambio con dirección que
   //      Estampas y Posters: el actual se corre y se apaga, el nuevo entra desde el lado hacia el que vas.
   //      Solo se reproduce el que se ve. En el celular no hay carrusel: van todos uno debajo del otro ----
@@ -1827,7 +1925,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (i === actual) return;
       const sale = figuras[actual];
       const entra = figuras[i];
-      if (videos[actual]) videos[actual].pause();
+      if (videos[actual]) { videos[actual].pause(); videos[actual].muted = true; }
       actual = i;
       sale.classList.remove('is-activo');
       entra.classList.add('is-activo');

@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -1193,6 +1193,7 @@ textarea:focus-visible,
   background: #6b2d7a url("assets/iphone-fondo.webp") 0 0 / 100% 100%; /* el filtro "Rio de Janeiro" de Instagram entero, sin recortar. La imagen está girada porque el aparato va rotado: así en pantalla queda azul arriba, naranja abajo */
   box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.2);
   filter: none;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .hub-aparato--iphone .hub-pantalla::before {

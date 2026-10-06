@@ -426,6 +426,7 @@ textarea:focus-visible,
   background: var(--surface);
   width: min(90vw, 480px);
   padding: 2.4rem;
+  border-radius: 1.25rem;
   position: relative;
   transform: translateY(8px) scale(0.97);
   transition: transform 200ms var(--ease-out);
@@ -481,6 +482,7 @@ textarea:focus-visible,
 .contact-form textarea {
   width: 100%;
   border: 1px solid var(--border-subtle);
+  border-radius: 0.6rem;
   background: var(--bg);
   color: var(--text);
   padding: 0.7rem 0.8rem;
@@ -498,6 +500,7 @@ textarea:focus-visible,
 
 .contact-submit {
   margin-top: 0.4rem;
+  border-radius: 0.6rem;
   background: var(--accent-bg);
   color: var(--accent-text);
   border: none;
@@ -539,6 +542,63 @@ textarea:focus-visible,
   .contact-success.is-visible {
     transition: opacity 200ms var(--ease-out);
   }
+}
+
+/* "O escribime directo": el correo con un botón para copiarlo */
+.contact-directo {
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.contact-directo-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  opacity: 0.65;
+  margin-bottom: 0.5rem;
+}
+
+.contact-directo-fila {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.6rem;
+  padding: 0.35rem 0.35rem 0.35rem 0.8rem;
+}
+
+.contact-directo-mail {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1rem;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
+}
+
+.contact-copiar {
+  flex: none;
+  min-width: 5.5rem; /* no cambia de ancho al pasar a "Copiado" */
+  border: none;
+  border-radius: 0.45rem;
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  padding: 0.6rem 0.9rem;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
+  transition: background-color 200ms var(--ease-out), scale 160ms var(--ease-out);
+}
+
+.contact-copiar:active {
+  scale: 0.97;
+}
+
+.contact-copiar.is-copiado {
+  background: #1a7a1a; /* el mismo verde del mensaje de enviado */
 }
 
 /* ============================

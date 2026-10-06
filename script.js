@@ -60,7 +60,10 @@ const TRANSLATIONS = {
     'modal.submit': 'Enviar',
     'modal.sending': 'Enviando…',
     'modal.success': '¡Gracias! Tu mensaje fue enviado.',
-    'modal.error': 'Hubo un error. Probá de nuevo o escribime a'
+    'modal.error': 'Hubo un error. Probá de nuevo o escribime a',
+    'modal.directo': 'O escribime directo',
+    'modal.copiar': 'Copiar',
+    'modal.copiado': 'Copiado'
   },
   en: {
     'nav.skip': 'Skip to content',
@@ -120,7 +123,10 @@ const TRANSLATIONS = {
     'modal.submit': 'Send',
     'modal.sending': 'Sending…',
     'modal.success': 'Thanks! Your message was sent.',
-    'modal.error': 'Something went wrong. Try again or email me at'
+    'modal.error': 'Something went wrong. Try again or email me at',
+    'modal.directo': 'Or email me directly',
+    'modal.copiar': 'Copy',
+    'modal.copiado': 'Copied'
   }
 };
 
@@ -845,12 +851,41 @@ document.addEventListener('DOMContentLoaded', () => {
         <button type="submit" class="contact-submit" data-i18n="modal.submit">Enviar</button>
         <p class="contact-success" id="contact-success" role="status" aria-live="polite" data-i18n="modal.success">¡Gracias! Tu mensaje fue enviado.</p>
       </form>
+      <!-- si no quiere usar el formulario: el correo, con botón para copiarlo -->
+      <div class="contact-directo">
+        <p class="contact-directo-label" data-i18n="modal.directo">O escribime directo</p>
+        <div class="contact-directo-fila">
+          <a class="contact-directo-mail" href="mailto:88318w@gmail.com">88318w@gmail.com</a>
+          <button type="button" class="contact-copiar" data-i18n="modal.copiar">Copiar</button>
+        </div>
+      </div>
     </div>
   `;
   document.body.appendChild(overlay);
 
   // aplicamos el idioma actual también a lo que acabamos de insertar (el modal)
   applyLanguage(currentLang);
+
+  // ---- Copiar el correo (para quien no quiere usar el formulario) ----
+  const copiar = overlay.querySelector('.contact-copiar');
+  let volverACopiar;
+  copiar.addEventListener('click', async () => {
+    const correo = overlay.querySelector('.contact-directo-mail').textContent;
+    try {
+      await navigator.clipboard.writeText(correo);
+    } catch {
+      // sin permiso de portapapeles (o http): se selecciona el correo para copiarlo a mano
+      getSelection().selectAllChildren(overlay.querySelector('.contact-directo-mail'));
+      return;
+    }
+    copiar.textContent = TRANSLATIONS[currentLang]['modal.copiado'];
+    copiar.classList.add('is-copiado');
+    clearTimeout(volverACopiar);
+    volverACopiar = setTimeout(() => {
+      copiar.textContent = TRANSLATIONS[currentLang]['modal.copiar'];
+      copiar.classList.remove('is-copiado');
+    }, 1800);
+  });
 
   // ---- Sobre mí: el título entra con efecto "scramble" (caracteres al azar que se
   //      acomodan en la palabra). Solo visual: el lector de pantalla lee el título real

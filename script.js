@@ -1819,6 +1819,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const ICONO_PAUSA = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z"/></svg>';
   const ICONO_MUDO = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3.5v11L5 10H2z"/><path d="M11 5.5l4 5M15 5.5l-4 5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>';
   const ICONO_SONIDO = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3.5v11L5 10H2z"/><path d="M11.5 5a4 4 0 0 1 0 6M13.5 3a7 7 0 0 1 0 10" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>';
+  const ICONO_EXPANDIR = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>';
   const enIngles = () => currentLang === 'en';
   const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
   const conControles = [...document.querySelectorAll('video[data-controles]')];
@@ -1837,7 +1838,9 @@ document.addEventListener('DOMContentLoaded', () => {
       '<button type="button" class="reproductor-btn reproductor-play"></button>' +
       '<input type="range" class="reproductor-barra" min="0" max="1000" step="1" value="0">' +
       '<span class="reproductor-tiempo">0:00 / 0:00</span>' +
-      (v.hasAttribute('data-sonido') ? '<button type="button" class="reproductor-btn reproductor-sonido"></button>' : '');
+      (v.hasAttribute('data-sonido') ? '<button type="button" class="reproductor-btn reproductor-sonido"></button>' : '') +
+      // los horizontales (más anchos que altos) se ven chicos en el celular: botón de pantalla completa
+      (+v.getAttribute('width') > +v.getAttribute('height') ? '<button type="button" class="reproductor-btn reproductor-expandir"></button>' : '');
     caja.appendChild(barra);
 
     const play = barra.querySelector('.reproductor-play');
@@ -1880,6 +1883,22 @@ document.addEventListener('DOMContentLoaded', () => {
       if (v.duration) v.currentTime = (posicion.value / 1000) * v.duration;
       pintarTiempo();
     });
+    const expandir = barra.querySelector('.reproductor-expandir');
+    if (expandir) {
+      expandir.innerHTML = ICONO_EXPANDIR;
+      expandir.setAttribute('aria-label', enIngles() ? 'Full screen' : 'Pantalla completa');
+      expandir.addEventListener('click', () => {
+        if (v.requestFullscreen) {
+          // Android y compu: pantalla completa y, si se puede, gira a horizontal solo
+          v.requestFullscreen()
+            .then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape'))
+            .catch(() => {});
+        } else if (v.webkitEnterFullscreen) {
+          v.webkitEnterFullscreen(); // iPhone: abre el reproductor del sistema (se gira el teléfono a mano)
+        }
+      });
+    }
+
     if (sonido) {
       sonido.addEventListener('click', () => {
         if (v.muted) conControles.forEach((otro) => { otro.muted = true; }); // suena uno a la vez
@@ -1901,6 +1920,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     barra.addEventListener('pointerdown', () => { if (caja.classList.contains('controles-visibles')) mostrar(); });
     barra.addEventListener('input', () => { if (caja.classList.contains('controles-visibles')) mostrar(); });
+  });
+
+  // al salir de pantalla completa, el teléfono vuelve a girar libre
+  // y en pantalla completa se usan los controles del sistema (los nuestros quedan afuera del video)
+  document.addEventListener('fullscreenchange', () => {
+    conControles.forEach((v) => { v.controls = document.fullscreenElement === v; });
+    if (!document.fullscreenElement && screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
   });
 
   // si se va de pantalla (celular) o se cambia de pieza en el carrusel, deja de sonar

@@ -2497,7 +2497,7 @@ body.viewer-open {
   .reels {
     margin-left: 0;
     height: auto;
-    padding: calc(var(--m-bar) + 0.5rem) 1.2rem 2rem;
+    padding: calc(var(--m-bar) + 0.5rem) 1.2rem 6rem; /* abajo: lugar para que el último video suba por encima de las píldoras fijas (Volver y ↑) */
     display: block;
   }
 
@@ -2690,6 +2690,10 @@ body.viewer-open {
   width: 0.8rem;
   height: 0.8rem;
   fill: currentColor;
+}
+
+.reproductor-btn svg [fill="none"] {
+  fill: none; /* los íconos de trazo (parlante, pantalla completa) */
 }
 
 /* barra: la parte reproducida en el color del video; el alto extra es solo para que sea fácil de agarrar */

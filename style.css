@@ -19,7 +19,7 @@ body {
   position: relative;
   overflow-x: hidden;
   transition: background var(--transition-suave), color var(--transition-suave);
-  cursor: url('assets/cursor.png') 4 4, auto;
+  cursor: url('assets/cursor.svg') 2 2, auto;
   touch-action: manipulation;             /* sin la demora del doble toque en el celular */
   -webkit-tap-highlight-color: transparent; /* sin el flash gris de iOS: cada botón ya tiene su :active */
 }
@@ -27,7 +27,7 @@ body {
 a {
   text-decoration: none;
   color: inherit;
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
 }
 
 img {
@@ -391,7 +391,7 @@ textarea:focus-visible,
   letter-spacing: 0.03em;
   font-family: inherit;
   border: none;
-  cursor: url('assets/pointer-white.png') 14 2, pointer;
+  cursor: url('assets/pointer-white.svg') 3 1, pointer;
   z-index: 100;
   transition: scale 160ms var(--ease-out);
 }
@@ -457,7 +457,7 @@ textarea:focus-visible,
   border: none;
   font-size: 1.4rem;
   line-height: 1;
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
   color: var(--text);
   font-family: inherit;
 }
@@ -504,7 +504,7 @@ textarea:focus-visible,
   padding: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.03em;
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
   font-family: inherit;
   transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
 }
@@ -557,7 +557,7 @@ textarea:focus-visible,
   font-weight: 700;
   letter-spacing: 0.03em;
   padding: 0.45rem 0; /* área de toque sin caja visible */
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
 }
 
 /* ---- "← Volver" (Branding, Estampas, Posters; en 3D solo en el celular).
@@ -652,7 +652,7 @@ textarea:focus-visible,
   font-weight: 700;
   letter-spacing: 0.03em;
   color: var(--text);
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
   opacity: 0;
   visibility: hidden;
   translate: 0 0.4rem;
@@ -722,7 +722,7 @@ textarea:focus-visible,
 .draggable-img {
   position: absolute;
   max-width: none;
-  cursor: url('assets/palm-of-hand.png') 16 16, grab;
+  cursor: url('assets/palm-of-hand.svg') 12 16, grab;
   touch-action: none;
   user-select: none;
   -webkit-user-drag: none;
@@ -737,7 +737,7 @@ textarea:focus-visible,
 }
 
 .draggable-img:active {
-  cursor: url('assets/palm-of-hand.png') 16 16, grabbing;
+  cursor: url('assets/palm-of-hand.svg') 12 16, grabbing;
 }
 
 .draggable-img.is-dragging {
@@ -797,7 +797,7 @@ textarea:focus-visible,
 }
 
 .draggable-img.opens-carousel {
-  cursor: url('assets/zoom-in.png') 16 16, zoom-in;
+  cursor: url('assets/zoom-in.svg') 13 13, zoom-in;
 }
 
 .estampa-hint-text {
@@ -834,7 +834,7 @@ textarea:focus-visible,
 .flip-postcard {
   perspective: 1400px;
   background: none;
-  cursor: url('assets/refresh.png') 16 16, pointer;
+  cursor: url('assets/refresh.svg') 16 16, pointer;
 }
 
 .flip-postcard img {
@@ -951,7 +951,7 @@ textarea:focus-visible,
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
   z-index: 5;
   opacity: 0.75;
   transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
@@ -1007,7 +1007,7 @@ textarea:focus-visible,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  cursor: url('assets/zoom-in.png') 16 16, auto;
+  cursor: url('assets/zoom-in.svg') 13 13, auto;
   transform: translateX(0);
 }
 
@@ -1019,7 +1019,7 @@ textarea:focus-visible,
   background: none;
   border: none;
   color: var(--text);
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
   padding: 0.5rem;
   flex-shrink: 0;
   transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
@@ -1119,7 +1119,7 @@ textarea:focus-visible,
   position: absolute;
   display: block;
   rotate: var(--rot);
-  cursor: url('assets/palm-of-hand.png') 16 16, grab; /* se arrastran como las piezas de la home */
+  cursor: url('assets/palm-of-hand.svg') 12 16, grab; /* se arrastran como las piezas de la home */
   touch-action: none;
   user-select: none;
   -webkit-user-drag: none;
@@ -1131,7 +1131,7 @@ textarea:focus-visible,
 .hub-aparato.is-dragging {
   transition: scale 150ms var(--ease-out);
   scale: 1.03;
-  cursor: url('assets/palm-of-hand.png') 16 16, grabbing;
+  cursor: url('assets/palm-of-hand.svg') 12 16, grabbing;
 }
 
 .hub-aparato--iphone { animation-delay: 0.05s; }
@@ -1417,7 +1417,7 @@ textarea:focus-visible,
   color: #111111;
   font-size: 2rem;
   line-height: 1;
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
   z-index: 2;
 }
 
@@ -1483,7 +1483,7 @@ textarea:focus-visible,
   background: none;
   border: none;
   color: #111111;
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
   padding: 0.6rem;
   flex-shrink: 0;
   transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
@@ -1545,7 +1545,7 @@ textarea:focus-visible,
   width: auto;
   height: auto;
   display: block;
-  cursor: url('assets/zoom-in.png') 16 16, auto;
+  cursor: url('assets/zoom-in.svg') 13 13, auto;
   transition: transform 0.15s ease-out;
   will-change: transform;
 }
@@ -1561,7 +1561,7 @@ textarea:focus-visible,
 }
 
 .poster-lightbox-img.is-zoomed {
-  cursor: url('assets/zoom-out.png') 16 16, auto;
+  cursor: url('assets/zoom-out.svg') 13 13, auto;
 }
 
 .poster-zoom-indicator {
@@ -1605,7 +1605,7 @@ textarea:focus-visible,
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: url('assets/pointer.png') 14 2, pointer;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
   transition: background var(--transition-suave);
 }
 
@@ -1825,7 +1825,7 @@ textarea:focus-visible,
   width: var(--card-w);
   aspect-ratio: var(--card-ratio);
   perspective: 1400px;
-  cursor: url('assets/refresh.png') 16 16, pointer; /* mismo cursor que la postal del faro: se dan vuelta */
+  cursor: url('assets/refresh.svg') 16 16, pointer; /* mismo cursor que la postal del faro: se dan vuelta */
   touch-action: none;
   user-select: none;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), scale 200ms var(--ease-out);
@@ -1835,7 +1835,7 @@ textarea:focus-visible,
 .brand-card.is-dragging {
   transition: scale 150ms var(--ease-out);
   scale: 1.03;
-  cursor: url('assets/palm-of-hand.png') 16 16, grabbing;
+  cursor: url('assets/palm-of-hand.svg') 12 16, grabbing;
 }
 
 .brand-card-inner {
@@ -1917,7 +1917,7 @@ textarea:focus-visible,
   font-weight: 700;
   font-size: max(0.85rem, 2.1cqw);
   padding: 0.55em 1.2em;
-  cursor: url('assets/pointer-white.png') 14 2, pointer;
+  cursor: url('assets/pointer-white.svg') 3 1, pointer;
   transition: color 0.3s ease, scale 160ms var(--ease-out);
 }
 
@@ -2071,7 +2071,7 @@ textarea:focus-visible,
   font-family: inherit;
   font-size: 2rem;
   line-height: 1;
-  cursor: url('assets/pointer-white.png') 14 2, pointer;
+  cursor: url('assets/pointer-white.svg') 3 1, pointer;
   z-index: 2;
 }
 

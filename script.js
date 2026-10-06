@@ -2256,8 +2256,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Las fotos con pointer-events: none (postal, aparatos) no aparecen en elementsFromPoint:
     // se buscan como hijas de la capa que sí aparece
     // ponytail: usa el rectángulo de la imagen sin contar su giro; en las piezas giradas del collage el píxel medido puede correrse un poco
+    // tarjetas que se dan vuelta: la cara que queda de espaldas sigue apareciendo en elementsFromPoint, se saltea
+    const caraDeEspaldas = (el) => {
+      const cara = el.closest('.flip-face, .brand-card-face');
+      if (!cara) return false;
+      return !!cara.closest('.is-flipped') !== cara.matches('.flip-back, .brand-card-back');
+    };
+
     function luminancia(x, y) {
       for (const capa of document.elementsFromPoint(x, y)) {
+        if (caraDeEspaldas(capa)) continue;
         const medios = capa.matches('img, video') ? [capa] : capa.querySelectorAll(':scope > img, :scope > video');
         for (const m of medios) {
           const l = pixel(m, x, y);
@@ -2289,7 +2297,9 @@ document.addEventListener('DOMContentLoaded', () => {
         cursor.style.setProperty('--hy', -hy + 'px');
       }
       // con un margen, para que no titile justo en el límite entre claro y oscuro
-      const l = luminancia(x, y);
+      const l = 
+        // piezas que el cálculo no puede medir bien (los aparatos de Diseño, que son fotos giradas) fijan su fondo en el CSS: --cursor-fondo: oscuro | claro
+        { oscuro: 0, claro: 1 }[getComputedStyle(arriba).getPropertyValue('--cursor-fondo').trim()] ?? luminancia(x, y);
       if (oscuro ? l > 0.55 : l < 0.45) {
         oscuro = !oscuro;
         cursor.classList.toggle('sobre-oscuro', oscuro);

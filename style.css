@@ -1213,6 +1213,12 @@ textarea:focus-visible,
 }
 
 .hub-aparato--iphone { animation-delay: 0.05s; }
+
+/* cursor sobre los aparatos (son fotos giradas: no se puede medir el píxel, se fija acá).
+   iPhone negro y pantalla de la cámara oscura: cursor blanco; el resto, negro */
+.hub-aparato { --cursor-fondo: claro; }
+.hub-aparato--iphone,
+.hub-aparato--camara .hub-pantalla { --cursor-fondo: oscuro; }
 .hub-aparato--camara { animation-delay: 0.13s; }
 .hub-aparato--gameboy { animation-delay: 0.21s; }
 
@@ -2737,7 +2743,9 @@ body.viewer-open {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.75rem;
+  padding: 1.75rem 0.75rem 0.75rem;
+  /* sombra suave abajo: los controles se leen igual sobre videos claros (ej: Limonero) */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms var(--ease-out);

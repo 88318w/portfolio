@@ -1812,7 +1812,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCarouselGallery('poster', 9, 'posters', 4000);
 
   // ---- 3D + Motion Graphics: reproductor propio para los videos largos (data-controles).
-  //      Compu: aparece al pasar el mouse; click en el video = pausa/play.
+  //      Compu: aparece al pasar el mouse; click en el video = pausa/play. Color: data-color del video.
   //      Celular: aparece al tocar el video y se esconde solo a los 3 s.
   //      El parlante solo aparece si el video tiene audio (data-sonido); suena uno a la vez ----
   const ICONO_PLAY = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>';
@@ -1826,6 +1826,8 @@ document.addEventListener('DOMContentLoaded', () => {
   conControles.forEach((v) => {
     const caja = document.createElement('div');
     caja.className = 'reproductor-caja';
+    // color de la barra: el que predomina en el video (sacado de antemano de sus cuadros, ignorando negros/blancos/grises)
+    if (v.dataset.color) caja.style.setProperty('--color-reproductor', v.dataset.color);
     v.replaceWith(caja);
     caja.appendChild(v);
 

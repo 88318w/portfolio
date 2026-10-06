@@ -2633,7 +2633,7 @@ body.viewer-open {
    Compu: aparece al pasar el mouse. Celular: al tocar el video, y se esconde solo
 ============================ */
 :root {
-  --amarillo-reproductor: #ffe500; /* provisorio: va el hex que pase Lautaro */
+  --color-reproductor: #fff; /* cada video pone el suyo (data-color en el HTML); sin data-color, blanco */
 }
 
 .reproductor-caja {
@@ -2692,7 +2692,7 @@ body.viewer-open {
   fill: currentColor;
 }
 
-/* barra: la parte reproducida en el amarillo; el alto extra es solo para que sea fácil de agarrar */
+/* barra: la parte reproducida en el color del video; el alto extra es solo para que sea fácil de agarrar */
 .reproductor-barra {
   flex: 1;
   min-width: 0;
@@ -2701,7 +2701,7 @@ body.viewer-open {
   -webkit-appearance: none;
   appearance: none;
   background:
-    linear-gradient(var(--amarillo-reproductor) 0 0) left center / var(--p, 0%) 3px no-repeat,
+    linear-gradient(var(--color-reproductor) 0 0) left center / var(--p, 0%) 3px no-repeat,
     linear-gradient(rgba(255, 255, 255, 0.4) 0 0) left center / 100% 3px no-repeat;
 }
 
@@ -2710,7 +2710,7 @@ body.viewer-open {
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: var(--amarillo-reproductor);
+  background: var(--color-reproductor);
 }
 
 .reproductor-barra::-moz-range-thumb {
@@ -2718,7 +2718,7 @@ body.viewer-open {
   height: 11px;
   border: 0;
   border-radius: 50%;
-  background: var(--amarillo-reproductor);
+  background: var(--color-reproductor);
 }
 
 .reproductor-tiempo {

@@ -1887,15 +1887,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (expandir) {
       expandir.innerHTML = ICONO_EXPANDIR;
       expandir.setAttribute('aria-label', enIngles() ? 'Full screen' : 'Pantalla completa');
+      const ICONO_CONTRAER = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 2v4H2M14 6h-4V2M10 14v-4h4M2 10h4v4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>';
+      const ponerGirado = (si) => {
+        caja.classList.toggle('girado', si);
+        document.documentElement.classList.toggle('video-girado-abierto', si); // sin scroll debajo
+        expandir.innerHTML = si ? ICONO_CONTRAER : ICONO_EXPANDIR;
+        expandir.setAttribute('aria-label', si ? (enIngles() ? 'Exit full screen' : 'Salir de pantalla completa') : (enIngles() ? 'Full screen' : 'Pantalla completa'));
+      };
       expandir.addEventListener('click', () => {
-        if (v.requestFullscreen) {
-          // Android y compu: pantalla completa y, si se puede, gira a horizontal solo
-          v.requestFullscreen()
-            .then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape'))
-            .catch(() => {});
-        } else if (v.webkitEnterFullscreen) {
-          v.webkitEnterFullscreen(); // iPhone: abre el reproductor del sistema (se gira el teléfono a mano)
-        }
+        if (caja.classList.contains('girado')) return ponerGirado(false);
+        // teléfono derecho: el video ocupa toda la pantalla ya girado (no hace falta girar el teléfono).
+        // Es CSS, así que anda igual en iPhone y Android
+        if (window.innerHeight > window.innerWidth) return ponerGirado(true);
+        // compu (o teléfono ya acostado): pantalla completa del navegador
+        if (v.requestFullscreen) v.requestFullscreen().catch(() => {});
+        else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen(); // iPhone acostado
       });
     }
 
@@ -1922,11 +1928,9 @@ document.addEventListener('DOMContentLoaded', () => {
     barra.addEventListener('input', () => { if (caja.classList.contains('controles-visibles')) mostrar(); });
   });
 
-  // al salir de pantalla completa, el teléfono vuelve a girar libre
-  // y en pantalla completa se usan los controles del sistema (los nuestros quedan afuera del video)
+  // en la pantalla completa del navegador se usan los controles del sistema (los nuestros quedan afuera del video)
   document.addEventListener('fullscreenchange', () => {
     conControles.forEach((v) => { v.controls = document.fullscreenElement === v; });
-    if (!document.fullscreenElement && screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
   });
 
   // si se va de pantalla (celular) o se cambia de pieza en el carrusel, deja de sonar

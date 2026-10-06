@@ -2266,6 +2266,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function luminancia(x, y) {
       for (const capa of document.elementsFromPoint(x, y)) {
         if (caraDeEspaldas(capa)) continue;
+        // piezas finitas encima de otras (el cable de los auriculares): el color sigue a lo de abajo
+        if (capa.hasAttribute('data-cursor-ignorar')) continue;
         const medios = capa.matches('img, video') ? [capa] : capa.querySelectorAll(':scope > img, :scope > video');
         for (const m of medios) {
           const l = pixel(m, x, y);

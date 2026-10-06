@@ -20,6 +20,7 @@ body {
   overflow-x: hidden;
   transition: background var(--transition-suave), color var(--transition-suave);
   cursor: url('assets/cursor.svg') 2 2, auto;
+  --cursor: cursor;
   touch-action: manipulation;             /* sin la demora del doble toque en el celular */
   -webkit-tap-highlight-color: transparent; /* sin el flash gris de iOS: cada botón ya tiene su :active */
 }
@@ -28,6 +29,7 @@ a {
   text-decoration: none;
   color: inherit;
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
 }
 
 img {
@@ -392,6 +394,7 @@ textarea:focus-visible,
   font-family: inherit;
   border: none;
   cursor: url('assets/pointer-white.svg') 3 1, pointer;
+  --cursor: pointer;
   z-index: 100;
   transition: scale 160ms var(--ease-out);
 }
@@ -459,6 +462,7 @@ textarea:focus-visible,
   font-size: 1.4rem;
   line-height: 1;
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   color: var(--text);
   font-family: inherit;
 }
@@ -508,6 +512,7 @@ textarea:focus-visible,
   font-weight: 700;
   letter-spacing: 0.03em;
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   font-family: inherit;
   transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
 }
@@ -576,6 +581,7 @@ textarea:focus-visible,
   text-decoration: none;
   font-size: 1rem;
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
 }
 
 .contact-copiar {
@@ -590,6 +596,7 @@ textarea:focus-visible,
   font-weight: 700;
   font-size: 0.85rem;
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   transition: background-color 200ms var(--ease-out), scale 160ms var(--ease-out);
 }
 
@@ -618,6 +625,7 @@ textarea:focus-visible,
   letter-spacing: 0.03em;
   padding: 0.45rem 0; /* área de toque sin caja visible */
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
 }
 
 /* ---- "← Volver" (Branding, Estampas, Posters; en 3D solo en el celular).
@@ -713,6 +721,7 @@ textarea:focus-visible,
   letter-spacing: 0.03em;
   color: var(--text);
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   opacity: 0;
   visibility: hidden;
   translate: 0 0.4rem;
@@ -783,6 +792,7 @@ textarea:focus-visible,
   position: absolute;
   max-width: none;
   cursor: url('assets/palm-of-hand.svg') 12 16, grab;
+  --cursor: palm-of-hand;
   touch-action: none;
   user-select: none;
   -webkit-user-drag: none;
@@ -798,6 +808,7 @@ textarea:focus-visible,
 
 .draggable-img:active {
   cursor: url('assets/palm-of-hand.svg') 12 16, grabbing;
+  --cursor: palm-of-hand;
 }
 
 .draggable-img.is-dragging {
@@ -858,6 +869,7 @@ textarea:focus-visible,
 
 .draggable-img.opens-carousel {
   cursor: url('assets/zoom-in.svg') 13 13, zoom-in;
+  --cursor: zoom-in;
 }
 
 .estampa-hint-text {
@@ -895,6 +907,7 @@ textarea:focus-visible,
   perspective: 1400px;
   background: none;
   cursor: url('assets/refresh.svg') 16 16, pointer;
+  --cursor: refresh;
 }
 
 .flip-postcard img {
@@ -1012,6 +1025,7 @@ textarea:focus-visible,
   align-items: center;
   justify-content: center;
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   z-index: 5;
   opacity: 0.75;
   transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
@@ -1068,6 +1082,7 @@ textarea:focus-visible,
   height: 100%;
   object-fit: cover;
   cursor: url('assets/zoom-in.svg') 13 13, auto;
+  --cursor: zoom-in;
   transform: translateX(0);
 }
 
@@ -1080,6 +1095,7 @@ textarea:focus-visible,
   border: none;
   color: var(--text);
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   padding: 0.5rem;
   flex-shrink: 0;
   transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
@@ -1180,6 +1196,7 @@ textarea:focus-visible,
   display: block;
   rotate: var(--rot);
   cursor: url('assets/palm-of-hand.svg') 12 16, grab; /* se arrastran como las piezas de la home */
+  --cursor: palm-of-hand;
   touch-action: none;
   user-select: none;
   -webkit-user-drag: none;
@@ -1192,6 +1209,7 @@ textarea:focus-visible,
   transition: scale 150ms var(--ease-out);
   scale: 1.03;
   cursor: url('assets/palm-of-hand.svg') 12 16, grabbing;
+  --cursor: palm-of-hand;
 }
 
 .hub-aparato--iphone { animation-delay: 0.05s; }
@@ -1479,6 +1497,7 @@ textarea:focus-visible,
   font-size: 2rem;
   line-height: 1;
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   z-index: 2;
 }
 
@@ -1545,6 +1564,7 @@ textarea:focus-visible,
   border: none;
   color: #111111;
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   padding: 0.6rem;
   flex-shrink: 0;
   transition: opacity var(--transition-suave), scale 160ms var(--ease-out);
@@ -1607,6 +1627,7 @@ textarea:focus-visible,
   height: auto;
   display: block;
   cursor: url('assets/zoom-in.svg') 13 13, auto;
+  --cursor: zoom-in;
   transition: transform 0.15s ease-out;
   will-change: transform;
 }
@@ -1623,6 +1644,7 @@ textarea:focus-visible,
 
 .poster-lightbox-img.is-zoomed {
   cursor: url('assets/zoom-out.svg') 13 13, auto;
+  --cursor: zoom-out;
 }
 
 .poster-zoom-indicator {
@@ -1667,6 +1689,7 @@ textarea:focus-visible,
   align-items: center;
   justify-content: center;
   cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   transition: background var(--transition-suave);
 }
 
@@ -1887,6 +1910,7 @@ textarea:focus-visible,
   aspect-ratio: var(--card-ratio);
   perspective: 1400px;
   cursor: url('assets/refresh.svg') 16 16, pointer; /* mismo cursor que la postal del faro: se dan vuelta */
+  --cursor: refresh;
   touch-action: none;
   user-select: none;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), scale 200ms var(--ease-out);
@@ -1897,6 +1921,7 @@ textarea:focus-visible,
   transition: scale 150ms var(--ease-out);
   scale: 1.03;
   cursor: url('assets/palm-of-hand.svg') 12 16, grabbing;
+  --cursor: palm-of-hand;
 }
 
 .brand-card-inner {
@@ -1979,6 +2004,7 @@ textarea:focus-visible,
   font-size: max(0.85rem, 2.1cqw);
   padding: 0.55em 1.2em;
   cursor: url('assets/pointer-white.svg') 3 1, pointer;
+  --cursor: pointer;
   transition: color 0.3s ease, scale 160ms var(--ease-out);
 }
 
@@ -2133,6 +2159,7 @@ textarea:focus-visible,
   font-size: 2rem;
   line-height: 1;
   cursor: url('assets/pointer-white.svg') 3 1, pointer;
+  --cursor: pointer;
   z-index: 2;
 }
 
@@ -2731,6 +2758,8 @@ body.viewer-open {
 
 .reproductor-btn {
   flex: none;
+  cursor: url('assets/pointer.svg') 3 1, pointer;
+  --cursor: pointer;
   width: 2rem;
   height: 2rem;
   padding: 0;
@@ -2843,4 +2872,50 @@ body.viewer-open {
 .video-girado-abierto,
 .video-girado-abierto body {
   overflow: hidden;
+}
+
+/* ============================
+   Cursor propio (script.js): se oculta el del sistema y se dibuja uno que cambia
+   a blanco sobre fondos oscuros. Solo con mouse; en los campos de texto queda el del sistema
+============================ */
+@media (hover: hover) and (pointer: fine) {
+  html.cursor-propio,
+  html.cursor-propio * {
+    cursor: none !important;
+  }
+
+  html.cursor-propio input:not([type="range"]),
+  html.cursor-propio textarea {
+    cursor: text !important;
+  }
+}
+
+.cursor-propio-el {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+}
+
+.cursor-propio-el.is-oculto {
+  display: none;
+}
+
+.cursor-propio-el img {
+  position: absolute;
+  left: var(--hx, 0);
+  top: var(--hy, 0);
+  display: block;
+  max-width: none;
+  transition: opacity 200ms var(--ease-out);
+}
+
+.cursor-propio-el .cursor-blanco,
+.cursor-propio-el.sobre-oscuro .cursor-negro {
+  opacity: 0;
+}
+
+.cursor-propio-el.sobre-oscuro .cursor-blanco {
+  opacity: 1;
 }

@@ -2208,4 +2208,101 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+  // ---- Cursor propio (solo con mouse): negro sobre fondos claros y blanco sobre oscuros, con fundido.
+  //      Mide la luminancia de lo que hay debajo (color de fondo, o el píxel de la foto/video).
+  //      El tipo (flecha, manito, mano, lupa…) sale de la variable --cursor del CSS ----
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    // tipo: [versión negra, versión blanca, punto de clic x, y]
+    const TIPOS = {
+      cursor: ['cursor', 'cursor-blanco', 2, 2],
+      pointer: ['pointer', 'pointer-white', 3, 1],
+      'palm-of-hand': ['palm-of-hand', 'palm-of-hand-blanco', 12, 16],
+      refresh: ['refresh', 'refresh-blanco', 16, 16],
+      'zoom-in': ['zoom-in', 'zoom-in-blanco', 13, 13],
+      'zoom-out': ['zoom-out', 'zoom-out-blanco', 13, 13],
+    };
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor-propio-el';
+    cursor.setAttribute('aria-hidden', 'true');
+    cursor.innerHTML = '<img class="cursor-negro" alt=""><img class="cursor-blanco" alt="">';
+    const [negro, blanco] = cursor.children;
+    document.body.appendChild(cursor);
+    document.documentElement.classList.add('cursor-propio');
+
+    const lienzo = document.createElement('canvas');
+    lienzo.width = lienzo.height = 1;
+    const ctx = lienzo.getContext('2d', { willReadFrequently: true });
+    const lum = (r, g, b) => (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+
+    // luminancia del píxel de una foto/video en (x, y); null si ahí es transparente o no cargó
+    function pixel(media, x, y) {
+      const r = media.getBoundingClientRect();
+      const w = media.naturalWidth || media.videoWidth;
+      const h = media.naturalHeight || media.videoHeight;
+      if (!w || !r.width || x < r.left || x > r.right || y < r.top || y > r.bottom) return null;
+      try {
+        ctx.clearRect(0, 0, 1, 1);
+        ctx.drawImage(media, ((x - r.left) / r.width) * w, ((y - r.top) / r.height) * h, 1, 1, 0, 0, 1, 1);
+        const [R, G, B, A] = ctx.getImageData(0, 0, 1, 1).data;
+        return A > 128 ? lum(R, G, B) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    // luminancia (0 negro – 1 blanco) de lo que se ve en (x, y): de la capa de arriba hacia abajo,
+    // salteando lo transparente (fondos sin color, partes transparentes de los PNG).
+    // Las fotos con pointer-events: none (postal, aparatos) no aparecen en elementsFromPoint:
+    // se buscan como hijas de la capa que sí aparece
+    // ponytail: usa el rectángulo de la imagen sin contar su giro; en las piezas giradas del collage el píxel medido puede correrse un poco
+    function luminancia(x, y) {
+      for (const capa of document.elementsFromPoint(x, y)) {
+        const medios = capa.matches('img, video') ? [capa] : capa.querySelectorAll(':scope > img, :scope > video');
+        for (const m of medios) {
+          const l = pixel(m, x, y);
+          if (l !== null) return l;
+        }
+        const c = getComputedStyle(capa).backgroundColor.match(/[\d.]+/g);
+        if (c && (c[3] === undefined || +c[3] > 0.5)) return lum(+c[0], +c[1], +c[2]);
+      }
+      return 1; // fondo de la página
+    }
+
+    let x = -100, y = -100, tipo = '', oscuro = false, pendiente = false;
+    function actualizar() {
+      pendiente = false;
+      cursor.style.translate = `${x}px ${y}px`;
+      const arriba = document.elementFromPoint(x, y);
+      // en los campos de texto queda el cursor de texto del sistema
+      const enCampo = arriba && arriba.matches('input:not([type="range"]), textarea');
+      cursor.classList.toggle('is-oculto', !arriba || enCampo);
+      if (!arriba || enCampo) return;
+
+      const t = getComputedStyle(arriba).getPropertyValue('--cursor').trim() || 'cursor';
+      if (t !== tipo && TIPOS[t]) {
+        tipo = t;
+        const [n, b, hx, hy] = TIPOS[t];
+        negro.src = `assets/${n}.svg`;
+        blanco.src = `assets/${b}.svg`;
+        cursor.style.setProperty('--hx', -hx + 'px');
+        cursor.style.setProperty('--hy', -hy + 'px');
+      }
+      // con un margen, para que no titile justo en el límite entre claro y oscuro
+      const l = luminancia(x, y);
+      if (oscuro ? l > 0.55 : l < 0.45) {
+        oscuro = !oscuro;
+        cursor.classList.toggle('sobre-oscuro', oscuro);
+      }
+    }
+    const pedir = () => { if (!pendiente) { pendiente = true; requestAnimationFrame(actualizar); } };
+
+    document.addEventListener('pointermove', (e) => { x = e.clientX; y = e.clientY; pedir(); }, { passive: true });
+    document.addEventListener('pointerdown', pedir);
+    document.addEventListener('scroll', pedir, { passive: true });
+    // lo de abajo también cambia solo (videos, carruseles): se vuelve a medir cada tanto
+    setInterval(pedir, 250);
+    document.documentElement.addEventListener('pointerleave', () => cursor.classList.add('is-oculto'));
+  }
+
 });
